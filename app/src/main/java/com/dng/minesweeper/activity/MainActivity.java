@@ -1,7 +1,9 @@
-package com.dng.minesweeper;
+package com.dng.minesweeper.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.dng.minesweeper.R;
 
 public class MainActivity extends AppCompatActivity {
 
