@@ -15,6 +15,8 @@ import com.dng.minesweeper.R;
 import com.dng.minesweeper.activity.MainActivity;
 import com.dng.minesweeper.fragment.MainFragment;
 
+import java.util.HashMap;
+
 public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAdapter.ViewHolder> {
 
     private static final String TAG = "HorizontalListAdapter";
@@ -25,11 +27,14 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
 
     private int mTotalRows;
     private int mCurrentRow;
+    private HashMap<Integer, Integer> mMap;
 
-    public HorizontalListAdapter(MainFragment.OnMainFragmentListener listener, int totalRows, int currentRow) {
+    public HorizontalListAdapter(MainFragment.OnMainFragmentListener listener, int totalRows, int currentRow,
+                                 HashMap<Integer, Integer> map) {
         this.mListener = listener;
         mTotalRows = totalRows;
         mCurrentRow = currentRow;
+        mMap = map;
     }
 
     @NonNull

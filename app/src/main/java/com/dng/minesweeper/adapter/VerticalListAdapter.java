@@ -13,6 +13,8 @@ import com.dng.minesweeper.R;
 import com.dng.minesweeper.activity.MainActivity;
 import com.dng.minesweeper.fragment.MainFragment;
 
+import java.util.HashMap;
+
 public class VerticalListAdapter extends RecyclerView.Adapter<VerticalListAdapter.ViewHolder> {
 
     private static final String TAG = "VerticalListAdapter";
@@ -20,12 +22,15 @@ public class VerticalListAdapter extends RecyclerView.Adapter<VerticalListAdapte
     public Context mContext;
 
     private int mTotalRows;
+    private HashMap<Integer, Integer> mMap;
 
     private MainFragment.OnMainFragmentListener mListener;
 
-    public VerticalListAdapter(MainFragment.OnMainFragmentListener listener, int totalRows) {
+    public VerticalListAdapter(MainFragment.OnMainFragmentListener listener, int totalRows,
+                               HashMap<Integer, Integer> map) {
         this.mListener = listener;
         mTotalRows = totalRows;
+        mMap = map;
     }
 
     @NonNull
@@ -40,7 +45,8 @@ public class VerticalListAdapter extends RecyclerView.Adapter<VerticalListAdapte
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         // instantiate HorizontalListAdapter
-        HorizontalListAdapter horizontalListAdapter = new HorizontalListAdapter(mListener, mTotalRows, position);
+        HorizontalListAdapter horizontalListAdapter = new HorizontalListAdapter(mListener, mTotalRows,
+                position, mMap);
         horizontalListAdapter.mContext = mContext;
 
         // [START setup horizontal recycler view]

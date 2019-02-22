@@ -86,7 +86,7 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         // instantiate VerticalListAdapter
-        VerticalListAdapter verticalListAdapter = new VerticalListAdapter(mListener, mRows);
+        VerticalListAdapter verticalListAdapter = new VerticalListAdapter(mListener, mRows, mMap);
         verticalListAdapter.mContext = mContext;
 
         // [START setup vertical recycler view]
