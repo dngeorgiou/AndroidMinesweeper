@@ -31,7 +31,7 @@ public class MainFragment extends Fragment {
     // the fragment initialization parameters
     private static final String ARG_MAP = "map";
 
-    private String mMap;
+    private HashMap<Integer, Integer> mMap = new HashMap<>();
 
     private Context mContext;
     private OnMainFragmentListener mListener;
@@ -71,7 +71,7 @@ public class MainFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mMap = getArguments().getString(ARG_MAP);
+            mMap = (HashMap<Integer, Integer>) getArguments().getSerializable(ARG_MAP);
         }
     }
 
