@@ -36,8 +36,6 @@ public class Grid {
             }
             remainingCells = remainingCells - 1;
         }
-//        Log.d(TAG, "remainingCells: " + remainingCells);
-//        Log.d(TAG, "remainingMines: " + remainingMines);
 
         return hm;
     }
