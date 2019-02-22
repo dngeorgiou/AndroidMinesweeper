@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     }
 
     // [START create HashMap to be used for Minesweeper grid]
-    public static HashMap<Integer, Integer> populateGridHashMap(int cells, int mines) {
+    public HashMap<Integer, Integer> populateGridHashMap(int cells, int mines) {
         // Reference global map HashMap for reason of using HashMap rather than SparseIntArray
         HashMap<Integer, Integer> hm = new HashMap<>();
         int remainingCells = cells;

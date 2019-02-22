@@ -15,8 +15,9 @@ public class MainActivityTest {
         int cells = 64;
         int mines = cells/2;
 
+        MainActivity mainActivity = new MainActivity();
         HashMap<Integer, Integer> map;
-        map = MainActivity.populateGridHashMap(cells, mines);
+        map = mainActivity.populateGridHashMap(cells, mines);
 
         assertEquals(cells, map.size());
     }
@@ -27,8 +28,9 @@ public class MainActivityTest {
         int cells = 8;
         int mines = cells/2;
 
+        MainActivity mainActivity = new MainActivity();
         Map<Integer, Integer> map;
-        map = MainActivity.populateGridHashMap(cells, mines);
+        map = mainActivity.populateGridHashMap(cells, mines);
         int mineCount = 0;
         for (int i = 0; i < map.size(); i++) {
             if (map.get(i) == 1) {
