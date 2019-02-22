@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         Grid grid = new Grid();
         map = grid.populateGridHashMap(rows * rows, mines);
 
-        MainFragment mainFragment = MainFragment.newInstance(map);
+        MainFragment mainFragment = MainFragment.newInstance(map, rows);
         setFragment(mainFragment);
     }
 

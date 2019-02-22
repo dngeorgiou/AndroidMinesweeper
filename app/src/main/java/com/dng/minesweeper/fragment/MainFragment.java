@@ -30,8 +30,10 @@ public class MainFragment extends Fragment {
 
     // the fragment initialization parameters
     private static final String ARG_MAP = "map";
+    private static final String ARG_ROWS = "rows";
 
     private HashMap<Integer, Integer> mMap = new HashMap<>();
+    private int mRows = 0;
 
     private Context mContext;
     private OnMainFragmentListener mListener;
@@ -47,10 +49,11 @@ public class MainFragment extends Fragment {
      * @param map Parameter 1.
      * @return A new instance of fragment MainFragment.
      */
-    public static MainFragment newInstance(HashMap<Integer, Integer> map) {
+    public static MainFragment newInstance(HashMap<Integer, Integer> map, int rows) {
         MainFragment fragment = new MainFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_MAP, map);
+        args.putInt(ARG_ROWS, rows);
         fragment.setArguments(args);
         return fragment;
     }
@@ -72,6 +75,7 @@ public class MainFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mMap = (HashMap<Integer, Integer>) getArguments().getSerializable(ARG_MAP);
+            mRows = getArguments().getInt(ARG_ROWS);
         }
     }
 
