@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     private static final String TAG = "MainActivity";
 
     // number of rows (also number of columns)
-    public static final int rows = 8;
+    private static final int rows = 8;
     // number of mines in grid matrix
     private static final int mines = rows*rows/2;
 

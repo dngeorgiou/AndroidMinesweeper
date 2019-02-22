@@ -19,10 +19,13 @@ public class VerticalListAdapter extends RecyclerView.Adapter<VerticalListAdapte
 
     public Context mContext;
 
+    private int mRows;
+
     private MainFragment.OnMainFragmentListener mListener;
 
-    public VerticalListAdapter(MainFragment.OnMainFragmentListener listener) {
+    public VerticalListAdapter(MainFragment.OnMainFragmentListener listener, int rows) {
         this.mListener = listener;
+        mRows = rows;
     }
 
     @NonNull
@@ -37,7 +40,7 @@ public class VerticalListAdapter extends RecyclerView.Adapter<VerticalListAdapte
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         // instantiate HorizontalListAdapter
-        HorizontalListAdapter horizontalListAdapter = new HorizontalListAdapter(mListener, position);
+        HorizontalListAdapter horizontalListAdapter = new HorizontalListAdapter(mListener, mRows, position);
         horizontalListAdapter.mContext = mContext;
 
         // [START setup horizontal recycler view]
@@ -56,7 +59,7 @@ public class VerticalListAdapter extends RecyclerView.Adapter<VerticalListAdapte
 
     @Override
     public int getItemCount() {
-        return MainActivity.rows;
+        return mRows;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
