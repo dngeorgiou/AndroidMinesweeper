@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
      */
     private HashMap<Integer, Integer> map = new HashMap<>();
 
-    // length of rows (also height of rows)
+    // number of rows (also number of columns)
     public static final int rows = 8;
 
     @Override
