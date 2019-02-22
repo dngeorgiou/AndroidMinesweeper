@@ -26,6 +26,8 @@ import java.util.HashMap;
  */
 public class MainFragment extends Fragment {
 
+    private static final String TAG = "MainFragment";
+
     // the fragment initialization parameters
     private static final String ARG_MAP = "map";
 
