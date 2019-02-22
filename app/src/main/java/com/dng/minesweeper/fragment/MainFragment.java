@@ -4,11 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.dng.minesweeper.R;
+import com.dng.minesweeper.adapter.HorizontalListAdapter;
+import com.dng.minesweeper.adapter.VerticalListAdapter;
 
 import java.util.HashMap;
 
@@ -27,6 +31,7 @@ public class MainFragment extends Fragment {
 
     private String mMap;
 
+    private Context mContext;
     private OnMainFragmentListener mListener;
 
     public MainFragment() {
@@ -52,6 +57,7 @@ public class MainFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnMainFragmentListener) {
+            this.mContext = context;
             mListener = (OnMainFragmentListener) context;
         } else {
             throw new RuntimeException(context.toString()
@@ -71,7 +77,20 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+
+        // instantiate VerticalListAdapter
+        VerticalListAdapter verticalListAdapter = new VerticalListAdapter(mListener);
+        verticalListAdapter.mContext = mContext;
+
+        // [START setup vertical recycler view]
+        RecyclerView vertRecyclerView = view.findViewById(R.id.fragment_main_vertRecyclerView);
+        vertRecyclerView.setHasFixedSize(true);
+        vertRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        vertRecyclerView.setAdapter(verticalListAdapter);
+        // [END setup vertical recycler view]
+
+        return view;
     }
 
     @Override
