@@ -42,8 +42,9 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     }
 
     @Override
-    public void onBlockPressed(int i) {
-
+    public void onBlockPressed(int row, int column) {
+        Log.d(TAG, "row: " + String.valueOf(row));
+        Log.d(TAG, "column: " + String.valueOf(column));
     }
 
 }

@@ -110,6 +110,6 @@ public class MainFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnMainFragmentListener {
-        void onBlockPressed(int i);
+        void onBlockPressed(int row, int column);
     }
 }

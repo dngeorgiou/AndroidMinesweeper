@@ -54,9 +54,8 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d(TAG, String.valueOf(holder.getAdapterPosition()));
                 int i = row;
-                Log.d(TAG, "row: " + String.valueOf(row));
+                mListener.onBlockPressed(row, holder.getAdapterPosition());
             }
         });
     }
