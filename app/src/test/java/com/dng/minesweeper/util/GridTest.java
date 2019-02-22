@@ -1,4 +1,4 @@
-package com.dng.minesweeper.activity;
+package com.dng.minesweeper.util;
 
 import org.junit.After;
 import org.junit.Before;
@@ -9,13 +9,13 @@ import java.util.Map;
 
 import static org.junit.Assert.*;
 
-public class MainActivityTest {
+public class GridTest {
 
-    private MainActivity mainActivity;
+    private Grid grid;
 
     @Before
     public void setUp() throws Exception {
-        mainActivity = new MainActivity();
+        grid = new Grid();
     }
 
     // UnitTest to verify length of created HashMap is equal to number of cells
@@ -25,7 +25,7 @@ public class MainActivityTest {
         int mines = cells/2;
 
         HashMap<Integer, Integer> map;
-        map = mainActivity.populateGridHashMap(cells, mines);
+        map = grid.populateGridHashMap(cells, mines);
 
         assertEquals(cells, map.size());
     }
@@ -37,7 +37,7 @@ public class MainActivityTest {
         int mines = cells/2;
 
         Map<Integer, Integer> map;
-        map = mainActivity.populateGridHashMap(cells, mines);
+        map = grid.populateGridHashMap(cells, mines);
         int mineCount = 0;
         for (int i = 0; i < map.size(); i++) {
             if (map.get(i) == 1) {
@@ -50,6 +50,6 @@ public class MainActivityTest {
 
     @After
     public void tearDown() throws Exception {
-        mainActivity = null;
+        grid = null;
     }
 }
