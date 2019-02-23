@@ -29,11 +29,11 @@ public class MainFragment extends Fragment {
     private static final String TAG = "MainFragment";
 
     // the fragment initialization parameters
-    private static final String ARG_MAP = "map";
     private static final String ARG_ROWS = "rows";
+    private static final String ARG_MINES = "mines";
 
-    private HashMap<Integer, Integer> mMap = new HashMap<>();
     private int mRows = 0;
+    private int mMines = 0;
 
     private Context mContext;
     private OnMainFragmentListener mListener;
@@ -46,14 +46,15 @@ public class MainFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param map Parameter 1.
+     * @param rows Parameter 1.
+     * @param mines Parameter 1.
      * @return A new instance of fragment MainFragment.
      */
-    public static MainFragment newInstance(HashMap<Integer, Integer> map, int rows) {
+    public static MainFragment newInstance(int rows, int mines) {
         MainFragment fragment = new MainFragment();
         Bundle args = new Bundle();
-        args.putSerializable(ARG_MAP, map);
         args.putInt(ARG_ROWS, rows);
+        args.putInt(ARG_MINES, mines);
         fragment.setArguments(args);
         return fragment;
     }
@@ -74,8 +75,8 @@ public class MainFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mMap = (HashMap<Integer, Integer>) getArguments().getSerializable(ARG_MAP);
             mRows = getArguments().getInt(ARG_ROWS);
+            mMines = getArguments().getInt(ARG_MINES);
         }
     }
 
@@ -86,7 +87,7 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         // instantiate VerticalListAdapter
-        VerticalListAdapter verticalListAdapter = new VerticalListAdapter(mListener, mRows, mMap);
+        VerticalListAdapter verticalListAdapter = new VerticalListAdapter(mListener, mRows, mMines);
         verticalListAdapter.mContext = mContext;
 
         // [START setup vertical recycler view]

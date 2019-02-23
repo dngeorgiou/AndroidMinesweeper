@@ -22,15 +22,15 @@ public class VerticalListAdapter extends RecyclerView.Adapter<VerticalListAdapte
     public Context mContext;
 
     private int mTotalRows;
-    private HashMap<Integer, Integer> mMap;
+    private int mMines;
 
     private MainFragment.OnMainFragmentListener mListener;
 
     public VerticalListAdapter(MainFragment.OnMainFragmentListener listener, int totalRows,
-                               HashMap<Integer, Integer> map) {
+                               int mines) {
         this.mListener = listener;
         mTotalRows = totalRows;
-        mMap = map;
+        mMines = mines;
     }
 
     @NonNull
@@ -46,7 +46,7 @@ public class VerticalListAdapter extends RecyclerView.Adapter<VerticalListAdapte
 
         // instantiate HorizontalListAdapter
         HorizontalListAdapter horizontalListAdapter = new HorizontalListAdapter(mListener, mTotalRows,
-                position, mMap);
+                mMines, position);
         horizontalListAdapter.mContext = mContext;
 
         // [START setup horizontal recycler view]

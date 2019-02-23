@@ -24,10 +24,10 @@ public class GridTest {
         int cells = 64;
         int mines = cells/2;
 
-        HashMap<Integer, Integer> map;
-        map = grid.populateGridHashMap(cells, mines);
+        int[][] map;
+        map = grid.initializeGrid(cells, mines);
 
-        assertEquals(cells, map.size());
+        assertEquals(cells, map.length);
     }
 
     // UnitTest to verify mine count of returned HashMap
@@ -36,13 +36,14 @@ public class GridTest {
         int cells = 8;
         int mines = cells/2;
 
-        Map<Integer, Integer> map;
-        map = grid.populateGridHashMap(cells, mines);
+        int[][] map;
+        map = grid.initializeGrid(cells, mines);
         int mineCount = 0;
-        for (int i = 0; i < map.size(); i++) {
-            if (map.get(i) == 1) {
-                mineCount = mineCount + 1;
-            }
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map.length; j++)
+                if (map[i][j] == 1) {
+                    mineCount = mineCount + 1;
+                }
         }
 
         assertEquals(mines, mineCount);

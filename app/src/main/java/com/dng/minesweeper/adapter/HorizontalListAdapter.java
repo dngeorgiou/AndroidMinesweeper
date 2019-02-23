@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.dng.minesweeper.R;
 import com.dng.minesweeper.activity.MainActivity;
 import com.dng.minesweeper.fragment.MainFragment;
+import com.dng.minesweeper.util.Grid;
 
 import java.util.HashMap;
 
@@ -26,21 +27,25 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     private MainFragment.OnMainFragmentListener mListener;
 
     private int mTotalRows;
+    private int mMines;
     private int mCurrentRow;
-    private HashMap<Integer, Integer> mMap;
 
-    public HorizontalListAdapter(MainFragment.OnMainFragmentListener listener, int totalRows, int currentRow,
-                                 HashMap<Integer, Integer> map) {
+    private int[][] gridMap;
+
+    public HorizontalListAdapter(MainFragment.OnMainFragmentListener listener, int totalRows, int mines, int currentRow) {
         this.mListener = listener;
         mTotalRows = totalRows;
+        mMines = mines;
         mCurrentRow = currentRow;
-        mMap = map;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+
+        Grid grid = new Grid();
+        gridMap = grid.initializeGrid(mTotalRows*mTotalRows, mMines);
 
         return new ViewHolder(view);
     }

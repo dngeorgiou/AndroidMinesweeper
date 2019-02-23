@@ -23,21 +23,12 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     // number of mines in grid matrix
     private static final int mines = rows*rows/2;
 
-    /*
-    Using HashMap rather than SparseIntArray (which has better performance when keys are Integers)
-    for the trade off of being able to simply pass it to MainFragment.java as a Serializable object.
-     */
-    private HashMap<Integer, Integer> map = new HashMap<>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Grid grid = new Grid();
-        map = grid.populateGridHashMap(rows * rows, mines);
-
-        MainFragment mainFragment = MainFragment.newInstance(map, rows);
+        MainFragment mainFragment = MainFragment.newInstance(rows, mines);
         setFragment(mainFragment);
     }
 

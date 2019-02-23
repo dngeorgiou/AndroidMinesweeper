@@ -14,30 +14,34 @@ public class Grid {
     public static final int NO_MINE_VALUE = 0;
     public static final int MINE_VALUE = 1;
 
+    public int[][] grid;
+
     public Grid() {
         // Required empty public constructor
     }
 
-    // [START create HashMap to be used for Minesweeper grid]
-    public HashMap<Integer, Integer> populateGridHashMap(int cells, int mines) {
-        // Reference global map HashMap for reason of using HashMap rather than SparseIntArray
-        HashMap<Integer, Integer> hm = new HashMap<>();
+    // [START initialization for Minesweeper grid]
+    public int[][] initializeGrid(int cells, int mines) {
         int remainingCells = cells;
         int remainingMines = mines;
+        int[][] g = new int[cells][cells];
 
         for (int i = 0; i < cells; i++) {
-            float chance = (float) remainingMines / remainingCells;
-            // Math.random() returns a double between 0 (inclusive) and 1 (exclusive)
-            if (Math.random() < chance) {
-                hm.put(i, MINE_VALUE);
-                remainingMines = remainingMines - 1;
-            } else {
-                hm.put(i, NO_MINE_VALUE);
+            for (int j = 0; j < cells; j++) {
+                float chance = (float) remainingMines / remainingCells;
+                // Math.random() returns a double between 0 (inclusive) and 1 (exclusive)
+                if (Math.random() < chance) {
+                    g[i][j] = MINE_VALUE;
+                    remainingMines = remainingMines - 1;
+                } else {
+                    g[i][j] = NO_MINE_VALUE;
+                }
+                remainingCells = remainingCells - 1;
             }
-            remainingCells = remainingCells - 1;
         }
 
-        return hm;
+        return g;
     }
-    // [END create HashMap to be used for Minesweeper grid]
+    // [END initialization for Minesweeper grid]
+
 }
