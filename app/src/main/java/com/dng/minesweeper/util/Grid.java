@@ -134,19 +134,13 @@ public class Grid {
         int mines = 0;
 
         // Block to right
-        if (gridMap[row][column+1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineRight(gridMap, row, column);
+
+        // Block below and right
+        mines = mines + checkMineBelowAndRight(gridMap, row, column);
 
         // Block below
-        if (gridMap[row+1][column] == MINE_VALUE) {
-            mines = mines + 1;
-        }
-
-        // Block down and right
-        if (gridMap[row+1][column+1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineBelow(gridMap, row, column);
 
         return mines;
     }
@@ -160,19 +154,13 @@ public class Grid {
         int mines = 0;
 
         // Block to left
-        if (gridMap[row][column-1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineLeft(gridMap, row, column);
+
+        // Block below and left
+        mines = mines + checkMineBelowAndLeft(gridMap, row, column);
 
         // Block below
-        if (gridMap[row+1][column] == MINE_VALUE) {
-            mines = mines + 1;
-        }
-
-        // Block down and left
-        if (gridMap[row+1][column-1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineBelow(gridMap, row, column);
 
         return mines;
     }
@@ -185,20 +173,14 @@ public class Grid {
          */
         int mines = 0;
 
-        // Block to right
-        if (gridMap[row][column+1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
-
         // Block above
-        if (gridMap[row-1][column] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineAbove(gridMap, row, column);
 
         // Block above and right
-        if (gridMap[row-1][column+1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineAboveAndRight(gridMap, row, column);
+
+        // Block to right
+        mines = mines + checkMineRight(gridMap, row, column);
 
         return mines;
     }
@@ -211,20 +193,14 @@ public class Grid {
          */
         int mines = 0;
 
-        // Block to left
-        if (gridMap[row][column-1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
-
         // Block above
-        if (gridMap[row-1][column] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineAbove(gridMap, row, column);
 
         // Block above and left
-        if (gridMap[row-1][column-1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineAboveAndLeft(gridMap, row, column);
+
+        // Block to left
+        mines = mines + checkMineLeft(gridMap, row, column);
 
         return mines;
     }
@@ -238,29 +214,19 @@ public class Grid {
         int mines = 0;
 
         // Block to left
-        if (gridMap[row][column-1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineLeft(gridMap, row, column);
 
-        // Block to right
-        if (gridMap[row][column+1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
-
-        // Block down and left
-        if (gridMap[row+1][column-1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        // Block below and left
+        mines = mines + checkMineBelowAndLeft(gridMap, row, column);
 
         // Block below
-        if (gridMap[row+1][column] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineBelow(gridMap, row, column);
 
-        // Block down and right
-        if (gridMap[row+1][column+1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        // Block below and right
+        mines = mines + checkMineBelowAndRight(gridMap, row, column);
+
+        // Block to right
+        mines = mines + checkMineRight(gridMap, row, column);
 
         return mines;
     }
@@ -274,29 +240,19 @@ public class Grid {
         int mines = 0;
 
         // Block to left
-        if (gridMap[row][column-1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
-
-        // Block to right
-        if (gridMap[row][column+1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineLeft(gridMap, row, column);
 
         // Block above and left
-        if (gridMap[row-1][column-1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineAboveAndLeft(gridMap, row, column);
 
         // Block above
-        if (gridMap[row-1][column] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineAbove(gridMap, row, column);
 
         // Block above and right
-        if (gridMap[row-1][column+1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineAboveAndRight(gridMap, row, column);
+
+        // Block to right
+        mines = mines + checkMineRight(gridMap, row, column);
 
         return mines;
     }
@@ -309,30 +265,20 @@ public class Grid {
          */
         int mines = 0;
 
-        // Block to above
-        if (gridMap[row-1][column] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        // Block above
+        mines = mines + checkMineAbove(gridMap, row, column);
 
         // Block above and right
-        if (gridMap[row-1][column+1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineAboveAndRight(gridMap, row, column);
 
         // Block to right
-        if (gridMap[row][column+1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineRight(gridMap, row, column);
 
         // Block below and right
-        if (gridMap[row+1][column+1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineBelowAndRight(gridMap, row, column);
 
         // Block below
-        if (gridMap[row+1][column] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineBelow(gridMap, row, column);
 
         return mines;
     }
@@ -345,30 +291,20 @@ public class Grid {
          */
         int mines = 0;
 
-        // Block to above
-        if (gridMap[row-1][column] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        // Block above
+        mines = mines + checkMineAbove(gridMap, row, column);
 
         // Block above and left
-        if (gridMap[row-1][column-1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineAboveAndLeft(gridMap, row, column);
 
         // Block to left
-        if (gridMap[row][column-1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineLeft(gridMap, row, column);
 
         // Block below and left
-        if (gridMap[row+1][column-1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineBelowAndLeft(gridMap, row, column);
 
         // Block below
-        if (gridMap[row+1][column] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineBelow(gridMap, row, column);
 
         return mines;
     }
@@ -382,47 +318,115 @@ public class Grid {
         int mines = 0;
 
         // Block to above and left
-        if (gridMap[row-1][column-1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineAboveAndLeft(gridMap, row, column);
 
         // Block to left
-        if (gridMap[row][column-1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineLeft(gridMap, row, column);
 
         // Block below and left
-        if (gridMap[row+1][column-1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineBelowAndLeft(gridMap, row, column);
 
         // Block below
-        if (gridMap[row+1][column] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineBelow(gridMap, row, column);
 
         // Block below and right
-        if (gridMap[row+1][column+1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineBelowAndRight(gridMap, row, column);
 
         // Block to right
-        if (gridMap[row][column+1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineRight(gridMap, row, column);
 
         // Block above and right
-        if (gridMap[row-1][column+1] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineAboveAndRight(gridMap, row, column);
 
         // Block above
-        if (gridMap[row-1][column] == MINE_VALUE) {
-            mines = mines + 1;
-        }
+        mines = mines + checkMineAbove(gridMap, row, column);
 
         return mines;
     }
     // [END calc mines surrounding inner blocks]
+
+    // [START check mine at position]
+
+    // [START check mine above and left]
+    private int checkMineAboveAndLeft(int[][] gridMap, int row, int column) {
+        if (gridMap[row-1][column-1] == MINE_VALUE) {
+            return  1;
+        } else {
+            return 0;
+        }
+    }
+    // [END check mine above and left]
+
+    // [START check mine left]
+    private int checkMineLeft(int[][] gridMap, int row, int column) {
+        if (gridMap[row][column-1] == MINE_VALUE) {
+            return  1;
+        } else {
+            return 0;
+        }
+    }
+    // [END check mine left]
+
+    // [START check mine below and left]
+    private int checkMineBelowAndLeft(int[][] gridMap, int row, int column) {
+        if (gridMap[row+1][column-1] == MINE_VALUE) {
+            return  1;
+        } else {
+            return 0;
+        }
+    }
+    // [END check mine below and left]
+
+    // [START check mine below]
+    private int checkMineBelow(int[][] gridMap, int row, int column) {
+        if (gridMap[row+1][column] == MINE_VALUE) {
+            return  1;
+        } else {
+            return 0;
+        }
+    }
+    // [END check mine below]
+
+    // [START check mine below and right]
+    private int checkMineBelowAndRight(int[][] gridMap, int row, int column) {
+        if (gridMap[row+1][column+1] == MINE_VALUE) {
+            return  1;
+        } else {
+            return 0;
+        }
+    }
+    // [END check mine below and right]
+
+    // [START check mine right]
+    private int checkMineRight(int[][] gridMap, int row, int column) {
+        if (gridMap[row][column+1] == MINE_VALUE) {
+            return  1;
+        } else {
+            return 0;
+        }
+    }
+    // [END check mine right]
+
+    // [START check mine above and right]
+    private int checkMineAboveAndRight(int[][] gridMap, int row, int column) {
+        if (gridMap[row-1][column+1] == MINE_VALUE) {
+            return  1;
+        } else {
+            return 0;
+        }
+    }
+    // [END check mine above and right]
+
+    // [START check mine above]
+    private int checkMineAbove(int[][] gridMap, int row, int column) {
+        if (gridMap[row-1][column] == MINE_VALUE) {
+            return  1;
+        } else {
+            return 0;
+        }
+    }
+    // [END check mine above]
+
+    // [END check mine at position]
 
 }
