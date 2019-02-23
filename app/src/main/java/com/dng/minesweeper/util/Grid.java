@@ -48,4 +48,381 @@ public class Grid {
     }
     // [END initialization for Minesweeper grid]
 
+    // [START calculate mines surrounding cell]
+    public int[][] surroundingMines(int[][] gridMap) {
+        int[][] surroundingMap = new int[gridMap.length][gridMap.length];
+
+        for (int i = 0; i < gridMap.length; i++) {
+            for (int j = 0; j < gridMap.length; j++) {
+                // [START calc first row]
+                if (i == 0) {
+                    if (j == 0) {
+                        // Upper left corner
+                        surroundingMap[i][j] = upperLeftMineNearbyCount(gridMap, i, j);
+                        System.out.print(surroundingMap[i][j]);
+                        continue;
+                    } else if (j == gridMap.length-1) {
+                        // Upper right corner
+                        surroundingMap[i][j] = upperRightMineNearbyCount(gridMap, i, j);
+                        System.out.print(surroundingMap[i][j]);
+                        continue;
+                    } else {
+                        // First row, inner blocks
+                        surroundingMap[i][j] = firstRowNotCornerMineNearbyCount(gridMap, i, j);
+                        System.out.print(surroundingMap[i][j]);
+                        continue;
+                    }
+                }
+                // [END calc first row]
+
+                // [START calc last row]
+                if (i == gridMap.length-1) {
+                    if (j == 0) {
+                        // Bottom left corner
+                        surroundingMap[i][j] = bottomLeftMineNearbyCount(gridMap, i, j);
+                        System.out.print(surroundingMap[i][j]);
+                        continue;
+                    } else if (j == gridMap.length-1) {
+                        // Bottom right corner
+                        surroundingMap[i][j] = bottomRightMineNearbyCount(gridMap, i, j);
+                        System.out.print(surroundingMap[i][j]);
+                        continue;
+                    } else {
+                        // Last row, inner blocks
+                        surroundingMap[i][j] = lastRowNotCornerMineNearbyCount(gridMap, i, j);
+                        System.out.print(surroundingMap[i][j]);
+                        continue;
+                    }
+                }
+                // [END calc last row]
+
+                // [START calc first column]
+                if (j == 0) {
+                    // First column, inner blocks
+                    surroundingMap[i][j] = firstColumnNotCornerMineNearbyCount(gridMap, i, j);
+                    System.out.print(surroundingMap[i][j]);
+                    continue;
+                }
+                // [END calc first column]
+
+                // [START calc last column]
+                if (j == gridMap.length-1) {
+                    surroundingMap[i][j] = lastColumnNotCornerMineNearbyCount(gridMap, i, j);
+                    System.out.print(surroundingMap[i][j]);
+                    continue;
+                }
+                // [END calc last column]
+
+                // [START calc inner blocks]
+                surroundingMap[i][j] = innerMineNearbyCount(gridMap, i, j);
+                // [END calc inner blocks]
+                System.out.print(surroundingMap[i][j]);
+            }
+
+            System.out.println();
+        }
+
+        return surroundingMap;
+    }
+    // [END calculate mines surrounding cell]
+
+    // [START calc mines surrounding upper left corner block]
+    private int upperLeftMineNearbyCount(int[][] gridMap, int row, int column) {
+        /*
+        3 blocks surrounding
+         */
+        int mines = 0;
+
+        // Block to right
+        if (gridMap[row][column+1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block below
+        if (gridMap[row+1][column] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block down and right
+        if (gridMap[row+1][column+1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        return mines;
+    }
+    // [END calc mines surrounding upper left corner block]
+
+    // [START calc mines surrounding upper right corner block]
+    private int upperRightMineNearbyCount(int[][] gridMap, int row, int column) {
+        /*
+        3 blocks surrounding
+         */
+        int mines = 0;
+
+        // Block to left
+        if (gridMap[row][column-1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block below
+        if (gridMap[row+1][column] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block down and left
+        if (gridMap[row+1][column-1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        return mines;
+    }
+    // [END calc mines surrounding upper right corner block]
+
+    // [START calc mines surrounding bottom left corner block]
+    private int bottomLeftMineNearbyCount(int[][] gridMap, int row, int column) {
+        /*
+        3 blocks surrounding
+         */
+        int mines = 0;
+
+        // Block to right
+        if (gridMap[row][column+1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block above
+        if (gridMap[row-1][column] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block above and right
+        if (gridMap[row-1][column+1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        return mines;
+    }
+    // [END calc mines surrounding bottom left corner block]
+
+    // [START calc mines surrounding bottom right corner block]
+    private int bottomRightMineNearbyCount(int[][] gridMap, int row, int column) {
+        /*
+        3 blocks surrounding
+         */
+        int mines = 0;
+
+        // Block to left
+        if (gridMap[row][column-1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block above
+        if (gridMap[row-1][column] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block above and left
+        if (gridMap[row-1][column-1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        return mines;
+    }
+    // [END calc mines surrounding bottom right corner block]
+
+    // [START calc mines surrounding first row, not corner blocks]
+    private int firstRowNotCornerMineNearbyCount(int[][] gridMap, int row, int column) {
+        /*
+        5 blocks surrounding
+         */
+        int mines = 0;
+
+        // Block to left
+        if (gridMap[row][column-1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block to right
+        if (gridMap[row][column+1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block down and left
+        if (gridMap[row+1][column-1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block below
+        if (gridMap[row+1][column] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block down and right
+        if (gridMap[row+1][column+1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        return mines;
+    }
+    // [END calc mines surrounding first row, not corner blocks]
+
+    // [START calc mines surrounding last row, not corner blocks]
+    private int lastRowNotCornerMineNearbyCount(int[][] gridMap, int row, int column) {
+        /*
+        5 blocks surrounding
+         */
+        int mines = 0;
+
+        // Block to left
+        if (gridMap[row][column-1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block to right
+        if (gridMap[row][column+1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block above and left
+        if (gridMap[row-1][column-1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block above
+        if (gridMap[row-1][column] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block above and right
+        if (gridMap[row-1][column+1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        return mines;
+    }
+    // [END calc mines surrounding last row, not corner blocks]
+
+    // [START calc mines surrounding first column, not corner block]
+    private int firstColumnNotCornerMineNearbyCount(int[][] gridMap, int row, int column) {
+        /*
+        5 blocks surrounding
+         */
+        int mines = 0;
+
+        // Block to above
+        if (gridMap[row-1][column] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block above and right
+        if (gridMap[row-1][column+1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block to right
+        if (gridMap[row][column+1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block below and right
+        if (gridMap[row+1][column+1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block below
+        if (gridMap[row+1][column] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        return mines;
+    }
+    // [END calc mines surrounding first column, not corner block]
+
+    // [START calc mines surrounding last column, not corner block]
+    private int lastColumnNotCornerMineNearbyCount(int[][] gridMap, int row, int column) {
+        /*
+        5 blocks surrounding
+         */
+        int mines = 0;
+
+        // Block to above
+        if (gridMap[row-1][column] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block above and left
+        if (gridMap[row-1][column-1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block to left
+        if (gridMap[row][column-1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block below and left
+        if (gridMap[row+1][column-1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block below
+        if (gridMap[row+1][column] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        return mines;
+    }
+    // [END calc mines surrounding last column, not corner block]
+
+    // [START calc mines surrounding inner blocks]
+    private int innerMineNearbyCount(int[][] gridMap, int row, int column) {
+        /*
+        8 blocks surrounding
+         */
+        int mines = 0;
+
+        // Block to above and left
+        if (gridMap[row-1][column-1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block to left
+        if (gridMap[row][column-1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block below and left
+        if (gridMap[row+1][column-1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block below
+        if (gridMap[row+1][column] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block below and right
+        if (gridMap[row+1][column+1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block to right
+        if (gridMap[row][column+1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block above and right
+        if (gridMap[row-1][column+1] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        // Block above
+        if (gridMap[row-1][column] == MINE_VALUE) {
+            mines = mines + 1;
+        }
+
+        return mines;
+    }
+    // [END calc mines surrounding inner blocks]
+
 }

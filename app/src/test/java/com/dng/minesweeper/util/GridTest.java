@@ -49,6 +49,27 @@ public class GridTest {
         assertEquals(mines, mineCount);
     }
 
+    @Test
+    public void surroundingMines() {
+        int rows = 4;
+
+        int[][] map = new int[rows][rows];
+        map[0][0] = 0; map[0][1] = 1; map[0][2] = 0; map[0][3] = 0; // 0 1 0 0
+        map[1][0] = 0; map[1][1] = 1; map[1][2] = 1; map[1][3] = 1; // 0 1 1 1
+        map[2][0] = 0; map[2][1] = 1; map[2][2] = 0; map[2][3] = 0; // 0 1 0 0
+        map[3][0] = 1; map[3][1] = 1; map[3][2] = 1; map[3][3] = 0; // 1 1 1 0
+
+        int[][] expSurMap = new int[rows][rows];
+        expSurMap[0][0] = 2; expSurMap[0][1] = 2; expSurMap[0][2] = 4; expSurMap[0][3] = 2; // 2 2 4 2
+        expSurMap[1][0] = 3; expSurMap[1][1] = 3; expSurMap[1][2] = 4; expSurMap[1][3] = 1; // 3 3 4 1
+        expSurMap[2][0] = 4; expSurMap[2][1] = 5; expSurMap[2][2] = 6; expSurMap[2][3] = 3; // 4 5 6 3
+        expSurMap[3][0] = 2; expSurMap[3][1] = 3; expSurMap[3][2] = 2; expSurMap[3][3] = 1; // 2 3 2 1
+
+        int[][] surroundingMap = grid.surroundingMines(map);
+
+        assertEquals(expSurMap, surroundingMap);
+    }
+
     @After
     public void tearDown() throws Exception {
         grid = null;
