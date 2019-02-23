@@ -345,6 +345,8 @@ public class Grid {
     }
     // [END calc mines surrounding inner blocks]
 
+
+
     // [START check mine at position]
 
     // [START check mine above and left]
@@ -353,6 +355,14 @@ public class Grid {
             return  1;
         } else {
             return 0;
+        }
+    }
+
+    private boolean checBlockAboveAndLeftForShow(int[][] surroundingMap, int row, int column) {
+        if (surroundingMap[row-1][column-1] == 0) {
+            return  true;
+        } else {
+            return false;
         }
     }
     // [END check mine above and left]
@@ -365,6 +375,14 @@ public class Grid {
             return 0;
         }
     }
+
+    private boolean checkBlockLeftForShow(int[][] surroundingMap, int row, int column) {
+        if (surroundingMap[row][column-1] == 0) {
+            return  true;
+        } else {
+            return false;
+        }
+    }
     // [END check mine left]
 
     // [START check mine below and left]
@@ -373,6 +391,14 @@ public class Grid {
             return  1;
         } else {
             return 0;
+        }
+    }
+
+    private boolean checkBlockBelowAndLeftForShow(int[][] surroundingMap, int row, int column) {
+        if (surroundingMap[row+1][column-1] == 0) {
+            return  true;
+        } else {
+            return false;
         }
     }
     // [END check mine below and left]
@@ -385,6 +411,14 @@ public class Grid {
             return 0;
         }
     }
+
+    private boolean checkBlockBelowForShow(int[][] surroundingMap, int row, int column) {
+        if (surroundingMap[row+1][column] == 0) {
+            return  true;
+        } else {
+            return false;
+        }
+    }
     // [END check mine below]
 
     // [START check mine below and right]
@@ -393,6 +427,14 @@ public class Grid {
             return  1;
         } else {
             return 0;
+        }
+    }
+
+    private boolean checkBlockBelowAndRightForShow(int[][] surroundingMap, int row, int column) {
+        if (surroundingMap[row+1][column+1] == 0) {
+            return  true;
+        } else {
+            return false;
         }
     }
     // [END check mine below and right]
@@ -405,6 +447,14 @@ public class Grid {
             return 0;
         }
     }
+
+    private boolean checkBlockRightForShow(int[][] surroundingMap, int row, int column) {
+        if (surroundingMap[row][column+1] == 0) {
+            return  true;
+        } else {
+            return false;
+        }
+    }
     // [END check mine right]
 
     // [START check mine above and right]
@@ -413,6 +463,14 @@ public class Grid {
             return  1;
         } else {
             return 0;
+        }
+    }
+
+    private boolean checkBlockAboveAndRightForShow(int[][] surroundingMap, int row, int column) {
+        if (surroundingMap[row-1][column+1] == 0) {
+            return  true;
+        } else {
+            return false;
         }
     }
     // [END check mine above and right]
@@ -425,8 +483,173 @@ public class Grid {
             return 0;
         }
     }
+
+    private boolean checkBlockAboveForShow(int[][] surroundingMap, int row, int column) {
+        if (surroundingMap[row-1][column] == 0) {
+            return  true;
+        } else {
+            return false;
+        }
+    }
     // [END check mine above]
 
     // [END check mine at position]
+
+
+
+    // [START update should show map]
+    public boolean[][] updateShouldShow(boolean[][] shouldShow, int[][] surroundingMap, int rowClicked, int columnClicked) {
+
+        boolean nothingChange;
+
+        // Update moving up and right
+        nothingChange = false;
+        for (int i = rowClicked; i >= 0; i--) {
+            if (nothingChange) {
+                break;
+            }
+            nothingChange = true;
+            for (int j = columnClicked; j < shouldShow.length; j++) {
+                if (surroundingMap[i][j] == 0) {
+                    shouldShow[i][j] = true;
+                    nothingChange = false;
+
+                    // Show block above
+                    if (i > 0) {
+                        shouldShow[i-1][j] = true;
+                    }
+
+                    // Show block to right
+                    if (j < shouldShow.length-1) {
+                        shouldShow[i][j+1] = true;
+                    }
+
+                    // Show block above and right
+                    if (i > 0 && j < shouldShow.length-1) {
+                        shouldShow[i-1][j+1] = true;
+                    }
+
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // Update moving down and right
+        nothingChange = false;
+        for (int i = rowClicked; i < shouldShow.length; i++) {
+            if (nothingChange) {
+                break;
+            }
+            nothingChange = true;
+            for (int j = columnClicked; j < shouldShow.length; j++) {
+                if (surroundingMap[i][j] == 0) {
+                    shouldShow[i][j] = true;
+                    nothingChange = false;
+
+                    // Show block below
+                    if (i < shouldShow.length-1) {
+                        shouldShow[i+1][j] = true;
+                    }
+
+                    // Show block to right
+                    if (j < shouldShow.length-1) {
+                        shouldShow[i][j+1] = true;
+                    }
+
+                    // Show block below and right
+                    if (i < shouldShow.length-1 && j < shouldShow.length-1) {
+                        shouldShow[i+1][j+1] = true;
+                    }
+
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // Update moving up and left
+        nothingChange = false;
+        for (int i = rowClicked; i >= 0; i--) {
+            if (nothingChange) {
+                break;
+            }
+            nothingChange = true;
+            for (int j = columnClicked; j >= 0; j--) {
+                if (surroundingMap[i][j] == 0) {
+                    shouldShow[i][j] = true;
+                    nothingChange = false;
+
+                    // Show block above
+                    if (i > 0) {
+                        shouldShow[i-1][j] = true;
+                    }
+
+                    // Show block to left
+                    if (j > 0) {
+                        shouldShow[i][j-1] = true;
+                    }
+
+                    // Show block above and left
+                    if (i > 0 && j > 0) {
+                        shouldShow[i-1][j-1] = true;
+                    }
+
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // Update moving down and left
+        nothingChange = false;
+        for (int i = rowClicked; i < shouldShow.length; i++) {
+            if (nothingChange) {
+                break;
+            }
+            nothingChange = true;
+            for (int j = columnClicked; j >= 0; j--) {
+                if (surroundingMap[i][j] == 0) {
+                    shouldShow[i][j] = true;
+                    nothingChange = false;
+
+                    // Show block below
+                    if (i < shouldShow.length-1) {
+                        shouldShow[i+1][j] = true;
+                    }
+
+                    // Show block to left
+                    if (j > 0) {
+                        shouldShow[i][j-1] = true;
+                    }
+
+                    // Show block below and left
+                    if (i < shouldShow.length-1 && j > 0) {
+                        shouldShow[i+1][j-1] = true;
+                    }
+
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // [START print result]
+        for (int i = 0; i < shouldShow.length; i++) {
+            for (int j = 0; j < shouldShow.length; j++) {
+                System.out.print(shouldShow[i][j] + " ");
+            }
+
+            System.out.println();
+        }
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        // [END print result]
+
+        return shouldShow;
+    }
+    // [END update should show map]
 
 }
