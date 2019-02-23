@@ -21,26 +21,26 @@ public class GridTest {
     // UnitTest to verify length of created HashMap is equal to number of cells
     @Test
     public void initializeGrid_lengthTest() {
-        int cells = 64;
-        int mines = cells/2;
+        int rows = 64;
+        int mines = (rows*rows)/2;
 
         int[][] map;
-        map = grid.initializeGrid(cells, mines);
+        map = grid.initializeGrid(rows, mines);
 
-        assertEquals(cells, map.length);
+        assertEquals(rows*rows, map.length*map.length);
     }
 
     // UnitTest to verify mine count of returned HashMap
     @Test
     public void initializeGrid_mineCountTest() {
-        int cells = 8;
-        int mines = cells/2;
+        int rows = 8;
+        int mines = (rows*rows)/2;
 
         int[][] map;
-        map = grid.initializeGrid(cells, mines);
+        map = grid.initializeGrid(rows, mines);
         int mineCount = 0;
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map.length; j++)
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < rows; j++)
                 if (map[i][j] == 1) {
                     mineCount = mineCount + 1;
                 }

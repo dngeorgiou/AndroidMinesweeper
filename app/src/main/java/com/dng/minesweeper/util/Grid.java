@@ -21,13 +21,13 @@ public class Grid {
     }
 
     // [START initialization for Minesweeper grid]
-    public int[][] initializeGrid(int cells, int mines) {
-        int remainingCells = cells;
+    public int[][] initializeGrid(int rows, int mines) {
+        int remainingCells = rows*rows;
         int remainingMines = mines;
-        int[][] g = new int[cells][cells];
+        int[][] g = new int[rows][rows];
 
-        for (int i = 0; i < cells; i++) {
-            for (int j = 0; j < cells; j++) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < rows; j++) {
                 float chance = (float) remainingMines / remainingCells;
                 // Math.random() returns a double between 0 (inclusive) and 1 (exclusive)
                 if (Math.random() < chance) {
@@ -37,7 +37,11 @@ public class Grid {
                     g[i][j] = NO_MINE_VALUE;
                 }
                 remainingCells = remainingCells - 1;
+
+                System.out.print(g[i][j]);
+
             }
+            System.out.println();
         }
 
         return g;

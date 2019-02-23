@@ -30,8 +30,6 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     private int mMines;
     private int mCurrentRow;
 
-    private int[][] gridMap;
-
     public HorizontalListAdapter(MainFragment.OnMainFragmentListener listener, int totalRows, int mines, int currentRow) {
         this.mListener = listener;
         mTotalRows = totalRows;
@@ -43,9 +41,6 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
-
-        Grid grid = new Grid();
-        gridMap = grid.initializeGrid(mTotalRows*mTotalRows, mMines);
 
         return new ViewHolder(view);
     }
@@ -66,7 +61,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener.onBlockPressed(mCurrentRow, holder.getAdapterPosition());
+                mListener.onBlockPressed(mCurrentRow, holder.getAdapterPosition(), holder.mTextView);
             }
         });
     }

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.dng.minesweeper.R;
 import com.dng.minesweeper.adapter.HorizontalListAdapter;
@@ -117,6 +118,6 @@ public class MainFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnMainFragmentListener {
-        void onBlockPressed(int row, int column);
+        void onBlockPressed(int row, int column, TextView textView);
     }
 }
