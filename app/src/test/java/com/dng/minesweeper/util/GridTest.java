@@ -20,7 +20,7 @@ public class GridTest {
 
     // UnitTest to verify length of created HashMap is equal to number of cells
     @Test
-    public void populateGridHashMap_lengthTest() {
+    public void initializeGrid_lengthTest() {
         int cells = 64;
         int mines = cells/2;
 
@@ -32,7 +32,7 @@ public class GridTest {
 
     // UnitTest to verify mine count of returned HashMap
     @Test
-    public void populateGridHashMap_mineCountTest() {
+    public void initializeGrid_mineCountTest() {
         int cells = 8;
         int mines = cells/2;
 
