@@ -70,38 +70,60 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
             }
         }
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!MainActivity.gameOver) {
-                    mListener.onBlockPressed(mCurrentRow, holder.getAdapterPosition(), holder.mTextView);
-                }
-            }
-        });
+        // View is clicked, handle it appropriately
+        handleOnClicks(holder);
 
-        holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                if (!MainActivity.gameOver) {
-                    if (MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
-                        holder.mImgView.setVisibility(View.INVISIBLE);
-                        holder.mTextView.setVisibility(View.VISIBLE);
-                        MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()] = false;
-                    } else {
-                        holder.mImgView.setVisibility(View.VISIBLE);
-                        holder.mTextView.setVisibility(View.INVISIBLE);
-                        MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()] = true;
-                    }
-                    Log.d(TAG, "longClicked");
-                }
-                return true;
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
         return mTotalRows;
+    }
+
+    /**
+     * Method checks if clickListener and longClickListener are already attached, and sets click/longClick
+     * listeners if they have not, and performs click/longClick if they have.
+     * This improves performance by not setting new click/longClick listeners every time the UI is updated,
+     * which is often.
+     */
+    private void handleOnClicks(final ViewHolder holder) {
+        if (!holder.mView.hasOnClickListeners()) {
+            // Click/LongClick listeners have not been set, set them
+
+            // Set clickListener
+            holder.mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (!MainActivity.gameOver) {
+                        mListener.onBlockPressed(mCurrentRow, holder.getAdapterPosition(), holder.mTextView);
+                        holder.mView.setClickable(false);
+                    }
+                }
+            });
+
+            // Set longClickListener
+            holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    if (!MainActivity.gameOver) {
+                        if (MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
+                            holder.mImgView.setVisibility(View.INVISIBLE);
+                            holder.mTextView.setVisibility(View.VISIBLE);
+                            MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()] = false;
+                        } else {
+                            holder.mImgView.setVisibility(View.VISIBLE);
+                            holder.mTextView.setVisibility(View.INVISIBLE);
+                            MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()] = true;
+                        }
+                        Log.d(TAG, "longClicked");
+                    }
+                    return true;
+                }
+            });
+        } else {
+            holder.mView.performClick();
+        }
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
