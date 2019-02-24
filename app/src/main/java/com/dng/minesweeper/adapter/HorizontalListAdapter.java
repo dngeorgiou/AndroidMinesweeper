@@ -107,9 +107,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!MainActivity.gameOver &&
-                        !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()] &&
-                        !MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
+                if (allowClick(holder)) {
                     // Game is not over, block not displayed, no flag on block -> allow click
                     mListener.onBlockPressed(mCurrentRow, holder.getAdapterPosition(), holder.mTextView);
                 }
@@ -121,8 +119,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                if (!MainActivity.gameOver &&
-                        !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()]) {
+                if (allowLongClick(holder)) {
                     // Game is not over, block not displayed, no flag on block -> allow click
                     if (MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
                         holder.mImgView.setVisibility(View.INVISIBLE);
@@ -138,6 +135,25 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
                 return true;
             }
         });
+    }
+
+    private boolean allowClick(ViewHolder holder) {
+        if (!MainActivity.gameOver &&
+                !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()] &&
+                !MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean allowLongClick(ViewHolder holder) {
+        if (!MainActivity.gameOver &&
+                !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()]) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
