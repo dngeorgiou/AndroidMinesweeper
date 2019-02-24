@@ -61,8 +61,10 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         if (MainActivity.shouldShow[mCurrentRow][position]) {
             int val = MainActivity.surroundingMap[mCurrentRow][position];
             if (val == -1) {
+                // Block at this location has zero surrounding mines
                 holder.mTextView.setText("");
             } else {
+                // Block at this location has more than zero surrounding mines
                 holder.mTextView.setText(String.valueOf(val));
             }
         }
