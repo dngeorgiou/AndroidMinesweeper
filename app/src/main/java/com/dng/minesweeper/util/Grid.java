@@ -500,6 +500,7 @@ public class Grid {
     // [START update should show map]
     public boolean[][] updateShouldShow(boolean[][] shouldShow, int[][] surroundingMap, int rowClicked, int columnClicked) {
 
+        // Update shouldShow and surroundingMap using flood fill algorithm
         MinesweeperFloodFill minesweeperFloodFill = new MinesweeperFloodFill();
         minesweeperFloodFill.apply(shouldShow, surroundingMap, rowClicked, columnClicked);
 
