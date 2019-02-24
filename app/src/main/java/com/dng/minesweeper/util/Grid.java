@@ -500,130 +500,55 @@ public class Grid {
     // [START update should show map]
     public boolean[][] updateShouldShow(boolean[][] shouldShow, int[][] surroundingMap, int rowClicked, int columnClicked) {
 
-        boolean nothingChange;
-        boolean rowNotConnected;
-        boolean columnNotConnected;
-
-        // Update moving up and right
-        columnNotConnected = false;
-        for (int i = rowClicked; i >= 0; i--) {
-            if (columnNotConnected) {
-                break;
-            }
-            nothingChange = true;
-            rowNotConnected = false;
-            for (int j = columnClicked; j < shouldShow.length; j++) {
-                if (!rowNotConnected) {
-                    if (surroundingMap[i][j] == 0) {
-                        shouldShow[i][j] = true;
-                        nothingChange = false;
-
-                        showSurroundingBlocks(i, j, shouldShow);
-
-                    } else {
-                        rowNotConnected = true;
-                    }
-                }
-
-            }
-            if (nothingChange) {
-                columnNotConnected = true;
-            }
-        }
-
-        // Update moving down and right
-        columnNotConnected = false;
-        for (int i = rowClicked; i < shouldShow.length; i++) {
-            if (columnNotConnected) {
-                break;
-            }
-            nothingChange = true;
-            rowNotConnected = false;
-            for (int j = columnClicked; j < shouldShow.length; j++) {
-                if (!rowNotConnected) {
-                    if (surroundingMap[i][j] == 0) {
-                        shouldShow[i][j] = true;
-                        nothingChange = false;
-
-                        showSurroundingBlocks(i, j, shouldShow);
-
-                    } else {
-                        rowNotConnected = true;
-                    }
-                }
-            }
-            if (nothingChange) {
-                columnNotConnected = true;
-            }
-        }
-
-        // Update moving up and left
-        columnNotConnected = false;
-        for (int i = rowClicked; i >= 0; i--) {
-            if (columnNotConnected) {
-                break;
-            }
-            nothingChange = true;
-            rowNotConnected = false;
-            for (int j = columnClicked; j >= 0; j--) {
-                if (!rowNotConnected) {
-                    if (surroundingMap[i][j] == 0) {
-                        shouldShow[i][j] = true;
-                        nothingChange = false;
-
-                        showSurroundingBlocks(i, j, shouldShow);
-
-                    } else {
-                        rowNotConnected = true;
-                    }
-                }
-            }
-            if (nothingChange) {
-                columnNotConnected = true;
-            }
-        }
-
-        // Update moving down and left
-        columnNotConnected = false;
-        for (int i = rowClicked; i < shouldShow.length; i++) {
-            if (columnNotConnected) {
-                break;
-            }
-            nothingChange = true;
-            rowNotConnected = false;
-            for (int j = columnClicked; j >= 0; j--) {
-                if (!rowNotConnected) {
-                    if (surroundingMap[i][j] == 0) {
-                        shouldShow[i][j] = true;
-                        nothingChange = false;
-
-                        showSurroundingBlocks(i, j, shouldShow);
-
-                    } else {
-                        rowNotConnected = true;
-                    }
-                }
-            }
-            if (nothingChange) {
-                columnNotConnected = true;
-            }
-        }
-
-        // [START print result]
-        for (int i = 0; i < shouldShow.length; i++) {
-            for (int j = 0; j < shouldShow.length; j++) {
-                System.out.print(shouldShow[i][j] + " ");
-            }
-
-            System.out.println();
-        }
-
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        // [END print result]
+        floodFill(shouldShow, surroundingMap, rowClicked, columnClicked);
 
         return shouldShow;
+    }
+
+    private void floodFill(boolean[][] shouldShow, int[][] surroundingMap, int row, int column) {
+        int currentValue = getValueAt(surroundingMap, row, column);
+        if (currentValue == 0) {
+            shouldShow[row][column] = true;
+            surroundingMap[row][column] = -1;
+            showSurroundingBlocks(row, column, shouldShow);
+
+            // Increment right
+            floodFill(shouldShow, surroundingMap, row, column+1);
+
+            // Increment below and right
+            floodFill(shouldShow, surroundingMap, row+1, column+1);
+
+            // Increment below
+            floodFill(shouldShow, surroundingMap, row+1, column);
+
+            // Increment below and left
+            floodFill(shouldShow, surroundingMap, row+1, column-1);
+
+            // Increment left
+            floodFill(shouldShow, surroundingMap, row, column-1);
+
+            // Increment above and left
+            floodFill(shouldShow, surroundingMap, row-1, column-1);
+
+            // Increment above
+            floodFill(shouldShow, surroundingMap, row-1, column);
+
+            // Increment above and right
+            floodFill(shouldShow, surroundingMap, row-1, column+1);
+
+        }
+    }
+
+    /**
+     * Method created to avoid IndexOutOfBoundExceptions. This method returns -1 if you try to access
+     * an invalid position.
+     */
+    private static int getValueAt(int[][] surroundingMap, int x, int y) {
+        if (x < 0 || y < 0 || x > surroundingMap.length-1 || y > surroundingMap[x].length-1) {
+            return -1;
+        } else {
+            return surroundingMap[x][y];
+        }
     }
 
     private void showSurroundingBlocks(int i, int j, boolean shouldShow[][]) {
