@@ -68,6 +68,11 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
                 // Block at this location has more than zero surrounding mines
                 holder.mTextView.setText(String.valueOf(val));
             }
+        } else if (MainActivity.flagVisible[mCurrentRow][position]) {
+            // Fixes issue of flag textView being set visible and imgView being set invisible when
+            // user clicks on a new block
+            holder.mImgView.setVisibility(View.VISIBLE);
+            holder.mTextView.setVisibility(View.INVISIBLE);
         }
 
         // View is clicked, handle it appropriately
