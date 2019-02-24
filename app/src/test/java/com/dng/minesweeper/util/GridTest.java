@@ -106,22 +106,40 @@ public class GridTest {
         assertEquals(expsS, shouldShow);
 
         // Test for row 1, column 1 clicked
-//        boolean[][] shouldShow2 = new boolean[rows][rows];
-//        shouldShow2 = grid.updateShouldShow(shouldShow2, surMap, 1, 1);
-//
-//        assertEquals(expsS, shouldShow2);
+        surMap[0][0] = 0; surMap[0][1] = 0; surMap[0][2] = 1; surMap[0][3] = 1; surMap[0][4] = 1; surMap[0][5] = 1; // 0 0 1 1 1 1
+        surMap[1][0] = 0; surMap[1][1] = 0; surMap[1][2] = 2; surMap[1][3] = 3; surMap[1][4] = 3; surMap[1][5] = 1; // 0 0 2 3 3 1
+        surMap[2][0] = 0; surMap[2][1] = 1; surMap[2][2] = 2; surMap[2][3] = 1; surMap[2][4] = 1; surMap[2][5] = 0; // 0 1 2 1 1 0
+        surMap[3][0] = 0; surMap[3][1] = 1; surMap[3][2] = 2; surMap[3][3] = 4; surMap[3][4] = 3; surMap[3][5] = 1; // 0 1 2 4 3 1
+        surMap[4][0] = 0; surMap[4][1] = 1; surMap[4][2] = 2; surMap[4][3] = 3; surMap[4][4] = 2; surMap[4][5] = 2; // 0 1 2 3 2 2
+        surMap[5][0] = 0; surMap[5][1] = 0; surMap[5][2] = 1; surMap[5][3] = 3; surMap[5][4] = 2; surMap[5][5] = 2; // 0 0 1 3 2 2
+        boolean[][] shouldShow2 = new boolean[rows][rows];
+        shouldShow2 = grid.updateShouldShow(shouldShow2, surMap, 1, 1);
 
-//        // Test for row 0, column 1 clicked
-//        boolean[][] shouldShow3 = new boolean[rows][rows];
-//        shouldShow3 = grid.updateShouldShow(shouldShow3, surMap, 0, 1);
-//
-//        assertEquals(expsS, shouldShow3);
-//
-//        // Test for row 1, column 0 clicked
-//        boolean[][] shouldShow4 = new boolean[rows][rows];
-//        shouldShow4 = grid.updateShouldShow(shouldShow4, surMap, 1, 0);
-//
-//        assertEquals(expsS, shouldShow4);
+        assertEquals(expsS, shouldShow2);
+
+        // Test for row 0, column 1 clicked
+        surMap[0][0] = 0; surMap[0][1] = 0; surMap[0][2] = 1; surMap[0][3] = 1; surMap[0][4] = 1; surMap[0][5] = 1; // 0 0 1 1 1 1
+        surMap[1][0] = 0; surMap[1][1] = 0; surMap[1][2] = 2; surMap[1][3] = 3; surMap[1][4] = 3; surMap[1][5] = 1; // 0 0 2 3 3 1
+        surMap[2][0] = 0; surMap[2][1] = 1; surMap[2][2] = 2; surMap[2][3] = 1; surMap[2][4] = 1; surMap[2][5] = 0; // 0 1 2 1 1 0
+        surMap[3][0] = 0; surMap[3][1] = 1; surMap[3][2] = 2; surMap[3][3] = 4; surMap[3][4] = 3; surMap[3][5] = 1; // 0 1 2 4 3 1
+        surMap[4][0] = 0; surMap[4][1] = 1; surMap[4][2] = 2; surMap[4][3] = 3; surMap[4][4] = 2; surMap[4][5] = 2; // 0 1 2 3 2 2
+        surMap[5][0] = 0; surMap[5][1] = 0; surMap[5][2] = 1; surMap[5][3] = 3; surMap[5][4] = 2; surMap[5][5] = 2; // 0 0 1 3 2 2
+        boolean[][] shouldShow3 = new boolean[rows][rows];
+        shouldShow3 = grid.updateShouldShow(shouldShow3, surMap, 0, 1);
+
+        assertEquals(expsS, shouldShow3);
+
+        // Test for row 1, column 0 clicked
+        surMap[0][0] = 0; surMap[0][1] = 0; surMap[0][2] = 1; surMap[0][3] = 1; surMap[0][4] = 1; surMap[0][5] = 1; // 0 0 1 1 1 1
+        surMap[1][0] = 0; surMap[1][1] = 0; surMap[1][2] = 2; surMap[1][3] = 3; surMap[1][4] = 3; surMap[1][5] = 1; // 0 0 2 3 3 1
+        surMap[2][0] = 0; surMap[2][1] = 1; surMap[2][2] = 2; surMap[2][3] = 1; surMap[2][4] = 1; surMap[2][5] = 0; // 0 1 2 1 1 0
+        surMap[3][0] = 0; surMap[3][1] = 1; surMap[3][2] = 2; surMap[3][3] = 4; surMap[3][4] = 3; surMap[3][5] = 1; // 0 1 2 4 3 1
+        surMap[4][0] = 0; surMap[4][1] = 1; surMap[4][2] = 2; surMap[4][3] = 3; surMap[4][4] = 2; surMap[4][5] = 2; // 0 1 2 3 2 2
+        surMap[5][0] = 0; surMap[5][1] = 0; surMap[5][2] = 1; surMap[5][3] = 3; surMap[5][4] = 2; surMap[5][5] = 2; // 0 0 1 3 2 2
+        boolean[][] shouldShow4 = new boolean[rows][rows];
+        shouldShow4 = grid.updateShouldShow(shouldShow4, surMap, 1, 0);
+
+        assertEquals(expsS, shouldShow4);
     }
 
     @After
