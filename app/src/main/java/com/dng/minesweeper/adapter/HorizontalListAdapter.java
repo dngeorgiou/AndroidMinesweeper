@@ -86,49 +86,58 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
      * This improves performance by not setting new click/longClick listeners every time the UI is updated,
      * which is often.
      */
-    private void handleOnClicks(final ViewHolder holder) {
+    private void handleOnClicks(ViewHolder holder) {
         if (!holder.mView.hasOnClickListeners()) {
             // Click/LongClick listeners have not been set, set them
 
             // Set clickListener
-            holder.mView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (!MainActivity.gameOver &&
-                            !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()] &&
-                            !MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
-                        // Game is not over, block not displayed, no flag on block -> allow click
-                        mListener.onBlockPressed(mCurrentRow, holder.getAdapterPosition(), holder.mTextView);
-                    }
-                }
-            });
+            setOnClickListener(holder);
 
             // Set longClickListener
-            holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    if (!MainActivity.gameOver &&
-                            !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()]) {
-                        // Game is not over, block not displayed, no flag on block -> allow click
-                        if (MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
-                            holder.mImgView.setVisibility(View.INVISIBLE);
-                            holder.mTextView.setVisibility(View.VISIBLE);
-                            MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()] = false;
-                        } else {
-                            holder.mImgView.setVisibility(View.VISIBLE);
-                            holder.mTextView.setVisibility(View.INVISIBLE);
-                            MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()] = true;
-                        }
-                        Log.d(TAG, "longClicked");
-                    }
-                    return true;
-                }
-            });
+            setOnLongClickListener(holder);
+
         } else {
             // Click/LongClick listeners have been set, perform click
             holder.mView.performClick();
         }
 
+    }
+
+    private void setOnClickListener(final ViewHolder holder) {
+        holder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!MainActivity.gameOver &&
+                        !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()] &&
+                        !MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
+                    // Game is not over, block not displayed, no flag on block -> allow click
+                    mListener.onBlockPressed(mCurrentRow, holder.getAdapterPosition(), holder.mTextView);
+                }
+            }
+        });
+    }
+
+    private void setOnLongClickListener(final ViewHolder holder) {
+        holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (!MainActivity.gameOver &&
+                        !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()]) {
+                    // Game is not over, block not displayed, no flag on block -> allow click
+                    if (MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
+                        holder.mImgView.setVisibility(View.INVISIBLE);
+                        holder.mTextView.setVisibility(View.VISIBLE);
+                        MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()] = false;
+                    } else {
+                        holder.mImgView.setVisibility(View.VISIBLE);
+                        holder.mTextView.setVisibility(View.INVISIBLE);
+                        MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()] = true;
+                    }
+                    Log.d(TAG, "longClicked");
+                }
+                return true;
+            }
+        });
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
