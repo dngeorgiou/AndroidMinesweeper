@@ -94,9 +94,11 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (!MainActivity.gameOver) {
+                    if (!MainActivity.gameOver &&
+                            !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()] &&
+                            !MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
+                        // Game is not over, block not displayed, no flag on block -> allow click
                         mListener.onBlockPressed(mCurrentRow, holder.getAdapterPosition(), holder.mTextView);
-                        holder.mView.setClickable(false);
                     }
                 }
             });
@@ -105,7 +107,10 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
             holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
-                    if (!MainActivity.gameOver) {
+                    if (!MainActivity.gameOver &&
+                            !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()] &&
+                            !MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
+                        // Game is not over, block not displayed, no flag on block -> allow click
                         if (MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
                             holder.mImgView.setVisibility(View.INVISIBLE);
                             holder.mTextView.setVisibility(View.VISIBLE);
