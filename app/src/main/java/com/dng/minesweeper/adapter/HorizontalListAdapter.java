@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dng.minesweeper.R;
@@ -77,6 +78,25 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
                 }
             }
         });
+
+        holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (!MainActivity.gameOver) {
+                    if (MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
+                        holder.mImgView.setVisibility(View.INVISIBLE);
+                        holder.mTextView.setVisibility(View.VISIBLE);
+                        MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()] = false;
+                    } else {
+                        holder.mImgView.setVisibility(View.VISIBLE);
+                        holder.mTextView.setVisibility(View.INVISIBLE);
+                        MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()] = true;
+                    }
+                    Log.d(TAG, "longClicked");
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -88,6 +108,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
 
         View mView;
         private TextView mTextView;
+        private ImageView mImgView;
 
         private ViewHolder(View itemView) {
             super(itemView);
@@ -95,6 +116,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
             mView = itemView;
 
             mTextView = mView.findViewById(R.id.list_item_textView);
+            mImgView = mView.findViewById(R.id.list_item_imgView);
 
         }
     }

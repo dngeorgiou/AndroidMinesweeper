@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     private int[][] gridMap;
     public static int[][] surroundingMap;
     public static boolean[][] shouldShow;
+    public static boolean[][] flagVisible;
     public static boolean gameOver = false;
 
     @Override
@@ -48,6 +49,10 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         // Initialize shouldShow, which HorizontalListAdapter uses to determine if should update
         // certain cells UI
         shouldShow = new boolean[rows][rows];
+
+        // Initialize flagVisible, which is used to determine setting visibility of textView/imgView
+        // when user long clicks on a block
+        flagVisible = new boolean[rows][rows];
 
         mainFragment = MainFragment.newInstance(rows, mines);
         setFragment(mainFragment);
