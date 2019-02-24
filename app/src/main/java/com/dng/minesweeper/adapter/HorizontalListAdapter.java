@@ -50,13 +50,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         // [START set height and width of block cells]
-        // get width of screen and divide by number of block cells in one row
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        ((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int blockwidth = displaymetrics.widthPixels / mTotalRows;
-        // set height and width of block cells equal to width of screen divided by number of block cells in one row
-        holder.mView.getLayoutParams().width = blockwidth;
-        holder.mView.getLayoutParams().height = blockwidth;
+        setBlockHeightAndWidth(holder);
         // [END set height and width of block cells]
 
         if (MainActivity.shouldShow[mCurrentRow][position]) {
@@ -83,6 +77,16 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     @Override
     public int getItemCount() {
         return mTotalRows;
+    }
+
+    private void setBlockHeightAndWidth(ViewHolder holder) {
+        // get width of screen and divide by number of block cells in one row
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        ((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        // set height and width of block cells equal to width of screen divided by number of block cells in one row
+        int blockwidth = displaymetrics.widthPixels / mTotalRows;
+        holder.mView.getLayoutParams().width = blockwidth;
+        holder.mView.getLayoutParams().height = blockwidth;
     }
 
     /**
