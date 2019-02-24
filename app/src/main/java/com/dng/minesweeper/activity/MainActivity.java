@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     @Override
     public void onResetBtnPressed() {
         gameOver = false;
+        surroundingMap = grid.surroundingMines(gridMap);
         shouldShow = new boolean[rows][rows];
         mainFragment.updateUI();
     }
