@@ -65,10 +65,12 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         Log.d(TAG, "column: " + String.valueOf(column));
 
         if (gridMap[row][column] == Grid.MINE_VALUE) {
+            // Player pressed on block with a mine; end game and update UI
             Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.MINE_VALUE));
             textView.setText("X");
             gameOver = true;
         } else {
+            // Player pressed on block without a mine; update UI
             Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.NO_MINE_VALUE));
             shouldShow[row][column] = true;
             shouldShow = grid.updateShouldShow(shouldShow, surroundingMap, row, column);
