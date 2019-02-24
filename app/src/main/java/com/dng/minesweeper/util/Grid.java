@@ -500,97 +500,23 @@ public class Grid {
     // [START update should show map]
     public boolean[][] updateShouldShow(boolean[][] shouldShow, int[][] surroundingMap, int rowClicked, int columnClicked) {
 
-        floodFill(shouldShow, surroundingMap, rowClicked, columnClicked);
+        MinesweeperFloodFill minesweeperFloodFill = new MinesweeperFloodFill();
+        minesweeperFloodFill.apply(shouldShow, surroundingMap, rowClicked, columnClicked);
+
+        // [START print result]
+        for (int i = 0; i < shouldShow.length; i++) {
+            for (int j = 0; j < shouldShow.length; j++) {
+                System.out.print(shouldShow[i][j]);
+            }
+            System.out.println();
+        }
+
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        // [END print result]
 
         return shouldShow;
-    }
-
-    private void floodFill(boolean[][] shouldShow, int[][] surroundingMap, int row, int column) {
-        int currentValue = getValueAt(surroundingMap, row, column);
-        if (currentValue == 0) {
-            shouldShow[row][column] = true;
-            surroundingMap[row][column] = -1;
-            showSurroundingBlocks(row, column, shouldShow);
-
-            // Increment right
-            floodFill(shouldShow, surroundingMap, row, column+1);
-
-            // Increment below and right
-            floodFill(shouldShow, surroundingMap, row+1, column+1);
-
-            // Increment below
-            floodFill(shouldShow, surroundingMap, row+1, column);
-
-            // Increment below and left
-            floodFill(shouldShow, surroundingMap, row+1, column-1);
-
-            // Increment left
-            floodFill(shouldShow, surroundingMap, row, column-1);
-
-            // Increment above and left
-            floodFill(shouldShow, surroundingMap, row-1, column-1);
-
-            // Increment above
-            floodFill(shouldShow, surroundingMap, row-1, column);
-
-            // Increment above and right
-            floodFill(shouldShow, surroundingMap, row-1, column+1);
-
-        }
-    }
-
-    /**
-     * Method created to avoid IndexOutOfBoundExceptions. This method returns -1 if you try to access
-     * an invalid position.
-     */
-    private static int getValueAt(int[][] surroundingMap, int x, int y) {
-        if (x < 0 || y < 0 || x > surroundingMap.length-1 || y > surroundingMap[x].length-1) {
-            return -1;
-        } else {
-            return surroundingMap[x][y];
-        }
-    }
-
-    private void showSurroundingBlocks(int i, int j, boolean shouldShow[][]) {
-        // Show block above
-        if (i > 0) {
-            shouldShow[i-1][j] = true;
-        }
-
-        // Show block above and right
-        if (i > 0 && j < shouldShow.length-1) {
-            shouldShow[i-1][j+1] = true;
-        }
-
-        // Show block to right
-        if (j < shouldShow.length-1) {
-            shouldShow[i][j+1] = true;
-        }
-
-        // Show block below and right
-        if (i < shouldShow.length-1 && j < shouldShow.length-1) {
-            shouldShow[i+1][j+1] = true;
-        }
-
-        // Show block below
-        if (i < shouldShow.length-1) {
-            shouldShow[i+1][j] = true;
-        }
-
-        // Show block below and left
-        if (i < shouldShow.length-1 && j > 0) {
-            shouldShow[i+1][j-1] = true;
-        }
-
-        // Show block to left
-        if (j > 0) {
-            shouldShow[i][j-1] = true;
-        }
-
-        // Show block above left
-        if (i > 0 && j > 0) {
-            shouldShow[i-1][j-1] = true;
-        }
     }
     // [END update should show map]
 
