@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
             gameOver = true;
         } else {
             Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.NO_MINE_VALUE));
+            shouldShow[row][column] = true;
             shouldShow = grid.updateShouldShow(shouldShow, surroundingMap, row, column);
             mainFragment.updateUI();
         }
