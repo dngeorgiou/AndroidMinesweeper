@@ -501,136 +501,111 @@ public class Grid {
     public boolean[][] updateShouldShow(boolean[][] shouldShow, int[][] surroundingMap, int rowClicked, int columnClicked) {
 
         boolean nothingChange;
+        boolean rowNotConnected;
+        boolean columnNotConnected;
 
         // Update moving up and right
-        nothingChange = false;
+        columnNotConnected = false;
         for (int i = rowClicked; i >= 0; i--) {
-            if (nothingChange) {
+            if (columnNotConnected) {
                 break;
             }
             nothingChange = true;
+            rowNotConnected = false;
             for (int j = columnClicked; j < shouldShow.length; j++) {
-                if (surroundingMap[i][j] == 0) {
-                    shouldShow[i][j] = true;
-                    nothingChange = false;
+                if (!rowNotConnected) {
+                    if (surroundingMap[i][j] == 0) {
+                        shouldShow[i][j] = true;
+                        nothingChange = false;
 
-                    // Show block above
-                    if (i > 0) {
-                        shouldShow[i-1][j] = true;
+                        showSurroundingBlocks(i, j, shouldShow);
+
+                    } else {
+                        rowNotConnected = true;
                     }
-
-                    // Show block to right
-                    if (j < shouldShow.length-1) {
-                        shouldShow[i][j+1] = true;
-                    }
-
-                    // Show block above and right
-                    if (i > 0 && j < shouldShow.length-1) {
-                        shouldShow[i-1][j+1] = true;
-                    }
-
-                } else {
-                    break;
                 }
+
+            }
+            if (nothingChange) {
+                columnNotConnected = true;
             }
         }
 
         // Update moving down and right
-        nothingChange = false;
+        columnNotConnected = false;
         for (int i = rowClicked; i < shouldShow.length; i++) {
-            if (nothingChange) {
+            if (columnNotConnected) {
                 break;
             }
             nothingChange = true;
+            rowNotConnected = false;
             for (int j = columnClicked; j < shouldShow.length; j++) {
-                if (surroundingMap[i][j] == 0) {
-                    shouldShow[i][j] = true;
-                    nothingChange = false;
+                if (!rowNotConnected) {
+                    if (surroundingMap[i][j] == 0) {
+                        shouldShow[i][j] = true;
+                        nothingChange = false;
 
-                    // Show block below
-                    if (i < shouldShow.length-1) {
-                        shouldShow[i+1][j] = true;
+                        showSurroundingBlocks(i, j, shouldShow);
+
+                    } else {
+                        rowNotConnected = true;
                     }
-
-                    // Show block to right
-                    if (j < shouldShow.length-1) {
-                        shouldShow[i][j+1] = true;
-                    }
-
-                    // Show block below and right
-                    if (i < shouldShow.length-1 && j < shouldShow.length-1) {
-                        shouldShow[i+1][j+1] = true;
-                    }
-
-                } else {
-                    break;
                 }
+            }
+            if (nothingChange) {
+                columnNotConnected = true;
             }
         }
 
         // Update moving up and left
-        nothingChange = false;
+        columnNotConnected = false;
         for (int i = rowClicked; i >= 0; i--) {
-            if (nothingChange) {
+            if (columnNotConnected) {
                 break;
             }
             nothingChange = true;
+            rowNotConnected = false;
             for (int j = columnClicked; j >= 0; j--) {
-                if (surroundingMap[i][j] == 0) {
-                    shouldShow[i][j] = true;
-                    nothingChange = false;
+                if (!rowNotConnected) {
+                    if (surroundingMap[i][j] == 0) {
+                        shouldShow[i][j] = true;
+                        nothingChange = false;
 
-                    // Show block above
-                    if (i > 0) {
-                        shouldShow[i-1][j] = true;
+                        showSurroundingBlocks(i, j, shouldShow);
+
+                    } else {
+                        rowNotConnected = true;
                     }
-
-                    // Show block to left
-                    if (j > 0) {
-                        shouldShow[i][j-1] = true;
-                    }
-
-                    // Show block above and left
-                    if (i > 0 && j > 0) {
-                        shouldShow[i-1][j-1] = true;
-                    }
-
-                } else {
-                    break;
                 }
+            }
+            if (nothingChange) {
+                columnNotConnected = true;
             }
         }
 
         // Update moving down and left
-        nothingChange = false;
+        columnNotConnected = false;
         for (int i = rowClicked; i < shouldShow.length; i++) {
-            if (nothingChange) {
+            if (columnNotConnected) {
                 break;
             }
             nothingChange = true;
+            rowNotConnected = false;
             for (int j = columnClicked; j >= 0; j--) {
-                if (surroundingMap[i][j] == 0) {
-                    shouldShow[i][j] = true;
-                    nothingChange = false;
+                if (!rowNotConnected) {
+                    if (surroundingMap[i][j] == 0) {
+                        shouldShow[i][j] = true;
+                        nothingChange = false;
 
-                    // Show block below
-                    if (i < shouldShow.length-1) {
-                        shouldShow[i+1][j] = true;
+                        showSurroundingBlocks(i, j, shouldShow);
+
+                    } else {
+                        rowNotConnected = true;
                     }
-
-                    // Show block to left
-                    if (j > 0) {
-                        shouldShow[i][j-1] = true;
-                    }
-
-                    // Show block below and left
-                    if (i < shouldShow.length-1 && j > 0) {
-                        shouldShow[i+1][j-1] = true;
-                    }
-
-                } else {
-                    break;
                 }
+            }
+            if (nothingChange) {
+                columnNotConnected = true;
             }
         }
 
@@ -649,6 +624,48 @@ public class Grid {
         // [END print result]
 
         return shouldShow;
+    }
+
+    private void showSurroundingBlocks(int i, int j, boolean shouldShow[][]) {
+        // Show block above
+        if (i > 0) {
+            shouldShow[i-1][j] = true;
+        }
+
+        // Show block above and right
+        if (i > 0 && j < shouldShow.length-1) {
+            shouldShow[i-1][j+1] = true;
+        }
+
+        // Show block to right
+        if (j < shouldShow.length-1) {
+            shouldShow[i][j+1] = true;
+        }
+
+        // Show block below and right
+        if (i < shouldShow.length-1 && j < shouldShow.length-1) {
+            shouldShow[i+1][j+1] = true;
+        }
+
+        // Show block below
+        if (i < shouldShow.length-1) {
+            shouldShow[i+1][j] = true;
+        }
+
+        // Show block below and left
+        if (i < shouldShow.length-1 && j > 0) {
+            shouldShow[i+1][j-1] = true;
+        }
+
+        // Show block to left
+        if (j > 0) {
+            shouldShow[i][j-1] = true;
+        }
+
+        // Show block above left
+        if (i > 0 && j > 0) {
+            shouldShow[i-1][j-1] = true;
+        }
     }
     // [END update should show map]
 
