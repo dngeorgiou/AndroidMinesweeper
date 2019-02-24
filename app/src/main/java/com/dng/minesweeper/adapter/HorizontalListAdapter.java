@@ -121,6 +121,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
                 }
             });
         } else {
+            // Click/LongClick listeners have been set, perform click
             holder.mView.performClick();
         }
 
