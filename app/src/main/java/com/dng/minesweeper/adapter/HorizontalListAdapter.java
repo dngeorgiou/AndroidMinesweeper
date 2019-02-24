@@ -120,7 +120,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
             @Override
             public boolean onLongClick(View view) {
                 if (allowLongClick(holder)) {
-                    // Game is not over, block not displayed, no flag on block -> allow click
+                    // Game is not over, block not displayed -> allow long click
                     if (MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
                         holder.mImgView.setVisibility(View.INVISIBLE);
                         holder.mTextView.setVisibility(View.VISIBLE);
