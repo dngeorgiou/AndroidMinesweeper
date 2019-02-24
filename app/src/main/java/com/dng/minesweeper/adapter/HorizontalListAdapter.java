@@ -58,10 +58,21 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         holder.mView.getLayoutParams().height = blockwidth;
         // [END set height and width of block cells]
 
+        if (MainActivity.shouldShow[mCurrentRow][position]) {
+            int val = MainActivity.surroundingMap[mCurrentRow][position];
+            if (val == -1) {
+                holder.mTextView.setText("");
+            } else {
+                holder.mTextView.setText(String.valueOf(val));
+            }
+        }
+
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener.onBlockPressed(mCurrentRow, holder.getAdapterPosition(), holder.mTextView);
+                if (!MainActivity.gameOver) {
+                    mListener.onBlockPressed(mCurrentRow, holder.getAdapterPosition(), holder.mTextView);
+                }
             }
         });
     }

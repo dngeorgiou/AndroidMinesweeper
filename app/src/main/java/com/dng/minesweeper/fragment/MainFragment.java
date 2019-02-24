@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.dng.minesweeper.R;
@@ -35,6 +37,8 @@ public class MainFragment extends Fragment {
 
     private int mRows = 0;
     private int mMines = 0;
+
+    private VerticalListAdapter verticalListAdapter;
 
     private Context mContext;
     private OnMainFragmentListener mListener;
@@ -88,7 +92,7 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         // instantiate VerticalListAdapter
-        VerticalListAdapter verticalListAdapter = new VerticalListAdapter(mListener, mRows, mMines);
+        verticalListAdapter = new VerticalListAdapter(mListener, mRows, mMines);
         verticalListAdapter.mContext = mContext;
 
         // [START setup vertical recycler view]
@@ -98,7 +102,28 @@ public class MainFragment extends Fragment {
         vertRecyclerView.setAdapter(verticalListAdapter);
         // [END setup vertical recycler view]
 
+        Button mResetBtn = view.findViewById(R.id.fragment_main_resetBtn);
+        mResetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onResetBtnPressed();
+            }
+        });
+
+        Button mNewGameBtn = view.findViewById(R.id.fragment_main_newGameBtn);
+        mNewGameBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onNewGameBtnPressed();
+            }
+        });
+
         return view;
+    }
+
+    public void updateUI() {
+        Log.d(TAG, "updateUI here");
+        verticalListAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -119,5 +144,9 @@ public class MainFragment extends Fragment {
      */
     public interface OnMainFragmentListener {
         void onBlockPressed(int row, int column, TextView textView);
+
+        void onResetBtnPressed();
+
+        void onNewGameBtnPressed();
     }
 }

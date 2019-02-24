@@ -22,19 +22,34 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     // number of rows (also number of columns)
     private static final int rows = 8;
     // number of mines in grid matrix
-    private static final int mines = rows*rows/2;
+    private static final int mines = rows*rows/6;
+
+    private MainFragment mainFragment;
 
     private Grid grid = new Grid();
     private int[][] gridMap;
+    public static int[][] surroundingMap;
+    public static boolean[][] shouldShow;
+    public static boolean gameOver = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Initialize gridMap with mine/noMine values
+        System.out.println("gridMap");
         gridMap = grid.initializeGrid(rows, mines);
 
-        MainFragment mainFragment = MainFragment.newInstance(rows, mines);
+        // Initialize surroundingMap with values of surrounding mines
+        System.out.println("surroundingMap");
+        surroundingMap = grid.surroundingMines(gridMap);
+
+        // Initialize shouldShow, which HorizontalListAdapter uses to determine if should update
+        // certain cells UI
+        shouldShow = new boolean[rows][rows];
+
+        mainFragment = MainFragment.newInstance(rows, mines);
         setFragment(mainFragment);
     }
 
@@ -49,15 +64,38 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         Log.d(TAG, "row: " + String.valueOf(row));
         Log.d(TAG, "column: " + String.valueOf(column));
 
-
-
         if (gridMap[row][column] == Grid.MINE_VALUE) {
-            Log.d(TAG, String.valueOf(Grid.MINE_VALUE));
-            textView.setText(String.valueOf(Grid.MINE_VALUE));
+            Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.MINE_VALUE));
+            textView.setText("X");
+            gameOver = true;
         } else {
-            Log.d(TAG, String.valueOf(Grid.NO_MINE_VALUE));
-            textView.setText(String.valueOf(Grid.NO_MINE_VALUE));
+            Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.NO_MINE_VALUE));
+            shouldShow = grid.updateShouldShow(shouldShow, surroundingMap, row, column);
+            mainFragment.updateUI();
         }
+
     }
 
+    @Override
+    public void onResetBtnPressed() {
+        gameOver = false;
+        shouldShow = new boolean[rows][rows];
+        mainFragment.updateUI();
+    }
+
+    @Override
+    public void onNewGameBtnPressed() {
+        gameOver = false;
+
+        // Initialize gridMap with mine/noMine values
+        System.out.println("gridMap");
+        gridMap = grid.initializeGrid(rows, mines);
+
+        // Initialize surroundingMap with values of surrounding mines
+        System.out.println("surroundingMap");
+
+        surroundingMap = grid.surroundingMines(gridMap);
+        shouldShow = new boolean[rows][rows];
+        mainFragment.updateUI();
+    }
 }
