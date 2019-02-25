@@ -84,6 +84,45 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         }
     }
 
+    /**
+     * Method handles updating UI when user clicks on mine:
+     * 1. Display ic_mine.png with red background on last clicked block.
+     * 2. Display ic_mine_w_x.png on blocks which have been incorrectly flagged.
+     * 3. Display all other mines.
+     */
+    private void updateUIForGameOverLoss(ViewHolder holder, int row, int column) {
+        if (MainActivity.gridMap[row][column] == 1) {
+            // Block contains a mine
+
+            // [START handle correct flags]
+            if (MainActivity.flagVisible[row][column]) {
+                // Block was correctly flagged, keep flag visible
+                return;
+            }
+            // [END handle correct flags]
+
+            // Display mines
+            holder.mTextView.setVisibility(View.INVISIBLE);
+            holder.mMineImgView.setVisibility(View.VISIBLE);
+
+            // Set red background on block user clicked containing mine
+            if (row == MainActivity.lastClickedRow && column == MainActivity.lastClickedColumn) {
+                holder.mMineImgView.setBackgroundColor(mContext.getResources().getColor(R.color.mineBackgroundRed));
+            }
+        } else {
+            // Block does not contain a mine
+
+            // [START handle incorrect flags]
+            if (MainActivity.flagVisible[row][column]) {
+                // Block was incorrectly flagged, display ic_mine_w_x.png
+                holder.mMineWXImgView.setVisibility(View.VISIBLE);
+                holder.mFlagImgView.setVisibility(View.INVISIBLE);
+            }
+            // [END handle incorrect flags]
+        }
+
+    }
+
     private void setBlockHeightAndWidth(ViewHolder holder) {
         // get width of screen and divide by number of block cells in one row
         DisplayMetrics displaymetrics = new DisplayMetrics();
@@ -222,45 +261,6 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
             holder.mTextView.setTextColor(mContext.getResources().getColor(R.color.surroundingMapEight));
         }
         // [END set TextView textColor]
-
-    }
-
-    /**
-     * Method handles updating UI when user clicks on mine:
-     * 1. Display ic_mine.png with red background on last clicked block.
-     * 2. Display ic_mine_w_x.png on blocks which have been incorrectly flagged.
-     * 3. Display all other mines.
-     */
-    private void updateUIForGameOverLoss(ViewHolder holder, int row, int column) {
-        if (MainActivity.gridMap[row][column] == 1) {
-            // Block contains a mine
-
-            // [START handle correct flags]
-            if (MainActivity.flagVisible[row][column]) {
-                // Block was correctly flagged, keep flag visible
-                return;
-            }
-            // [END handle correct flags]
-
-            // Display mines
-            holder.mTextView.setVisibility(View.INVISIBLE);
-            holder.mMineImgView.setVisibility(View.VISIBLE);
-
-            // Set red background on block user clicked containing mine
-            if (row == MainActivity.lastClickedRow && column == MainActivity.lastClickedColumn) {
-                holder.mMineImgView.setBackgroundColor(mContext.getResources().getColor(R.color.mineBackgroundRed));
-            }
-        } else {
-            // Block does not contain a mine
-
-            // [START handle incorrect flags]
-            if (MainActivity.flagVisible[row][column]) {
-                // Block was incorrectly flagged, display ic_mine_w_x.png
-                holder.mMineWXImgView.setVisibility(View.VISIBLE);
-                holder.mFlagImgView.setVisibility(View.INVISIBLE);
-            }
-            // [END handle incorrect flags]
-        }
 
     }
 
