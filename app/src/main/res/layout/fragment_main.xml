@@ -23,6 +23,7 @@
         </android.support.v7.widget.RecyclerView>
         <!--end vertical recycler view-->
 
+        <!--[START reset/newGame buttons layout]-->
         <LinearLayout
             android:id="@+id/fragment_main_linLayout"
             android:layout_width="match_parent"
@@ -47,7 +48,9 @@
                 android:text="New Game"/>
 
         </LinearLayout>
+        <!--[END reset/newGame buttons layout]-->
 
+        <!--[START winning layout]-->
         <android.support.constraint.ConstraintLayout
             android:id="@+id/fragment_main_winConstraintLayout"
             android:layout_width="match_parent"
@@ -81,6 +84,7 @@
             </LinearLayout>
 
         </android.support.constraint.ConstraintLayout>
+        <!--[END winning layout]-->
 
     </android.support.constraint.ConstraintLayout>
 
