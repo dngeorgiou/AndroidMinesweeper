@@ -125,7 +125,7 @@ public class MainFragment extends Fragment {
     }
 
     public void updateUI() {
-        Log.d(TAG, "updateUI here");
+        Log.d(TAG, "updateUI");
         verticalListAdapter.notifyDataSetChanged();
     }
 
