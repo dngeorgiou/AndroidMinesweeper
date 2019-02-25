@@ -96,8 +96,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         if (gridMap[row][column] == Grid.MINE_VALUE) {
             // Player pressed on block with a mine; end game and update UI
             Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.MINE_VALUE));
-            mineImgView.setVisibility(View.VISIBLE);
-            textView.setVisibility(View.INVISIBLE);
 
             // [START set row and column of mine clicked]
             /*
