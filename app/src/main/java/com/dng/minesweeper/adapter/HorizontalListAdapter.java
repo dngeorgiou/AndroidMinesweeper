@@ -136,15 +136,8 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
             public boolean onLongClick(View view) {
                 if (allowLongClick(holder)) {
                     // Game is not over, block not displayed -> allow long click
-                    if (MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
-                        holder.mFlagImgView.setVisibility(View.INVISIBLE);
-                        holder.mTextView.setVisibility(View.VISIBLE);
-                        MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()] = false;
-                    } else {
-                        holder.mFlagImgView.setVisibility(View.VISIBLE);
-                        holder.mTextView.setVisibility(View.INVISIBLE);
-                        MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()] = true;
-                    }
+                    mListener.onBlockLongPressed(mCurrentRow, holder.getAdapterPosition(),
+                            holder.mTextView, holder.mFlagImgView);
                     Log.d(TAG, "longClicked");
                 }
                 return true;

@@ -123,6 +123,21 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     }
 
     @Override
+    public void onBlockLongPressed(int row, int column, TextView textView, ImageView flagImgView) {
+        if (flagVisible[row][column]) {
+            // Show TextView, hide ImageView, set flagVisible of block to false
+            textView.setVisibility(View.VISIBLE);
+            flagImgView.setVisibility(View.INVISIBLE);
+            flagVisible[row][column] = false;
+        } else {
+            // Hide TextView, show ImageView, set flagVisible of block to true
+            textView.setVisibility(View.INVISIBLE);
+            flagImgView.setVisibility(View.VISIBLE);
+            flagVisible[row][column] = true;
+        }
+    }
+
+    @Override
     public void onResetBtnPressed() {
         // New game started, set gameOverLoss member variable to false
         gameOverLoss = false;

@@ -141,6 +141,8 @@ public class MainFragment extends Fragment {
     public interface OnMainFragmentListener {
         void onBlockPressed(int row, int column, TextView textView, ImageView mineImgView);
 
+        void onBlockLongPressed(int row, int column, TextView textView, ImageView flagImgView);
+
         void onResetBtnPressed();
 
         void onNewGameBtnPressed();
