@@ -186,22 +186,14 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     }
 
     private boolean allowClick(ViewHolder holder) {
-        if (!MainActivity.gameOverLoss && !MainActivity.gameOverWin &&
+        return (!MainActivity.gameOverLoss && !MainActivity.gameOverWin &&
                 !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()] &&
-                !MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
-            return true;
-        } else {
-            return false;
-        }
+                !MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]);
     }
 
     private boolean allowLongClick(ViewHolder holder) {
-        if (!MainActivity.gameOverLoss && !MainActivity.gameOverWin &&
-                !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()]) {
-            return true;
-        } else {
-            return false;
-        }
+        return (!MainActivity.gameOverLoss && !MainActivity.gameOverWin &&
+                !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()]);
     }
 
     /**
