@@ -190,12 +190,25 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         });
     }
 
+    /**
+     * Method returns true when all conditions are met:
+     * 1: Game not over from loss
+     * 2: Game not over from win
+     * 3: Block is not already displayed
+     * 4: Flag not set on block
+     */
     private boolean allowClick(ViewHolder holder) {
         return (!MainActivity.gameOverLoss && !MainActivity.gameOverWin &&
                 !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()] &&
                 !MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]);
     }
 
+    /**
+     * Method returns true when all conditions are met:
+     * 1: Game not over from loss
+     * 2: Game not over from win
+     * 3: Block is not already displayed
+     */
     private boolean allowLongClick(ViewHolder holder) {
         return (!MainActivity.gameOverLoss && !MainActivity.gameOverWin &&
                 !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()]);
