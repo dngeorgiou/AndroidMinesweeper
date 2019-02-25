@@ -65,7 +65,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         } else if (MainActivity.flagVisible[mCurrentRow][position]) {
             // Fixes issue of flag textView being set visible and imgView being set invisible when
             // user clicks on a new block
-            holder.mImgView.setVisibility(View.VISIBLE);
+            holder.mFlagImgView.setVisibility(View.VISIBLE);
             holder.mTextView.setVisibility(View.INVISIBLE);
         }
 
@@ -131,11 +131,11 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
                 if (allowLongClick(holder)) {
                     // Game is not over, block not displayed -> allow long click
                     if (MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
-                        holder.mImgView.setVisibility(View.INVISIBLE);
+                        holder.mFlagImgView.setVisibility(View.INVISIBLE);
                         holder.mTextView.setVisibility(View.VISIBLE);
                         MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()] = false;
                     } else {
-                        holder.mImgView.setVisibility(View.VISIBLE);
+                        holder.mFlagImgView.setVisibility(View.VISIBLE);
                         holder.mTextView.setVisibility(View.INVISIBLE);
                         MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()] = true;
                     }
@@ -169,7 +169,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
 
         View mView;
         private TextView mTextView;
-        private ImageView mImgView;
+        private ImageView mFlagImgView;
 
         private ViewHolder(View itemView) {
             super(itemView);
@@ -177,7 +177,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
             mView = itemView;
 
             mTextView = mView.findViewById(R.id.list_item_textView);
-            mImgView = mView.findViewById(R.id.list_item_imgView);
+            mFlagImgView = mView.findViewById(R.id.list_item_flagImgView);
 
         }
     }
