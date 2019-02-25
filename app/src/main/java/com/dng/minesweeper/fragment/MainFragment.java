@@ -3,6 +3,7 @@ package com.dng.minesweeper.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dng.minesweeper.R;
+import com.dng.minesweeper.activity.MainActivity;
 import com.dng.minesweeper.adapter.HorizontalListAdapter;
 import com.dng.minesweeper.adapter.VerticalListAdapter;
 
@@ -37,6 +39,7 @@ public class MainFragment extends Fragment {
 
     private int mRows = 0;
 
+    private ConstraintLayout mWinningConstraintLayout;
     private VerticalListAdapter verticalListAdapter;
 
     private Context mContext;
@@ -98,6 +101,10 @@ public class MainFragment extends Fragment {
         vertRecyclerView.setAdapter(verticalListAdapter);
         // [END setup vertical recycler view]
 
+        // [START instantiate winning constraint layout]
+        mWinningConstraintLayout = view.findViewById(R.id.fragment_main_winConstraintLayout);
+        // [END instantiate winning constraint layout]
+
         Button mResetBtn = view.findViewById(R.id.fragment_main_resetBtn);
         mResetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +127,16 @@ public class MainFragment extends Fragment {
     public void updateUI() {
         Log.d(TAG, "updateUI here");
         verticalListAdapter.notifyDataSetChanged();
+    }
+
+    // Display winningConstraintLayout, which contains smiley ImgView and congratulations TextView
+    public void updateUIForWin() {
+        mWinningConstraintLayout.setVisibility(View.VISIBLE);
+    }
+
+    // Hide winningConstraintLayout, which contains smiley ImgView and congratulations TextView
+    public void updateUIForResetOrNewGame() {
+        mWinningConstraintLayout.setVisibility(View.INVISIBLE);
     }
 
     @Override

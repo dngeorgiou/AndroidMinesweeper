@@ -16,4 +16,6 @@
     <string name="eight">8</string>
     <string name="bomb">x</string>
 
+    <!--fragment_main.xml-->
+    <string name="fragment_main_winTextView_text">YOU WIN!! CONGRATULATIONS!!</string>
 </resources>

@@ -65,6 +65,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     }
 
     private void updateUI(ViewHolder holder, int row, int column) {
+
         // [START handle game over loss]
         if (MainActivity.gameOverLoss) {
             updateUIForGameOverLoss(holder, row, column);
@@ -185,7 +186,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     }
 
     private boolean allowClick(ViewHolder holder) {
-        if (!MainActivity.gameOverLoss &&
+        if (!MainActivity.gameOverLoss && !MainActivity.gameOverWin &&
                 !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()] &&
                 !MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
             return true;
@@ -195,7 +196,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     }
 
     private boolean allowLongClick(ViewHolder holder) {
-        if (!MainActivity.gameOverLoss &&
+        if (!MainActivity.gameOverLoss && !MainActivity.gameOverWin &&
                 !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()]) {
             return true;
         } else {

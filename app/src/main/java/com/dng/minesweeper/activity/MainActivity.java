@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     public static int[][] surroundingMap;
     public static boolean[][] shouldShow;
     public static boolean[][] flagVisible;
+    public static boolean gameOverWin = false;
     public static boolean gameOverLoss = false;
     public static int lastClickedRow;
     public static int lastClickedColumn;
@@ -88,6 +89,30 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         flagVisible = new boolean[rows][rows];
     }
 
+    private boolean checkGameOverWin() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < rows; j++) {
+                // [START check if any blocks with a mine have not been flagged]
+                if (gridMap[i][j] == 1 && !flagVisible[i][j]) {
+                    // Block contains a mine and has not been flagged, user has not won
+                    return false;
+                }
+                // [END check if any blocks with a mine have not been flagged]
+
+                // [START check if any blocks not containing a mine have not been shown]
+                if (gridMap[i][j] == 0 && !shouldShow[i][j]) {
+                    // Block does not contain a mine and has not been shown, user has not won
+                    return false;
+                }
+                // [END check if any blocks not containing a mine have not been shown]
+            }
+        }
+
+        // All blocks with a mine have been flagged, all blocks not containing a mine have been shown,
+        // user has WON!
+        return true;
+    }
+
     @Override
     public void onBlockPressed(int row, int column, TextView textView, ImageView mineImgView) {
         Log.d(TAG, "row: " + String.valueOf(row));
@@ -115,6 +140,13 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
             Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.NO_MINE_VALUE));
             shouldShow[row][column] = true;
             shouldShow = grid.updateShouldShow(shouldShow, surroundingMap, flagVisible, row, column);
+
+            // Check if user has won
+            if (checkGameOverWin()) {
+                // User has won
+                gameOverWin = true;
+                mainFragment.updateUIForWin();
+            }
         }
 
         // Update UI
@@ -134,30 +166,41 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
             textView.setVisibility(View.INVISIBLE);
             flagImgView.setVisibility(View.VISIBLE);
             flagVisible[row][column] = true;
+
+            // Check if user has won
+            if (checkGameOverWin()) {
+                // User has won
+                gameOverWin = true;
+                mainFragment.updateUIForWin();
+            }
         }
     }
 
     @Override
     public void onResetBtnPressed() {
-        // New game started, set gameOverLoss member variable to false
+        // New game started, set gameOverLoss and gameOverWin member variables to false
         gameOverLoss = false;
+        gameOverWin = false;
 
         // Reset member variables or reset game
         initializeForReset();
 
         // Update UI
+        mainFragment.updateUIForResetOrNewGame();
         mainFragment.updateUI();
     }
 
     @Override
     public void onNewGameBtnPressed() {
-        // New game started, set gameOverLoss member variable to false
+        // New game started, set gameOverLoss and gameOverWin member variables to false
         gameOverLoss = false;
+        gameOverWin = false;
 
         // Reset member variables for new game
         initializeForNewGame();
 
         // Update UI
+        mainFragment.updateUIForResetOrNewGame();
         mainFragment.updateUI();
     }
 }
