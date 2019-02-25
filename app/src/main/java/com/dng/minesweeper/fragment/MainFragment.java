@@ -33,10 +33,8 @@ public class MainFragment extends Fragment {
 
     // the fragment initialization parameters
     private static final String ARG_ROWS = "rows";
-    private static final String ARG_MINES = "mines";
 
     private int mRows = 0;
-    private int mMines = 0;
 
     private VerticalListAdapter verticalListAdapter;
 
@@ -52,14 +50,12 @@ public class MainFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param rows Parameter 1.
-     * @param mines Parameter 1.
      * @return A new instance of fragment MainFragment.
      */
-    public static MainFragment newInstance(int rows, int mines) {
+    public static MainFragment newInstance(int rows) {
         MainFragment fragment = new MainFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_ROWS, rows);
-        args.putInt(ARG_MINES, mines);
         fragment.setArguments(args);
         return fragment;
     }
@@ -81,7 +77,6 @@ public class MainFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mRows = getArguments().getInt(ARG_ROWS);
-            mMines = getArguments().getInt(ARG_MINES);
         }
     }
 
@@ -92,7 +87,7 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         // instantiate VerticalListAdapter
-        verticalListAdapter = new VerticalListAdapter(mListener, mRows, mMines);
+        verticalListAdapter = new VerticalListAdapter(mListener, mRows);
         verticalListAdapter.mContext = mContext;
 
         // [START setup vertical recycler view]

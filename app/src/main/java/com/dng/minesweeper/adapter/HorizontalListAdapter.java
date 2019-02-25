@@ -30,7 +30,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     private int mTotalRows;
     private int mCurrentRow;
 
-    public HorizontalListAdapter(MainFragment.OnMainFragmentListener listener, int totalRows, int mines, int currentRow) {
+    public HorizontalListAdapter(MainFragment.OnMainFragmentListener listener, int totalRows, int currentRow) {
         this.mListener = listener;
         mTotalRows = totalRows;
         mCurrentRow = currentRow;

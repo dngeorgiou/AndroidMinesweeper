@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         // when user long clicks on a block
         flagVisible = new boolean[rows][rows];
 
-        mainFragment = MainFragment.newInstance(rows, mines);
+        mainFragment = MainFragment.newInstance(rows);
         setFragment(mainFragment);
     }
 
