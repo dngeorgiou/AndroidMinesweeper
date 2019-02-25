@@ -58,14 +58,10 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         // [END handle game over loss]
 
         if (MainActivity.shouldShow[mCurrentRow][position]) {
+            // Get number of mines surrounding block
             int val = MainActivity.surroundingMap[mCurrentRow][position];
-            if (val == -1) {
-                // Block at this location has zero surrounding mines
-                holder.mTextView.setText("");
-            } else {
-                // Block at this location has more than zero surrounding mines
-                holder.mTextView.setText(String.valueOf(val));
-            }
+            // Set text and text color representing blocks surrounding mines
+            setTextAndTextColor(holder, val);
         } else if (MainActivity.flagVisible[mCurrentRow][position]) {
             // Fixes issue of flag textView being set visible and imgView being set invisible when
             // user clicks on a new block
@@ -168,6 +164,67 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         } else {
             return false;
         }
+    }
+
+    /**
+     * Method sets text of TextView to the number of mines surrounding the block, and its text color
+     * respective to the number of mines
+     * KEY:  1: blue    2: green    3: red    4: darkBlue    5: brown    6: cyan    7: black    8: grey
+     * @param holder ViewHolder of current block
+     * @param surroundingMines Number of mines surrounding current block
+     */
+    private void setTextAndTextColor(ViewHolder holder, int surroundingMines) {
+        // [START set TextView text]
+        if (surroundingMines == -1) {
+            // Block has zero surrounding mines, set text to empty string
+            holder.mTextView.setText("");
+        } else {
+            // Block has at least one surrounding mine, set text to number of surrounding mines
+            holder.mTextView.setText(String.valueOf(surroundingMines));
+        }
+        // [END set TextView text]
+
+        // [START set TextView textColor]
+        if (surroundingMines == 1) {
+            holder.mTextView.setTextColor(mContext.getResources().getColor(R.color.surroundingMapOne));
+            return;
+        }
+
+        if (surroundingMines == 2) {
+            holder.mTextView.setTextColor(mContext.getResources().getColor(R.color.surroundingMapTwo));
+            return;
+        }
+
+        if (surroundingMines == 3) {
+            holder.mTextView.setTextColor(mContext.getResources().getColor(R.color.surroundingMapThree));
+            return;
+        }
+
+        if (surroundingMines == 4) {
+            holder.mTextView.setTextColor(mContext.getResources().getColor(R.color.surroundingMapFour));
+            return;
+        }
+
+        if (surroundingMines == 5) {
+            holder.mTextView.setTextColor(mContext.getResources().getColor(R.color.surroundingMapFive));
+            return;
+        }
+
+        if (surroundingMines == 6) {
+            holder.mTextView.setTextColor(mContext.getResources().getColor(R.color.surroundingMapSix));
+            return;
+        }
+
+        if (surroundingMines == 7) {
+            holder.mTextView.setTextColor(mContext.getResources().getColor(R.color.surroundingMapSeven));
+            return;
+        }
+
+        if (surroundingMines == 8) {
+            holder.mTextView.setTextColor(mContext.getResources().getColor(R.color.surroundingMapEight));
+        }
+        // [END set TextView textColor]
+
     }
 
     /**
