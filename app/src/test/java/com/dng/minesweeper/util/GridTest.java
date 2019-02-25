@@ -82,6 +82,14 @@ public class GridTest {
 
         int rows = 6;
 
+        boolean[][] flagVisible = new boolean[rows][rows];
+        flagVisible[0][0] = false; flagVisible[0][1] = false; flagVisible[0][2] = false; flagVisible[0][3] = false; flagVisible[0][4] = false; flagVisible[0][5] = false;  // false false false false false false
+        flagVisible[1][0] = false; flagVisible[1][1] = false; flagVisible[1][2] = false; flagVisible[1][3] = false; flagVisible[1][4] = false; flagVisible[1][5] = false;  // false false false false false false
+        flagVisible[2][0] = false; flagVisible[2][1] = false; flagVisible[2][2] = false; flagVisible[2][3] = false; flagVisible[2][4] = false; flagVisible[2][5] = false;  // false false false false false false
+        flagVisible[3][0] = false; flagVisible[3][1] = false; flagVisible[3][2] = false; flagVisible[3][3] = false; flagVisible[3][4] = false; flagVisible[3][5] = false;  // false false false false false false
+        flagVisible[4][0] = false; flagVisible[4][1] = false; flagVisible[4][2] = false; flagVisible[4][3] = false; flagVisible[4][4] = false; flagVisible[4][5] = false;  // false false false false false false
+        flagVisible[5][0] = false; flagVisible[5][1] = false; flagVisible[5][2] = false; flagVisible[5][3] = false; flagVisible[5][4] = false; flagVisible[5][5] = false;  // false false false false false false
+
         int[][] surMap = new int[rows][rows];
         surMap[0][0] = 0; surMap[0][1] = 0; surMap[0][2] = 1; surMap[0][3] = 1; surMap[0][4] = 1; surMap[0][5] = 1; // 0 0 1 1 1 1
         surMap[1][0] = 0; surMap[1][1] = 0; surMap[1][2] = 2; surMap[1][3] = 3; surMap[1][4] = 3; surMap[1][5] = 1; // 0 0 2 3 3 1
@@ -101,7 +109,7 @@ public class GridTest {
 
         // Test for row 0, column 0 clicked
         boolean[][] shouldShow = new boolean[rows][rows];
-        shouldShow = grid.updateShouldShow(shouldShow, surMap, 0, 0);
+        shouldShow = grid.updateShouldShow(shouldShow, surMap, flagVisible, 0, 0);
 
         assertEquals(expsS, shouldShow);
 
@@ -113,7 +121,7 @@ public class GridTest {
         surMap[4][0] = 0; surMap[4][1] = 1; surMap[4][2] = 2; surMap[4][3] = 3; surMap[4][4] = 2; surMap[4][5] = 2; // 0 1 2 3 2 2
         surMap[5][0] = 0; surMap[5][1] = 0; surMap[5][2] = 1; surMap[5][3] = 3; surMap[5][4] = 2; surMap[5][5] = 2; // 0 0 1 3 2 2
         boolean[][] shouldShow2 = new boolean[rows][rows];
-        shouldShow2 = grid.updateShouldShow(shouldShow2, surMap, 1, 1);
+        shouldShow2 = grid.updateShouldShow(shouldShow2, surMap, flagVisible, 1, 1);
 
         assertEquals(expsS, shouldShow2);
 
@@ -125,7 +133,7 @@ public class GridTest {
         surMap[4][0] = 0; surMap[4][1] = 1; surMap[4][2] = 2; surMap[4][3] = 3; surMap[4][4] = 2; surMap[4][5] = 2; // 0 1 2 3 2 2
         surMap[5][0] = 0; surMap[5][1] = 0; surMap[5][2] = 1; surMap[5][3] = 3; surMap[5][4] = 2; surMap[5][5] = 2; // 0 0 1 3 2 2
         boolean[][] shouldShow3 = new boolean[rows][rows];
-        shouldShow3 = grid.updateShouldShow(shouldShow3, surMap, 0, 1);
+        shouldShow3 = grid.updateShouldShow(shouldShow3, surMap, flagVisible, 0, 1);
 
         assertEquals(expsS, shouldShow3);
 
@@ -137,7 +145,7 @@ public class GridTest {
         surMap[4][0] = 0; surMap[4][1] = 1; surMap[4][2] = 2; surMap[4][3] = 3; surMap[4][4] = 2; surMap[4][5] = 2; // 0 1 2 3 2 2
         surMap[5][0] = 0; surMap[5][1] = 0; surMap[5][2] = 1; surMap[5][3] = 3; surMap[5][4] = 2; surMap[5][5] = 2; // 0 0 1 3 2 2
         boolean[][] shouldShow4 = new boolean[rows][rows];
-        shouldShow4 = grid.updateShouldShow(shouldShow4, surMap, 1, 0);
+        shouldShow4 = grid.updateShouldShow(shouldShow4, surMap, flagVisible, 1, 0);
 
         assertEquals(expsS, shouldShow4);
     }

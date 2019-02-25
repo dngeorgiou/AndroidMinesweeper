@@ -37,7 +37,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/ic_mine"
+        android:src="@drawable/ic_mine"
+        android:visibility="invisible"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/list_item_mineWXImgView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/ic_mine_w_x"
         android:visibility="invisible"
         android:gravity="center"/>
 

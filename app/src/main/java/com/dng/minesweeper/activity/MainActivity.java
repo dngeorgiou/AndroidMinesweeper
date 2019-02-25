@@ -29,11 +29,13 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     private MainFragment mainFragment;
 
     private Grid grid = new Grid();
-    private int[][] gridMap;
+    public static int[][] gridMap;
     public static int[][] surroundingMap;
     public static boolean[][] shouldShow;
     public static boolean[][] flagVisible;
-    public static boolean gameOver = false;
+    public static boolean gameOverLoss = false;
+    public static int lastClickedRow;
+    public static int lastClickedColumn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,12 +78,25 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
             Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.MINE_VALUE));
             mineImgView.setVisibility(View.VISIBLE);
             textView.setVisibility(View.INVISIBLE);
-            gameOver = true;
+
+            // [START set row and column of mine clicked]
+            /*
+            * Setting row/column in MainActivity.java is a hack fix for issue of new HorizontalListAdapter
+            * object being created (from within VerticalListAdapter) every time the UI is updated, which
+            * then re-initializes member variables of HorizontalListAdapter, so can't set row/column from
+            * within it.
+             */
+            lastClickedRow = row;
+            lastClickedColumn = column;
+            // [END set row and column of mine clicked]
+
+            gameOverLoss = true;
+            mainFragment.updateUI();
         } else {
             // Player pressed on block without a mine; update UI
             Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.NO_MINE_VALUE));
             shouldShow[row][column] = true;
-            shouldShow = grid.updateShouldShow(shouldShow, surroundingMap, row, column);
+            shouldShow = grid.updateShouldShow(shouldShow, surroundingMap, flagVisible, row, column);
             mainFragment.updateUI();
         }
 
@@ -89,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
     @Override
     public void onResetBtnPressed() {
-        gameOver = false;
+        gameOverLoss = false;
         surroundingMap = grid.surroundingMines(gridMap);
         shouldShow = new boolean[rows][rows];
         mainFragment.updateUI();
@@ -97,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
     @Override
     public void onNewGameBtnPressed() {
-        gameOver = false;
+        gameOverLoss = false;
 
         // Initialize gridMap with mine/noMine values
         System.out.println("gridMap");

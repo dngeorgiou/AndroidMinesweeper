@@ -51,6 +51,12 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         setBlockHeightAndWidth(holder);
         // [END set height and width of block cells]
 
+        // [START handle game over loss]
+        if (MainActivity.gameOverLoss) {
+            updateUIForGameOverLoss(holder, mCurrentRow, position);
+        }
+        // [END handle game over loss]
+
         if (MainActivity.shouldShow[mCurrentRow][position]) {
             int val = MainActivity.surroundingMap[mCurrentRow][position];
             if (val == -1) {
@@ -146,7 +152,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     }
 
     private boolean allowClick(ViewHolder holder) {
-        if (!MainActivity.gameOver &&
+        if (!MainActivity.gameOverLoss &&
                 !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()] &&
                 !MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]) {
             return true;
@@ -156,12 +162,51 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     }
 
     private boolean allowLongClick(ViewHolder holder) {
-        if (!MainActivity.gameOver &&
+        if (!MainActivity.gameOverLoss &&
                 !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()]) {
             return true;
         } else {
             return false;
         }
+    }
+
+    /**
+     * Method handles updating UI when user clicks on mine:
+     * 1. Display ic_mine.png with red background on last clicked block.
+     * 2. Display ic_mine_w_x.png on blocks which have been incorrectly flagged.
+     * 3. Display all other mines.
+     */
+    private void updateUIForGameOverLoss(ViewHolder holder, int row, int column) {
+        if (MainActivity.gridMap[row][column] == 1) {
+            // Block contains a mine
+
+            // [START handle correct flags]
+            if (MainActivity.flagVisible[row][column]) {
+                // Block was correctly flagged, keep flag visible
+                return;
+            }
+            // [END handle correct flags]
+
+            // Display mines
+            holder.mTextView.setVisibility(View.INVISIBLE);
+            holder.mMineImgView.setVisibility(View.VISIBLE);
+
+            // Set red background on block user clicked containing mine
+            if (row == MainActivity.lastClickedRow && column == MainActivity.lastClickedColumn) {
+                holder.mMineImgView.setBackgroundColor(mContext.getResources().getColor(R.color.mineBackgroundRed));
+            }
+        } else {
+            // Block does not contain a mine
+
+            // [START handle incorrect flags]
+            if (MainActivity.flagVisible[row][column]) {
+                // Block was incorrectly flagged, display ic_mine_w_x.png
+                holder.mMineWXImgView.setVisibility(View.VISIBLE);
+                holder.mFlagImgView.setVisibility(View.INVISIBLE);
+            }
+            // [END handle incorrect flags]
+        }
+
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -170,6 +215,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         private TextView mTextView;
         private ImageView mFlagImgView;
         private ImageView mMineImgView;
+        private ImageView mMineWXImgView;
 
         private ViewHolder(View itemView) {
             super(itemView);
@@ -179,7 +225,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
             mTextView = mView.findViewById(R.id.list_item_textView);
             mFlagImgView = mView.findViewById(R.id.list_item_flagImgView);
             mMineImgView = mView.findViewById(R.id.list_item_mineImgView);
-
+            mMineWXImgView = mView.findViewById(R.id.list_item_mineWXImgView);
         }
     }
 

@@ -498,11 +498,12 @@ public class Grid {
 
 
     // [START update should show map]
-    public boolean[][] updateShouldShow(boolean[][] shouldShow, int[][] surroundingMap, int rowClicked, int columnClicked) {
+    public boolean[][] updateShouldShow(boolean[][] shouldShow, int[][] surroundingMap, boolean[][] flagVisible,
+                                        int rowClicked, int columnClicked) {
 
         // Update shouldShow and surroundingMap using flood fill algorithm
         MinesweeperFloodFill minesweeperFloodFill = new MinesweeperFloodFill();
-        minesweeperFloodFill.apply(shouldShow, surroundingMap, rowClicked, columnClicked);
+        minesweeperFloodFill.apply(shouldShow, surroundingMap, flagVisible, rowClicked, columnClicked);
 
         // [START print result]
         for (int i = 0; i < shouldShow.length; i++) {
