@@ -90,7 +90,7 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        // instantiate VerticalListAdapter
+        // Instantiate VerticalListAdapter
         verticalListAdapter = new VerticalListAdapter(mListener, mRows);
         verticalListAdapter.mContext = mContext;
 
@@ -101,9 +101,8 @@ public class MainFragment extends Fragment {
         vertRecyclerView.setAdapter(verticalListAdapter);
         // [END setup vertical recycler view]
 
-        // [START instantiate winning constraint layout]
+        // Instantiate winning constraint layout
         mWinningConstraintLayout = view.findViewById(R.id.fragment_main_winConstraintLayout);
-        // [END instantiate winning constraint layout]
 
         // Setup reset button
         Button mResetBtn = view.findViewById(R.id.fragment_main_resetBtn);
