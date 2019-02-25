@@ -169,6 +169,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
                     // Game is not over, block not displayed, no flag on block -> allow click
                     mListener.onBlockPressed(mCurrentRow, holder.getAdapterPosition(),
                             holder.mTextView, holder.mMineImgView);
+                    Log.d(TAG, "clicked");
                 }
             }
         });
