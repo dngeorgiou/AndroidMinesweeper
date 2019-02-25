@@ -97,6 +97,9 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
             // Player pressed on block with a mine; end game and update UI
             Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.MINE_VALUE));
 
+            // Set gameOverLoss to true
+            gameOverLoss = true;
+
             // [START set row and column of mine clicked]
             /*
             * Setting row/column in MainActivity.java is a hack fix for issue of new HorizontalListAdapter
@@ -107,16 +110,15 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
             lastClickedRow = row;
             lastClickedColumn = column;
             // [END set row and column of mine clicked]
-
-            gameOverLoss = true;
-            mainFragment.updateUI();
         } else {
             // Player pressed on block without a mine; update UI
             Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.NO_MINE_VALUE));
             shouldShow[row][column] = true;
             shouldShow = grid.updateShouldShow(shouldShow, surroundingMap, flagVisible, row, column);
-            mainFragment.updateUI();
         }
+
+        // Update UI
+        mainFragment.updateUI();
 
     }
 
