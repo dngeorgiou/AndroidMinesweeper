@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseIntArray;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dng.minesweeper.R;
@@ -65,14 +67,15 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     }
 
     @Override
-    public void onBlockPressed(int row, int column, TextView textView) {
+    public void onBlockPressed(int row, int column, TextView textView, ImageView mineImgView) {
         Log.d(TAG, "row: " + String.valueOf(row));
         Log.d(TAG, "column: " + String.valueOf(column));
 
         if (gridMap[row][column] == Grid.MINE_VALUE) {
             // Player pressed on block with a mine; end game and update UI
             Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.MINE_VALUE));
-            textView.setText("X");
+            mineImgView.setVisibility(View.VISIBLE);
+            textView.setVisibility(View.INVISIBLE);
             gameOver = true;
         } else {
             // Player pressed on block without a mine; update UI

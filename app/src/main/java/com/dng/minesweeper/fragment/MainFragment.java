@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dng.minesweeper.R;
@@ -138,7 +139,7 @@ public class MainFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnMainFragmentListener {
-        void onBlockPressed(int row, int column, TextView textView);
+        void onBlockPressed(int row, int column, TextView textView, ImageView mineImgView);
 
         void onResetBtnPressed();
 

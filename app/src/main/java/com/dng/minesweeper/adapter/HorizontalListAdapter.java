@@ -116,7 +116,8 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
             public void onClick(View view) {
                 if (allowClick(holder)) {
                     // Game is not over, block not displayed, no flag on block -> allow click
-                    mListener.onBlockPressed(mCurrentRow, holder.getAdapterPosition(), holder.mTextView);
+                    mListener.onBlockPressed(mCurrentRow, holder.getAdapterPosition(),
+                            holder.mTextView, holder.mMineImgView);
                 }
             }
         });
@@ -168,6 +169,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         View mView;
         private TextView mTextView;
         private ImageView mFlagImgView;
+        private ImageView mMineImgView;
 
         private ViewHolder(View itemView) {
             super(itemView);
@@ -176,6 +178,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
 
             mTextView = mView.findViewById(R.id.list_item_textView);
             mFlagImgView = mView.findViewById(R.id.list_item_flagImgView);
+            mMineImgView = mView.findViewById(R.id.list_item_mineImgView);
 
         }
     }
