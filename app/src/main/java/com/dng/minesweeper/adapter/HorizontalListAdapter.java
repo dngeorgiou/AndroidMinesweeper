@@ -69,7 +69,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
             holder.mTextView.setVisibility(View.INVISIBLE);
         }
 
-        // View is clicked, handle it appropriately
+        // Setup and handle onClick/onLongClick listeners
         handleOnClicks(holder);
 
     }
