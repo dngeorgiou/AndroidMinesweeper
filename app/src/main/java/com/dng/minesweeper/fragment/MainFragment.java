@@ -105,6 +105,7 @@ public class MainFragment extends Fragment {
         mWinningConstraintLayout = view.findViewById(R.id.fragment_main_winConstraintLayout);
         // [END instantiate winning constraint layout]
 
+        // Setup reset button
         Button mResetBtn = view.findViewById(R.id.fragment_main_resetBtn);
         mResetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +114,7 @@ public class MainFragment extends Fragment {
             }
         });
 
+        // Setup newGame button
         Button mNewGameBtn = view.findViewById(R.id.fragment_main_newGameBtn);
         mNewGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
