@@ -51,23 +51,8 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         setBlockHeightAndWidth(holder);
         // [END set height and width of block cells]
 
-        // [START handle game over loss]
-        if (MainActivity.gameOverLoss) {
-            updateUIForGameOverLoss(holder, mCurrentRow, position);
-        }
-        // [END handle game over loss]
 
-        if (MainActivity.shouldShow[mCurrentRow][position]) {
-            // Get number of mines surrounding block
-            int val = MainActivity.surroundingMap[mCurrentRow][position];
-            // Set text and text color representing blocks surrounding mines
-            setTextAndTextColor(holder, val);
-        } else if (MainActivity.flagVisible[mCurrentRow][position]) {
-            // Fixes issue of flag textView being set visible and imgView being set invisible when
-            // user clicks on a new block
-            holder.mFlagImgView.setVisibility(View.VISIBLE);
-            holder.mTextView.setVisibility(View.INVISIBLE);
-        }
+        updateUI(holder, mCurrentRow, position);
 
         // Setup and handle onClick/onLongClick listeners
         handleOnClicks(holder);
@@ -77,6 +62,26 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     @Override
     public int getItemCount() {
         return mTotalRows;
+    }
+
+    private void updateUI(ViewHolder holder, int row, int column) {
+        // [START handle game over loss]
+        if (MainActivity.gameOverLoss) {
+            updateUIForGameOverLoss(holder, row, column);
+        }
+        // [END handle game over loss]
+
+        if (MainActivity.shouldShow[row][column]) {
+            // Get number of mines surrounding block
+            int val = MainActivity.surroundingMap[row][column];
+            // Set text and text color representing blocks surrounding mines
+            setTextAndTextColor(holder, val);
+        } else if (MainActivity.flagVisible[row][column]) {
+            // Fixes issue of flag textView being set visible and imgView being set invisible when
+            // user clicks on a new block
+            holder.mFlagImgView.setVisibility(View.VISIBLE);
+            holder.mTextView.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void setBlockHeightAndWidth(ViewHolder holder) {
