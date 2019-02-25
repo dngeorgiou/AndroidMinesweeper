@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         gameOverLoss = false;
         surroundingMap = grid.surroundingMines(gridMap);
         shouldShow = new boolean[rows][rows];
+        flagVisible = new boolean[rows][rows];
         mainFragment.updateUI();
     }
 
@@ -123,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
         surroundingMap = grid.surroundingMines(gridMap);
         shouldShow = new boolean[rows][rows];
+        flagVisible = new boolean[rows][rows];
         mainFragment.updateUI();
     }
 }
