@@ -5,4 +5,15 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="mineBackgroundRed">#EB3223</color>
+
+    <!--surrounding map colors-->
+    <color name="surroundingMapOne">#0029F4</color>
+    <color name="surroundingMapTwo">#377C22</color>
+    <color name="surroundingMapThree">#EA3223</color>
+    <color name="surroundingMapFour">#000F7C</color>
+    <color name="surroundingMapFive">#76150E</color>
+    <color name="surroundingMapSix">#367E80</color>
+    <color name="surroundingMapSeven">#000000</color>
+    <color name="surroundingMapEight">#808080</color>
+    
 </resources>
