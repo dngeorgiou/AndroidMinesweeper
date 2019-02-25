@@ -48,7 +48,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         // [START set height and width of block cells]
-        setBlockHeightAndWidth(holder);
+        setBlockHeightAndWidth(holder, mTotalRows);
         // [END set height and width of block cells]
 
         // Update UI
@@ -124,12 +124,16 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
 
     }
 
-    private void setBlockHeightAndWidth(ViewHolder holder) {
+    /**
+     * Method sets height and width of each block by getting the width of the screen, dividing that
+     * by the number of rows, and setting that equal to height and width.
+     */
+    private void setBlockHeightAndWidth(ViewHolder holder, int rows) {
         // get width of screen and divide by number of block cells in one row
         DisplayMetrics displaymetrics = new DisplayMetrics();
         ((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         // set height and width of block cells equal to width of screen divided by number of block cells in one row
-        int blockwidth = displaymetrics.widthPixels / mTotalRows;
+        int blockwidth = displaymetrics.widthPixels / rows;
         holder.mView.getLayoutParams().width = blockwidth;
         holder.mView.getLayoutParams().height = blockwidth;
     }
