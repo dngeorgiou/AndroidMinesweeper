@@ -28,13 +28,11 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     private MainFragment.OnMainFragmentListener mListener;
 
     private int mTotalRows;
-    private int mMines;
     private int mCurrentRow;
 
     public HorizontalListAdapter(MainFragment.OnMainFragmentListener listener, int totalRows, int mines, int currentRow) {
         this.mListener = listener;
         mTotalRows = totalRows;
-        mMines = mines;
         mCurrentRow = currentRow;
     }
 
