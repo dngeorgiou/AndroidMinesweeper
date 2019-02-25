@@ -51,7 +51,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         setBlockHeightAndWidth(holder);
         // [END set height and width of block cells]
 
-
+        // Update UI
         updateUI(holder, mCurrentRow, position);
 
         // Setup and handle onClick/onLongClick listeners
