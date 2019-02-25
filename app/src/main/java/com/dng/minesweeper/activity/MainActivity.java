@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         // Set member variables for new game
         initializeForNewGame();
 
+        // Create new instance of MainFragment and set it
         mainFragment = MainFragment.newInstance(rows);
         setFragment(mainFragment);
     }
