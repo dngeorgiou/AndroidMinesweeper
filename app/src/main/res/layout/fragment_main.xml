@@ -29,7 +29,7 @@
                 android:layout_height="50dp"
                 android:layout_margin="8dp"
                 android:scaleType="centerCrop"
-                android:background="@drawable/ic_face_playing"/>
+                android:background="@drawable/new_game_from_playing_selector"/>
 
         </LinearLayout>
         <!--[END reset/newGame buttons layout]-->
