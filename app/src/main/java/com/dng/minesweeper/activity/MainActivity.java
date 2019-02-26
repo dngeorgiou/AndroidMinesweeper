@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         Log.d(TAG, "row: " + String.valueOf(row));
         Log.d(TAG, "column: " + String.valueOf(column));
 
+        // [START handle mine press]
         if (gridMap[row][column] == Grid.MINE_VALUE) {
             // Player pressed on block with a mine; end game and update UI
             Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.MINE_VALUE));
@@ -124,7 +125,14 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
             // Update UI for gameOverLoss
             mainFragment.updateUIForLoss();
-        } else {
+            // Update UI
+            mainFragment.updateUI();
+            return;
+        }
+        // [END handle mine press]
+
+        // [START handle not mine press]
+        if (gridMap[row][column] == Grid.NO_MINE_VALUE) {
             // Player pressed on block without a mine; update UI
             Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.NO_MINE_VALUE));
             shouldShow[row][column] = true;
@@ -136,10 +144,12 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
                 gameOverWin = true;
                 mainFragment.updateUIForWin();
             }
-        }
 
-        // Update UI
-        mainFragment.updateUI();
+            // Update UI
+            mainFragment.updateUI();
+            return;
+        }
+        // [END handle not mine press]
 
     }
 
