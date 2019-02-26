@@ -25,13 +25,11 @@
 
             <ImageButton
                 android:id="@+id/fragment_main_newGameImgBtn"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                android:layout_margin="5dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="8dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_face_playing"
-                android:background="@drawable/ic_block_background"
-                android:padding="8dp"/>
+                android:background="@drawable/ic_face_playing"/>
 
         </LinearLayout>
         <!--[END reset/newGame buttons layout]-->
