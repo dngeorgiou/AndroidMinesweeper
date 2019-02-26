@@ -50,13 +50,6 @@ public class VerticalListAdapter extends RecyclerView.Adapter<VerticalListAdapte
         holder.mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         holder.mRecyclerView.setAdapter(horizontalListAdapter);
         // [END setup horizontal recycler view]
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, String.valueOf(holder.getAdapterPosition()));
-            }
-        });
     }
 
     @Override
