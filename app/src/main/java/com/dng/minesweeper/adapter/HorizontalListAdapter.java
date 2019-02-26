@@ -169,10 +169,10 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
             @Override
             public void onClick(View view) {
                 if (allowClick(holder)) {
+                    Log.d(TAG, "clicked");
                     // Game is not over, block not displayed, no flag on block -> allow click
                     mListener.onBlockPressed(mCurrentRow, holder.getAdapterPosition(),
                             holder.mTextView, holder.mMineImgView);
-                    Log.d(TAG, "clicked");
                 }
             }
         });
@@ -183,10 +183,10 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
             @Override
             public boolean onLongClick(View view) {
                 if (allowLongClick(holder)) {
+                    Log.d(TAG, "longClicked");
                     // Game is not over, block not displayed -> allow long click
                     mListener.onBlockLongPressed(mCurrentRow, holder.getAdapterPosition(),
                             holder.mTextView, holder.mFlagImgView);
-                    Log.d(TAG, "longClicked");
                 }
                 return true;
             }
