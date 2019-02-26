@@ -75,20 +75,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         flagVisible = new boolean[rows][rows];
     }
 
-    private void initializeForReset() {
-        // Initialize surroundingMap with values of surrounding mines
-        System.out.println("surroundingMap");
-        surroundingMap = grid.surroundingMines(gridMap);
-
-        // Initialize shouldShow, which HorizontalListAdapter uses to determine if should update
-        // certain cells UI
-        shouldShow = new boolean[rows][rows];
-
-        // Initialize flagVisible, which is used to determine setting visibility of textView/imgView
-        // when user long clicks on a block
-        flagVisible = new boolean[rows][rows];
-    }
-
     private boolean checkGameOverWin() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < rows; j++) {
@@ -174,20 +160,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
                 mainFragment.updateUIForWin();
             }
         }
-    }
-
-    @Override
-    public void onResetBtnPressed() {
-        // New game started, set gameOverLoss and gameOverWin member variables to false
-        gameOverLoss = false;
-        gameOverWin = false;
-
-        // Reset member variables or reset game
-        initializeForReset();
-
-        // Update UI
-        mainFragment.updateUIForResetOrNewGame();
-        mainFragment.updateUI();
     }
 
     @Override

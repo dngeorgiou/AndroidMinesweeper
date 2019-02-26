@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -104,18 +105,9 @@ public class MainFragment extends Fragment {
         // Instantiate winning constraint layout
         mWinningConstraintLayout = view.findViewById(R.id.fragment_main_winConstraintLayout);
 
-        // Setup reset button
-        Button mResetBtn = view.findViewById(R.id.fragment_main_resetBtn);
-        mResetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListener.onResetBtnPressed();
-            }
-        });
-
         // Setup newGame button
-        Button mNewGameBtn = view.findViewById(R.id.fragment_main_newGameBtn);
-        mNewGameBtn.setOnClickListener(new View.OnClickListener() {
+        ImageButton mNewGameImgBtn = view.findViewById(R.id.fragment_main_newGameImgBtn);
+        mNewGameImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mListener.onNewGameBtnPressed();
@@ -160,8 +152,6 @@ public class MainFragment extends Fragment {
         void onBlockPressed(int row, int column, TextView textView, ImageView mineImgView);
 
         void onBlockLongPressed(int row, int column, TextView textView, ImageView flagImgView);
-
-        void onResetBtnPressed();
 
         void onNewGameBtnPressed();
     }
