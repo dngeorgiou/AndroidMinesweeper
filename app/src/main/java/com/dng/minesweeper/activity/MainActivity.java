@@ -121,6 +121,9 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
             lastClickedRow = row;
             lastClickedColumn = column;
             // [END set row and column of mine clicked]
+
+            // Update UI for gameOverLoss
+            mainFragment.updateUIForLoss();
         } else {
             // Player pressed on block without a mine; update UI
             Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.NO_MINE_VALUE));
@@ -172,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         initializeForNewGame();
 
         // Update UI
-        mainFragment.updateUIForResetOrNewGame();
+        mainFragment.updateUIForNewGame();
         mainFragment.updateUI();
     }
 }

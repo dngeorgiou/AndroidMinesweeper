@@ -49,42 +49,6 @@
         </android.support.v7.widget.RecyclerView>
         <!--end vertical recycler view-->
 
-        <!--[START winning layout]-->
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/fragment_main_winConstraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="invisible">
-
-            <LinearLayout
-                android:id="@+id/fragment_main_winLinLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/fragment_main_winSmileyImgView"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:background="@drawable/ic_smiley"/>
-
-                <TextView
-                    android:id="@+id/fragment_main_winTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/fragment_main_winTextView_text"
-                    android:textSize="20sp"/>
-
-            </LinearLayout>
-
-        </android.support.constraint.ConstraintLayout>
-        <!--[END winning layout]-->
-
     </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>

@@ -43,6 +43,8 @@ public class MainFragment extends Fragment {
     private ConstraintLayout mWinningConstraintLayout;
     private VerticalListAdapter verticalListAdapter;
 
+    private ImageButton mNewGameImgBtn;
+
     private Context mContext;
     private OnMainFragmentListener mListener;
 
@@ -102,11 +104,8 @@ public class MainFragment extends Fragment {
         vertRecyclerView.setAdapter(verticalListAdapter);
         // [END setup vertical recycler view]
 
-        // Instantiate winning constraint layout
-        mWinningConstraintLayout = view.findViewById(R.id.fragment_main_winConstraintLayout);
-
         // Setup newGame button
-        ImageButton mNewGameImgBtn = view.findViewById(R.id.fragment_main_newGameImgBtn);
+        mNewGameImgBtn = view.findViewById(R.id.fragment_main_newGameImgBtn);
         mNewGameImgBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,14 +121,19 @@ public class MainFragment extends Fragment {
         verticalListAdapter.notifyDataSetChanged();
     }
 
-    // Display winningConstraintLayout, which contains smiley ImgView and congratulations TextView
+    // Update newGameImgBtn to display ic_face_win.png
     public void updateUIForWin() {
-        mWinningConstraintLayout.setVisibility(View.VISIBLE);
+        mNewGameImgBtn.setImageResource(R.drawable.ic_face_win);
     }
 
-    // Hide winningConstraintLayout, which contains smiley ImgView and congratulations TextView
-    public void updateUIForResetOrNewGame() {
-        mWinningConstraintLayout.setVisibility(View.INVISIBLE);
+    // Update newGameImgBtn to display ic_face_loss.png
+    public void updateUIForLoss() {
+        mNewGameImgBtn.setImageResource(R.drawable.ic_face_loss);
+    }
+
+    // Update newGameImgBtn to display ic_face_playing.png
+    public void updateUIForNewGame() {
+        mNewGameImgBtn.setImageResource(R.drawable.ic_face_playing);
     }
 
     @Override
