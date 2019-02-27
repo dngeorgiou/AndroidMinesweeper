@@ -95,13 +95,20 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         return true;
     }
 
+    /**
+     * Method returns true if block contains a mine, and returns false otherwise
+     */
+    private boolean blockContainsMine(int row, int column) {
+        return (gridMap[row][column] == Grid.MINE_VALUE);
+    }
+
     @Override
     public void onBlockPressed(int row, int column, TextView textView, ImageView mineImgView) {
         Log.d(TAG, "row: " + String.valueOf(row));
         Log.d(TAG, "column: " + String.valueOf(column));
 
         // [START handle mine press]
-        if (gridMap[row][column] == Grid.MINE_VALUE) {
+        if (blockContainsMine(row, column)) {
             // Player pressed on block with a mine; end game and update UI
             Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.MINE_VALUE));
 
@@ -126,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         // [END handle mine press]
 
         // [START handle not mine press]
-        if (gridMap[row][column] == Grid.NO_MINE_VALUE) {
+        if (!blockContainsMine(row, column)) {
             // Player pressed on block without a mine; update UI
             Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.NO_MINE_VALUE));
             shouldShow[row][column] = true;
