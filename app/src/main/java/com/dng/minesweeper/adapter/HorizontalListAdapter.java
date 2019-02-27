@@ -188,26 +188,14 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     }
 
     /**
-     * Method checks if clickListener and longClickListener are already attached, and sets click/longClick
-     * listeners if they have not, and performs click/longClick if they have.
-     * This improves performance by not setting new click/longClick listeners every time the UI is updated,
-     * which is often.
+     * Method sets clickListener and longClickListener.
      */
     private void handleOnClicks(ViewHolder holder, int row, int column) {
-        if (!holder.mView.hasOnClickListeners()) {
-            // Click/LongClick listeners have not been set, set them
+        // Set clickListener
+        setOnClickListener(holder, row, column);
 
-            // Set clickListener
-            setOnClickListener(holder, row, column);
-
-            // Set longClickListener
-            setOnLongClickListener(holder);
-
-        } else {
-            // Click/LongClick listeners have been set, perform click
-            holder.mView.performClick();
-        }
-
+        // Set longClickListener
+        setOnLongClickListener(holder);
     }
 
     private void setOnClickListener(final ViewHolder holder, int row, int column) {
