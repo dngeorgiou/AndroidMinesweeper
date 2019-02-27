@@ -40,7 +40,6 @@ public class MainFragment extends Fragment {
 
     private int mRows = 0;
 
-    private ConstraintLayout mWinningConstraintLayout;
     private VerticalListAdapter verticalListAdapter;
 
     private ImageButton mNewGameImgBtn;
