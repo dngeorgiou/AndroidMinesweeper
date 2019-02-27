@@ -23,14 +23,15 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
 
     private static final String TAG = "HorizontalListAdapter";
 
-    public Context mContext;
+    private Context mContext;
 
     private MainFragment.OnMainFragmentListener mListener;
 
     private int mTotalRows;
     private int mCurrentRow;
 
-    public HorizontalListAdapter(MainFragment.OnMainFragmentListener listener, int totalRows, int currentRow) {
+    public HorizontalListAdapter(Context context, MainFragment.OnMainFragmentListener listener, int totalRows, int currentRow) {
+        this.mContext = context;
         this.mListener = listener;
         mTotalRows = totalRows;
         mCurrentRow = currentRow;

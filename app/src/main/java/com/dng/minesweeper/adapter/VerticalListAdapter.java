@@ -43,8 +43,7 @@ public class VerticalListAdapter extends RecyclerView.Adapter<VerticalListAdapte
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         // instantiate HorizontalListAdapter
-        HorizontalListAdapter horizontalListAdapter = new HorizontalListAdapter(mListener, mTotalRows, position);
-        horizontalListAdapter.mContext = mContext;
+        HorizontalListAdapter horizontalListAdapter = new HorizontalListAdapter(mContext, mListener, mTotalRows, position);
 
         // [START setup horizontal recycler view]
         holder.mRecyclerView.setHasFixedSize(true);
