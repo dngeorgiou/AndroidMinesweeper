@@ -19,13 +19,14 @@ public class VerticalListAdapter extends RecyclerView.Adapter<VerticalListAdapte
 
     private static final String TAG = "VerticalListAdapter";
 
-    public Context mContext;
+    private Context mContext;
 
     private int mTotalRows;
 
     private MainFragment.OnMainFragmentListener mListener;
 
-    public VerticalListAdapter(MainFragment.OnMainFragmentListener listener, int totalRows) {
+    public VerticalListAdapter(Context context, MainFragment.OnMainFragmentListener listener, int totalRows) {
+        this.mContext = context;
         this.mListener = listener;
         mTotalRows = totalRows;
     }
