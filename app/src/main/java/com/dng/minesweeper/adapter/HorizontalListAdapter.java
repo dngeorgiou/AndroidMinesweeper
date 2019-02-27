@@ -47,16 +47,14 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        // [START set height and width of block cells]
+        // Set height and width of block cells
         setBlockHeightAndWidth(holder, mTotalRows);
-        // [END set height and width of block cells]
-
-        // Update UI
-        updateUI(holder, mCurrentRow, position);
 
         // Setup and handle onClick/onLongClick listeners
         handleOnClicks(holder, mCurrentRow, position);
 
+        // Update UI
+        updateUI(holder, mCurrentRow, position);
     }
 
     @Override
@@ -66,30 +64,20 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
 
     private void updateUI(ViewHolder holder, int row, int column) {
 
+        // [START handle game over win]
+        if (MainActivity.gameOverWin) {
+            updateUIForGameOverWin(holder, row, column);
+            return;
+        }
+        // [END handle game over win]
+
         // [START handle game over loss]
         if (MainActivity.gameOverLoss) {
             updateUIForGameOverLoss(holder, row, column);
         }
         // [END handle game over loss]
 
-        if (MainActivity.shouldShow[row][column]) {
-            // Get number of mines surrounding block
-            int val = MainActivity.surroundingMap[row][column];
-            // Set text and text color representing blocks surrounding mines
-            setTextAndTextColor(holder, val);
-
-            // Set view state as selected
-            setAsSelected(holder);
-        } else if (MainActivity.flagVisible[row][column]) {
-            // Fixes issue of flag textView being set visible and imgView being set invisible when
-            // user clicks on a new block
-            holder.mFlagImgView.setVisibility(View.VISIBLE);
-            holder.mTextView.setVisibility(View.INVISIBLE);
-        }
-
-        if (MainActivity.gameOverWin) {
-            updateUIForGameOverWin(holder, mCurrentRow, column);
-        }
+        updateUIForGameInProgress(holder, row, column);
     }
 
     /**
@@ -126,26 +114,63 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
             }
             // [END handle correct flags]
 
+            // Set red background on block user clicked containing mine
+            if (isLosingBlock(row, column)) {
+                setBackgroundColor(holder.mMineImgView,
+                        mContext.getResources().getColor(R.color.mineBackgroundRed));
+            }
+
             // Display mines
             holder.mTextView.setVisibility(View.INVISIBLE);
             holder.mMineImgView.setVisibility(View.VISIBLE);
 
-            // Set red background on block user clicked containing mine
-            if (row == MainActivity.lastClickedRow && column == MainActivity.lastClickedColumn) {
-                holder.mMineImgView.setBackgroundColor(mContext.getResources().getColor(R.color.mineBackgroundRed));
-            }
         } else {
-            // Block does not contain a mine
+            // Block does not contain mine, check if incorrectly flagged
+            handleIncorrectFlags(holder, row, column);
+        }
+    }
 
-            // [START handle incorrect flags]
+    private void updateUIForGameInProgress(ViewHolder holder, int row, int column) {
+        if (MainActivity.shouldShow[row][column]) {
+            // Get number of mines surrounding block
+            int val = MainActivity.surroundingMap[row][column];
+            // Set text and text color representing blocks surrounding mines
+            setTextAndTextColor(holder, val);
+
+            // Set view state as selected
+            setAsSelected(holder);
+        } else if (MainActivity.flagVisible[row][column]) {
+            // Fixes issue of flag textView being set visible and imgView being set invisible when
+            // user clicks on a new block
+            holder.mFlagImgView.setVisibility(View.VISIBLE);
+            holder.mTextView.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    /**
+     * Method returns true if current block is the block user clicked on which contained a mine,
+     * returns false otherwise
+     */
+    private boolean isLosingBlock(int row, int column) {
+        return (row == MainActivity.lastClickedRow && column == MainActivity.lastClickedColumn);
+    }
+
+    private void setBackgroundColor(ImageView imageView, int colorID) {
+        imageView.setBackgroundColor(colorID);
+    }
+
+    /**
+     * Method handles setting UI if block has been incorrectly flagged
+     * i.e.) block not containing mine was flagged
+     */
+    private void handleIncorrectFlags(ViewHolder holder, int row, int column) {
+        if (MainActivity.gridMap[row][column] == 0) {
             if (MainActivity.flagVisible[row][column]) {
                 // Block was incorrectly flagged, display ic_mine_w_x.png
                 holder.mMineWXImgView.setVisibility(View.VISIBLE);
                 holder.mFlagImgView.setVisibility(View.INVISIBLE);
             }
-            // [END handle incorrect flags]
         }
-
     }
 
     /**
