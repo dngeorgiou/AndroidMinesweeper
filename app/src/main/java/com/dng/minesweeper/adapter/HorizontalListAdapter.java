@@ -55,7 +55,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         updateUI(holder, mCurrentRow, position);
 
         // Setup and handle onClick/onLongClick listeners
-        handleOnClicks(holder);
+        handleOnClicks(holder, mCurrentRow, position);
 
     }
 
@@ -78,8 +78,8 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
             // Set text and text color representing blocks surrounding mines
             setTextAndTextColor(holder, val);
 
-            // Set view state as pressed
-            setAsPressed(holder);
+            // Set view state as selected
+            setAsSelected(holder);
         } else if (MainActivity.flagVisible[row][column]) {
             // Fixes issue of flag textView being set visible and imgView being set invisible when
             // user clicks on a new block
@@ -147,12 +147,12 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
      * This improves performance by not setting new click/longClick listeners every time the UI is updated,
      * which is often.
      */
-    private void handleOnClicks(ViewHolder holder) {
+    private void handleOnClicks(ViewHolder holder, int row, int column) {
         if (!holder.mView.hasOnClickListeners()) {
             // Click/LongClick listeners have not been set, set them
 
             // Set clickListener
-            setOnClickListener(holder);
+            setOnClickListener(holder, row, column);
 
             // Set longClickListener
             setOnLongClickListener(holder);
@@ -164,18 +164,21 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
 
     }
 
-    private void setOnClickListener(final ViewHolder holder) {
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (allowClick(holder)) {
-                    Log.d(TAG, "clicked");
-                    // Game is not over, block not displayed, no flag on block -> allow click
-                    mListener.onBlockPressed(mCurrentRow, holder.getAdapterPosition(),
-                            holder.mTextView, holder.mMineImgView);
+    private void setOnClickListener(final ViewHolder holder, int row, int column) {
+        if (!MainActivity.shouldShow[row][column]) {
+            holder.mView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (allowClick(holder)) {
+                        Log.d(TAG, "clicked");
+                        // Game is not over, block not displayed, no flag on block -> allow click
+                        mListener.onBlockPressed(mCurrentRow, holder.getAdapterPosition(),
+                                holder.mTextView, holder.mMineImgView);
+                    }
                 }
-            }
-        });
+            });
+        }
+
     }
 
     private void setOnLongClickListener(final ViewHolder holder) {
@@ -221,8 +224,8 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
      * Method sets state of view to 'pressed', which updates background resource to ic_block_pressed_background.png,
      * as view is using block_background_selector.xml resource.
      */
-    private void setAsPressed(ViewHolder holder) {
-        holder.mView.setPressed(true);
+    private void setAsSelected(ViewHolder holder) {
+        holder.mView.setSelected(true);
     }
 
     /**
