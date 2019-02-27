@@ -75,16 +75,13 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         flagVisible = new boolean[rows][rows];
     }
 
+    /**
+     * Method checks if user has won
+     * Win condition: All blocks not containing a mine have been uncovered.
+     */
     private boolean checkGameOverWin() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < rows; j++) {
-                // [START check if any blocks with a mine have not been flagged]
-                if (gridMap[i][j] == 1 && !flagVisible[i][j]) {
-                    // Block contains a mine and has not been flagged, user has not won
-                    return false;
-                }
-                // [END check if any blocks with a mine have not been flagged]
-
                 // [START check if any blocks not containing a mine have not been shown]
                 if (gridMap[i][j] == 0 && !shouldShow[i][j]) {
                     // Block does not contain a mine and has not been shown, user has not won
@@ -94,8 +91,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
             }
         }
 
-        // All blocks with a mine have been flagged, all blocks not containing a mine have been shown,
-        // user has WON!
+        // All blocks not containing a mine have been shown, user has WON!
         return true;
     }
 
@@ -165,13 +161,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
             textView.setVisibility(View.INVISIBLE);
             flagImgView.setVisibility(View.VISIBLE);
             flagVisible[row][column] = true;
-
-            // Check if user has won
-            if (checkGameOverWin()) {
-                // User has won
-                gameOverWin = true;
-                mainFragment.updateUIForWin();
-            }
         }
     }
 
