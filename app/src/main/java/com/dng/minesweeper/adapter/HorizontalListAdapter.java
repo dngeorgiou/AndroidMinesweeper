@@ -67,7 +67,6 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         // [START handle game over win]
         if (MainActivity.gameOverWin) {
             updateUIForGameOverWin(holder, row, column);
-            return;
         }
         // [END handle game over win]
 
