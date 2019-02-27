@@ -86,6 +86,27 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
             holder.mFlagImgView.setVisibility(View.VISIBLE);
             holder.mTextView.setVisibility(View.INVISIBLE);
         }
+
+        if (MainActivity.gameOverWin) {
+            updateUIForGameOverWin(holder, mCurrentRow, column);
+        }
+    }
+
+    /**
+     * Method handles updating UI for when user has uncovered all blocks not containing a mine
+     */
+    private void updateUIForGameOverWin(ViewHolder holder, int row, int column) {
+        if (MainActivity.gridMap[row][column] == 1) {
+            // Block contains a mine
+
+            // [START display flags on mines]
+            if (!MainActivity.flagVisible[row][column]) {
+                // Block contains a mine and has not been flagged, display flags
+                holder.mTextView.setVisibility(View.INVISIBLE);
+                holder.mFlagImgView.setVisibility(View.VISIBLE);
+            }
+            // [END display flags]
+        }
     }
 
     /**
