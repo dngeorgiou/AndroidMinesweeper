@@ -124,16 +124,19 @@ public class MainFragment extends Fragment {
     // Update newGameImgBtn to display ic_face_win.png
     public void updateUIForWin() {
         mNewGameImgBtn.setBackgroundResource(R.drawable.new_game_from_win_selector);
+        updateUI();
     }
 
     // Update newGameImgBtn to display ic_face_loss.png
     public void updateUIForLoss() {
         mNewGameImgBtn.setBackgroundResource(R.drawable.new_game_from_loss_selector);
+        updateUI();
     }
 
     // Update newGameImgBtn to display ic_face_playing.png
     public void updateUIForNewGame() {
         mNewGameImgBtn.setBackgroundResource(R.drawable.new_game_from_playing_selector);
+        updateUI();
     }
 
     @Override

@@ -121,8 +121,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
             // Update UI for gameOverLoss
             mainFragment.updateUIForLoss();
-            // Update UI
-            mainFragment.updateUI();
             return;
         }
         // [END handle mine press]
@@ -139,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
                 // User has won
                 gameOverWin = true;
                 mainFragment.updateUIForWin();
+                return;
             }
 
             // Update UI
@@ -175,6 +174,5 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
         // Update UI
         mainFragment.updateUIForNewGame();
-        mainFragment.updateUI();
     }
 }
