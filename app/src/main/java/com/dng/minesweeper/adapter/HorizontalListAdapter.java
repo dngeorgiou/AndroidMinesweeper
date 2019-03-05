@@ -212,7 +212,6 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
                 }
             });
         }
-
     }
 
     private void setOnLongClickListener(final ViewHolder holder) {
@@ -325,7 +324,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        View mView;
+        private View mView;
         private TextView mTextView;
         private ImageView mFlagImgView;
         private ImageView mMineImgView;
@@ -335,7 +334,6 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
             super(itemView);
 
             mView = itemView;
-
             mTextView = mView.findViewById(R.id.list_item_textView);
             mFlagImgView = mView.findViewById(R.id.list_item_flagImgView);
             mMineImgView = mView.findViewById(R.id.list_item_mineImgView);
