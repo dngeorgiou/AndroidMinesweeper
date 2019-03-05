@@ -42,7 +42,7 @@ public class Grid implements Serializable {
         flagVisible = new boolean[mineMap.length][mineMap.length];
     }
 
-    // Public getters
+    // [START public getters]
     public final int[][] getMineMap() {
         return mineMap;
     }
@@ -74,8 +74,9 @@ public class Grid implements Serializable {
     public boolean getGameOverLoss() {
         return gameOverLoss;
     }
+    // [END public getters]
 
-    // Public setters
+    // [START public setters]
     public void setShouldShow(int rowClicked, int columnClicked) {
         shouldShow = updateShouldShow(rowClicked, columnClicked);
     }
@@ -96,7 +97,9 @@ public class Grid implements Serializable {
     public void setGameOverLoss() {
         gameOverLoss = true;
     }
+    // [END public setters]
 
+    // [START private setters for last block clicked]
     private void setLastRowClicked(int rowClicked) {
         lastRowClicked = rowClicked;
     }
@@ -104,8 +107,12 @@ public class Grid implements Serializable {
     private void setLastColumnClicked(int columnClicked) {
         lastColumnClicked = columnClicked;
     }
+    // [END private setters for last block clicked]
 
-    // [START initialization for Minesweeper grid]
+
+    /**
+     * Method initializes grid with mines.
+     */
     private int[][] initializeGrid(int rows, int mines) {
         int remainingCells = rows*rows;
         int remainingMines = mines;
@@ -131,9 +138,11 @@ public class Grid implements Serializable {
 
         return g;
     }
-    // [END initialization for Minesweeper grid]
 
     // [START calculate mines surrounding cell]
+    /**
+     * Main method for calculating the number of mines surrounding each block.
+     */
     private int[][] surroundingMines(int[][] gridMap) {
         int[][] surroundingMap = new int[gridMap.length][gridMap.length];
 
@@ -209,9 +218,11 @@ public class Grid implements Serializable {
 
         return surroundingMap;
     }
-    // [END calculate mines surrounding cell]
 
-    // [START calc mines surrounding upper left corner block]
+    /**
+     * Sub surrounding mine calculation method, which calculates number of mines surrounding
+     * upper left block.
+     */
     private int upperLeftMineNearbyCount(int[][] gridMap, int row, int column) {
         /*
         3 blocks surrounding
@@ -229,9 +240,11 @@ public class Grid implements Serializable {
 
         return mines;
     }
-    // [END calc mines surrounding upper left corner block]
 
-    // [START calc mines surrounding upper right corner block]
+    /**
+     * Sub surrounding mine calculation method, which calculates number of mines surrounding
+     * upper right block.
+     */
     private int upperRightMineNearbyCount(int[][] gridMap, int row, int column) {
         /*
         3 blocks surrounding
@@ -249,9 +262,11 @@ public class Grid implements Serializable {
 
         return mines;
     }
-    // [END calc mines surrounding upper right corner block]
 
-    // [START calc mines surrounding bottom left corner block]
+    /**
+     * Sub surrounding mine calculation method, which calculates number of mines surrounding
+     * bottom left block.
+     */
     private int bottomLeftMineNearbyCount(int[][] gridMap, int row, int column) {
         /*
         3 blocks surrounding
@@ -269,9 +284,11 @@ public class Grid implements Serializable {
 
         return mines;
     }
-    // [END calc mines surrounding bottom left corner block]
 
-    // [START calc mines surrounding bottom right corner block]
+    /**
+     * Sub surrounding mine calculation method, which calculates number of mines surrounding
+     * bottom right block.
+     */
     private int bottomRightMineNearbyCount(int[][] gridMap, int row, int column) {
         /*
         3 blocks surrounding
@@ -289,9 +306,11 @@ public class Grid implements Serializable {
 
         return mines;
     }
-    // [END calc mines surrounding bottom right corner block]
 
-    // [START calc mines surrounding first row, not corner blocks]
+    /**
+     * Sub surrounding mine calculation method, which calculates number of mines surrounding
+     * first row, not corner blocks.
+     */
     private int firstRowNotCornerMineNearbyCount(int[][] gridMap, int row, int column) {
         /*
         5 blocks surrounding
@@ -315,9 +334,11 @@ public class Grid implements Serializable {
 
         return mines;
     }
-    // [END calc mines surrounding first row, not corner blocks]
 
-    // [START calc mines surrounding last row, not corner blocks]
+    /**
+     * Sub surrounding mine calculation method, which calculates number of mines surrounding
+     * last row, not corner blocks.
+     */
     private int lastRowNotCornerMineNearbyCount(int[][] gridMap, int row, int column) {
         /*
         5 blocks surrounding
@@ -341,9 +362,11 @@ public class Grid implements Serializable {
 
         return mines;
     }
-    // [END calc mines surrounding last row, not corner blocks]
 
-    // [START calc mines surrounding first column, not corner block]
+    /**
+     * Sub surrounding mine calculation method, which calculates number of mines surrounding
+     * first column, not corner blocks.
+     */
     private int firstColumnNotCornerMineNearbyCount(int[][] gridMap, int row, int column) {
         /*
         5 blocks surrounding
@@ -367,9 +390,11 @@ public class Grid implements Serializable {
 
         return mines;
     }
-    // [END calc mines surrounding first column, not corner block]
 
-    // [START calc mines surrounding last column, not corner block]
+    /**
+     * Sub surrounding mine calculation method, which calculates number of mines surrounding
+     * last column, not corner blocks.
+     */
     private int lastColumnNotCornerMineNearbyCount(int[][] gridMap, int row, int column) {
         /*
         5 blocks surrounding
@@ -393,9 +418,11 @@ public class Grid implements Serializable {
 
         return mines;
     }
-    // [END calc mines surrounding last column, not corner block]
 
-    // [START calc mines surrounding inner blocks]
+    /**
+     * Sub surrounding mine calculation method, which calculates number of mines surrounding
+     * inner blocks (i.e. blocks not in first row, last row, first column, or last column).
+     */
     private int innerMineNearbyCount(int[][] gridMap, int row, int column) {
         /*
         8 blocks surrounding
@@ -428,13 +455,12 @@ public class Grid implements Serializable {
 
         return mines;
     }
-    // [END calc mines surrounding inner blocks]
 
 
-
-    // [START check mine at position]
-
-    // [START check mine above and left]
+    // [START check mine at specific surrounding position]
+    /**
+     * Sub surrounding mine calculation method, which checks if mine in block above and left current block.
+     */
     private int checkMineAboveAndLeft(int[][] gridMap, int row, int column) {
         if (gridMap[row-1][column-1] == MINE_VALUE) {
             return  1;
@@ -450,9 +476,10 @@ public class Grid implements Serializable {
             return false;
         }
     }
-    // [END check mine above and left]
 
-    // [START check mine left]
+    /**
+     * Sub surrounding mine calculation method, which checks if mine in block to left of current block.
+     */
     private int checkMineLeft(int[][] gridMap, int row, int column) {
         if (gridMap[row][column-1] == MINE_VALUE) {
             return  1;
@@ -468,9 +495,10 @@ public class Grid implements Serializable {
             return false;
         }
     }
-    // [END check mine left]
 
-    // [START check mine below and left]
+    /**
+     * Sub surrounding mine calculation method, which checks if mine in block below and left current block.
+     */
     private int checkMineBelowAndLeft(int[][] gridMap, int row, int column) {
         if (gridMap[row+1][column-1] == MINE_VALUE) {
             return  1;
@@ -486,9 +514,10 @@ public class Grid implements Serializable {
             return false;
         }
     }
-    // [END check mine below and left]
 
-    // [START check mine below]
+    /**
+     * Sub surrounding mine calculation method, which checks if mine in block below current block.
+     */
     private int checkMineBelow(int[][] gridMap, int row, int column) {
         if (gridMap[row+1][column] == MINE_VALUE) {
             return  1;
@@ -504,9 +533,10 @@ public class Grid implements Serializable {
             return false;
         }
     }
-    // [END check mine below]
 
-    // [START check mine below and right]
+    /**
+     * Sub surrounding mine calculation method, which checks if mine in block below and right current block.
+     */
     private int checkMineBelowAndRight(int[][] gridMap, int row, int column) {
         if (gridMap[row+1][column+1] == MINE_VALUE) {
             return  1;
@@ -522,9 +552,10 @@ public class Grid implements Serializable {
             return false;
         }
     }
-    // [END check mine below and right]
 
-    // [START check mine right]
+    /**
+     * Sub surrounding mine calculation method, which checks if mine in block to right of current block.
+     */
     private int checkMineRight(int[][] gridMap, int row, int column) {
         if (gridMap[row][column+1] == MINE_VALUE) {
             return  1;
@@ -540,9 +571,10 @@ public class Grid implements Serializable {
             return false;
         }
     }
-    // [END check mine right]
 
-    // [START check mine above and right]
+    /**
+     * Sub surrounding mine calculation method, which checks if mine in block above and right current block.
+     */
     private int checkMineAboveAndRight(int[][] gridMap, int row, int column) {
         if (gridMap[row-1][column+1] == MINE_VALUE) {
             return  1;
@@ -558,9 +590,10 @@ public class Grid implements Serializable {
             return false;
         }
     }
-    // [END check mine above and right]
 
-    // [START check mine above]
+    /**
+     * Sub surrounding mine calculation method, which checks if mine in block above current block.
+     */
     private int checkMineAbove(int[][] gridMap, int row, int column) {
         if (gridMap[row-1][column] == MINE_VALUE) {
             return  1;
@@ -576,13 +609,14 @@ public class Grid implements Serializable {
             return false;
         }
     }
-    // [END check mine above]
-
-    // [END check mine at position]
-
+    // [END check mine at specific surrounding position]
+    // [END calculate mines surrounding cell]
 
 
-    // [START update should show map]
+    /**
+     * Method uses Flood Fill recursive algorithm to determine blocks not containing a mine surrounding
+     * the block the user clicked on and the blocks immediately surrounding those.
+     */
     private boolean[][] updateShouldShow(int rowClicked, int columnClicked) {
 
         // Show last pressed block
@@ -607,9 +641,10 @@ public class Grid implements Serializable {
 
         return shouldShow;
     }
-    // [END update should show map]
 
-    // [START update flag visible map]
+    /**
+     * Method updates the map containing which blocks have been flagged by user.
+     */
     private boolean[][] updateFlagVisible(int rowLongClicked, int columnLongClicked) {
         if (flagVisible[rowLongClicked][columnLongClicked]) {
             // Set flagVisible of block to false
@@ -621,6 +656,5 @@ public class Grid implements Serializable {
 
         return flagVisible;
     }
-    // [END update flag visible map]
 
 }
