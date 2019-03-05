@@ -469,14 +469,6 @@ public class Grid implements Serializable {
         }
     }
 
-    private boolean checBlockAboveAndLeftForShow(int[][] surroundingMap, int row, int column) {
-        if (surroundingMap[row-1][column-1] == 0) {
-            return  true;
-        } else {
-            return false;
-        }
-    }
-
     /**
      * Sub surrounding mine calculation method, which checks if mine in block to left of current block.
      */
@@ -485,14 +477,6 @@ public class Grid implements Serializable {
             return  1;
         } else {
             return 0;
-        }
-    }
-
-    private boolean checkBlockLeftForShow(int[][] surroundingMap, int row, int column) {
-        if (surroundingMap[row][column-1] == 0) {
-            return  true;
-        } else {
-            return false;
         }
     }
 
@@ -507,14 +491,6 @@ public class Grid implements Serializable {
         }
     }
 
-    private boolean checkBlockBelowAndLeftForShow(int[][] surroundingMap, int row, int column) {
-        if (surroundingMap[row+1][column-1] == 0) {
-            return  true;
-        } else {
-            return false;
-        }
-    }
-
     /**
      * Sub surrounding mine calculation method, which checks if mine in block below current block.
      */
@@ -523,14 +499,6 @@ public class Grid implements Serializable {
             return  1;
         } else {
             return 0;
-        }
-    }
-
-    private boolean checkBlockBelowForShow(int[][] surroundingMap, int row, int column) {
-        if (surroundingMap[row+1][column] == 0) {
-            return  true;
-        } else {
-            return false;
         }
     }
 
@@ -545,14 +513,6 @@ public class Grid implements Serializable {
         }
     }
 
-    private boolean checkBlockBelowAndRightForShow(int[][] surroundingMap, int row, int column) {
-        if (surroundingMap[row+1][column+1] == 0) {
-            return  true;
-        } else {
-            return false;
-        }
-    }
-
     /**
      * Sub surrounding mine calculation method, which checks if mine in block to right of current block.
      */
@@ -561,14 +521,6 @@ public class Grid implements Serializable {
             return  1;
         } else {
             return 0;
-        }
-    }
-
-    private boolean checkBlockRightForShow(int[][] surroundingMap, int row, int column) {
-        if (surroundingMap[row][column+1] == 0) {
-            return  true;
-        } else {
-            return false;
         }
     }
 
@@ -583,14 +535,6 @@ public class Grid implements Serializable {
         }
     }
 
-    private boolean checkBlockAboveAndRightForShow(int[][] surroundingMap, int row, int column) {
-        if (surroundingMap[row-1][column+1] == 0) {
-            return  true;
-        } else {
-            return false;
-        }
-    }
-
     /**
      * Sub surrounding mine calculation method, which checks if mine in block above current block.
      */
@@ -599,14 +543,6 @@ public class Grid implements Serializable {
             return  1;
         } else {
             return 0;
-        }
-    }
-
-    private boolean checkBlockAboveForShow(int[][] surroundingMap, int row, int column) {
-        if (surroundingMap[row-1][column] == 0) {
-            return  true;
-        } else {
-            return false;
         }
     }
     // [END check mine at specific surrounding position]
