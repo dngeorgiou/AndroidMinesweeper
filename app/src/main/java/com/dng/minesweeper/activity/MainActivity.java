@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     }
 
     /**
-     * Method called when user on new game button.
+     * Method called when user presses new game button.
      */
     @Override
     public void onNewGameBtnPressed() {
