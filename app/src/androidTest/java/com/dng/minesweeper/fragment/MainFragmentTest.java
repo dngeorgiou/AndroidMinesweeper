@@ -7,6 +7,7 @@ import android.widget.FrameLayout;
 
 import com.dng.minesweeper.R;
 import com.dng.minesweeper.activity.MainActivity;
+import com.dng.minesweeper.util.Grid;
 
 import org.junit.After;
 import org.junit.Before;
@@ -24,10 +25,12 @@ public class MainFragmentTest {
     public ActivityTestRule<MainActivity> mMainActivityActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
     private MainActivity mMainActivity = null;
+    private Grid mGrid;
 
     @Before
     public void setUp() throws Exception {
         mMainActivity = mMainActivityActivityTestRule.getActivity();
+        mGrid = new Grid(8, 8);
     }
 
     // Test if the fragment is successfully launched
@@ -38,7 +41,7 @@ public class MainFragmentTest {
         assertNotNull(frameLayout);
 
         // Test fragment vertical recycler view is not null
-        MainFragment mainFragment = MainFragment.newInstance(new HashMap<Integer, Integer>(), 0);
+        MainFragment mainFragment = MainFragment.newInstance(mGrid, 0);
 
         FragmentTransaction fragmentTransaction = mMainActivity.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(frameLayout.getId(), mainFragment);
@@ -55,5 +58,6 @@ public class MainFragmentTest {
     public void tearDown() throws Exception {
         mMainActivityActivityTestRule = null;
         mMainActivity = null;
+        mGrid = null;
     }
 }
