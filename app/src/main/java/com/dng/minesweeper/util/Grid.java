@@ -84,12 +84,9 @@ public class Grid implements Serializable {
         flagVisible = updateFlagVisible(rowLongClicked, columnLongClicked);
     }
 
-    public void setLastRowClicked(int rowClicked) {
-        lastRowClicked = rowClicked;
-    }
-
-    public void setLastColumnClicked(int columnClicked) {
-        lastColumnClicked = columnClicked;
+    public void setLastBlockClicked(int rowClicked, int columnClicked) {
+        setLastRowClicked(rowClicked);
+        setLastColumnClicked(columnClicked);
     }
 
     public void setGameOverWin() {
@@ -98,6 +95,14 @@ public class Grid implements Serializable {
 
     public void setGameOverLoss() {
         gameOverLoss = true;
+    }
+
+    private void setLastRowClicked(int rowClicked) {
+        lastRowClicked = rowClicked;
+    }
+
+    private void setLastColumnClicked(int columnClicked) {
+        lastColumnClicked = columnClicked;
     }
 
     // [START initialization for Minesweeper grid]

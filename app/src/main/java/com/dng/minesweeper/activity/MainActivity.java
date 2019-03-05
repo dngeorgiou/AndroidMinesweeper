@@ -97,9 +97,8 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
      * Method updates variables when user pressed on block which contains a mine.
      */
     private void handleBlockWithMine(int row, int column) {
-        // Set last block clicked by setting last row and column clicked
-        grid.setLastRowClicked(row);
-        grid.setLastColumnClicked(column);
+        // Set last block clicked
+        grid.setLastBlockClicked(row, column);
 
         // Set gameOverLoss to true
         grid.setGameOverLoss();
