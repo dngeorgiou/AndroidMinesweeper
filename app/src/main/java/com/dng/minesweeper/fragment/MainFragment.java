@@ -20,6 +20,7 @@ import com.dng.minesweeper.R;
 import com.dng.minesweeper.activity.MainActivity;
 import com.dng.minesweeper.adapter.HorizontalListAdapter;
 import com.dng.minesweeper.adapter.VerticalListAdapter;
+import com.dng.minesweeper.util.Grid;
 
 import java.util.HashMap;
 
@@ -36,10 +37,13 @@ public class MainFragment extends Fragment {
     private static final String TAG = "MainFragment";
 
     // the fragment initialization parameters
+    private static final String ARG_GRID = "grid";
     private static final String ARG_ROWS = "rows";
 
+    private Grid mGrid;
     private int mRows = 0;
 
+    private RecyclerView vertRecyclerView;
     private VerticalListAdapter verticalListAdapter;
 
     private ImageButton mNewGameImgBtn;
@@ -54,12 +58,14 @@ public class MainFragment extends Fragment {
     /**
      * Create a new instance of fragment using the provided parameters.
      *
-     * @param rows Parameter 1.
+     * @param grid Parameter 1.
+     * @param rows Parameter 2.
      * @return A new instance of fragment MainFragment.
      */
-    public static MainFragment newInstance(int rows) {
+    public static MainFragment newInstance(Grid grid, int rows) {
         MainFragment fragment = new MainFragment();
         Bundle args = new Bundle();
+        args.putSerializable(ARG_GRID, grid);
         args.putInt(ARG_ROWS, rows);
         fragment.setArguments(args);
         return fragment;
@@ -81,6 +87,7 @@ public class MainFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            mGrid = (Grid) getArguments().getSerializable(ARG_GRID);
             mRows = getArguments().getInt(ARG_ROWS);
         }
     }
@@ -92,10 +99,10 @@ public class MainFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         // Instantiate VerticalListAdapter
-        verticalListAdapter = new VerticalListAdapter(mContext, mListener, mRows);
+        verticalListAdapter = new VerticalListAdapter(mContext, mListener, mGrid, mRows);
 
         // [START setup vertical recycler view]
-        RecyclerView vertRecyclerView = view.findViewById(R.id.fragment_main_vertRecyclerView);
+        vertRecyclerView = view.findViewById(R.id.fragment_main_vertRecyclerView);
         vertRecyclerView.setHasFixedSize(true);
         vertRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         vertRecyclerView.setAdapter(verticalListAdapter);
@@ -133,12 +140,6 @@ public class MainFragment extends Fragment {
     // Update newGameImgBtn to display ic_face_loss.png
     public void updateUIForLoss() {
         mNewGameImgBtn.setBackgroundResource(R.drawable.new_game_from_loss_selector);
-        updateUI();
-    }
-
-    // Update newGameImgBtn to display ic_face_playing.png
-    public void updateUIForNewGame() {
-        mNewGameImgBtn.setBackgroundResource(R.drawable.new_game_from_playing_selector);
         updateUI();
     }
 

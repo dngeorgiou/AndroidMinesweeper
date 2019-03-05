@@ -1,8 +1,9 @@
 package com.dng.minesweeper.util;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Grid {
+public class Grid implements Serializable {
 
     private static final String TAG = "Grid";
 
@@ -14,14 +15,55 @@ public class Grid {
     public static final int NO_MINE_VALUE = 0;
     public static final int MINE_VALUE = 1;
 
-    public int[][] grid;
+    // Private member variables
+    private final int[][] mineMap;
+    private final int[][] surroundingMines;
+    private boolean[][] shouldShow;
+    private boolean[][] flagVisible;
 
-    public Grid() {
-        // Required empty public constructor
+
+    public Grid(int rows, int mines) {
+        mineMap = initializeGrid(rows, mines);
+        surroundingMines = surroundingMines(mineMap);
+        shouldShow = new boolean[rows][rows];
+        flagVisible = new boolean[rows][rows];
+    }
+
+    protected Grid(int[][] testMineMap) {
+        mineMap = testMineMap;
+        surroundingMines = surroundingMines(mineMap);
+        shouldShow = new boolean[mineMap.length][mineMap.length];
+        flagVisible = new boolean[mineMap.length][mineMap.length];
+    }
+
+    // Public getters
+    public final int[][] getMineMap() {
+        return mineMap;
+    }
+
+    public final int[][] getSurroundingMines() {
+        return surroundingMines;
+    }
+
+    public boolean[][] getShouldShow() {
+        return shouldShow;
+    }
+
+    public boolean[][] getFlagVisible() {
+        return flagVisible;
+    }
+
+    // Public setters
+    public void setShouldShow(int rowClicked, int columnClicked) {
+        shouldShow = updateShouldShow(rowClicked, columnClicked);
+    }
+
+    public void setFlagVisible(int rowLongClicked, int columnLongClicked) {
+        flagVisible = updateFlagVisible(rowLongClicked, columnLongClicked);
     }
 
     // [START initialization for Minesweeper grid]
-    public int[][] initializeGrid(int rows, int mines) {
+    private int[][] initializeGrid(int rows, int mines) {
         int remainingCells = rows*rows;
         int remainingMines = mines;
         int[][] g = new int[rows][rows];
@@ -49,7 +91,7 @@ public class Grid {
     // [END initialization for Minesweeper grid]
 
     // [START calculate mines surrounding cell]
-    public int[][] surroundingMines(int[][] gridMap) {
+    private int[][] surroundingMines(int[][] gridMap) {
         int[][] surroundingMap = new int[gridMap.length][gridMap.length];
 
         for (int i = 0; i < gridMap.length; i++) {
@@ -498,12 +540,14 @@ public class Grid {
 
 
     // [START update should show map]
-    public boolean[][] updateShouldShow(boolean[][] shouldShow, int[][] surroundingMap, boolean[][] flagVisible,
-                                        int rowClicked, int columnClicked) {
+    private boolean[][] updateShouldShow(int rowClicked, int columnClicked) {
+
+        // Show last pressed block
+        shouldShow[rowClicked][columnClicked] = true;
 
         // Update shouldShow and surroundingMap using flood fill algorithm
         MinesweeperFloodFill minesweeperFloodFill = new MinesweeperFloodFill();
-        minesweeperFloodFill.apply(shouldShow, surroundingMap, flagVisible, rowClicked, columnClicked);
+        minesweeperFloodFill.apply(shouldShow, surroundingMines, flagVisible, rowClicked, columnClicked);
 
         // [START print result]
         for (int i = 0; i < shouldShow.length; i++) {
@@ -521,5 +565,19 @@ public class Grid {
         return shouldShow;
     }
     // [END update should show map]
+
+    // [START update flag visible map]
+    private boolean[][] updateFlagVisible(int rowLongClicked, int columnLongClicked) {
+        if (flagVisible[rowLongClicked][columnLongClicked]) {
+            // Set flagVisible of block to false
+            flagVisible[rowLongClicked][columnLongClicked] = false;
+        } else {
+            // Set flagVisible of block to true
+            flagVisible[rowLongClicked][columnLongClicked] = true;
+        }
+
+        return flagVisible;
+    }
+    // [END update flag visible map]
 
 }

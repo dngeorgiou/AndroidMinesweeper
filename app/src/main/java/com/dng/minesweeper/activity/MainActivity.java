@@ -24,19 +24,11 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
     // number of rows (also number of columns)
     private static final int rows = 8;
-
     // number of mines in grid matrix
     private static final int mines = rows*rows/6;
 
-
-    // References for minesweeper grid
-    private Grid grid = new Grid();
-    public static int[][] gridMap;          // Contains 0 or 1 for NO_MINE or MINE
-    public static int[][] surroundingMap;   // Contains number of mines surrounding block
-
-    // References for UI state
-    public static boolean[][] shouldShow;
-    public static boolean[][] flagVisible;
+    // Reference for minesweeper grid
+    private Grid grid;
 
     // References for game over outcome
     public static boolean gameOverWin = false;
@@ -57,10 +49,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
         // Set member variables for new game
         initializeForNewGame();
-
-        // Create new instance of MainFragment and set it
-        mainFragment = MainFragment.newInstance(rows);
-        setFragment(mainFragment);
     }
 
     /**
@@ -79,23 +67,15 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     private void initializeForNewGame() {
         // Initialize gridMap with new mine/noMine values
         System.out.println("gridMap");
-        gridMap = grid.initializeGrid(rows, mines);
-
-        // Initialize surroundingMap with values of surrounding mines
-        System.out.println("surroundingMap");
-        surroundingMap = grid.surroundingMines(gridMap);
-
-        // Initialize shouldShow, which HorizontalListAdapter uses to determine if should update
-        // certain cells UI
-        shouldShow = new boolean[rows][rows];
-
-        // Initialize flagVisible, which is used to determine setting visibility of textView/imgView
-        // when user long clicks on a block
-        flagVisible = new boolean[rows][rows];
+        grid  = new Grid(rows, mines);
 
         // Set gameOverLoss and gameOverWin member variables to false
         gameOverLoss = false;
         gameOverWin = false;
+
+        // Create new instance of MainFragment and set it
+        mainFragment = MainFragment.newInstance(grid, rows);
+        setFragment(mainFragment);
     }
 
     /**
@@ -106,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < rows; j++) {
                 // [START check if any blocks not containing a mine have not been shown]
-                if (gridMap[i][j] == 0 && !shouldShow[i][j]) {
+                if (grid.getMineMap()[i][j] == 0 && !grid.getShouldShow()[i][j]) {
                     // Block does not contain a mine and has not been shown, user has not won
                     return false;
                 }
@@ -122,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
      * Method returns true if block contains a mine, and returns false otherwise.
      */
     private boolean blockContainsMine(int row, int column) {
-        return (gridMap[row][column] == Grid.MINE_VALUE);
+        return (grid.getMineMap()[row][column] == Grid.MINE_VALUE);
     }
 
     /**
@@ -149,11 +129,8 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
      * Method updates variables when user pressed on block not containing a mine.
      */
     private void handleBlockNoMine(int row, int column) {
-        // Show last pressed block
-        shouldShow[row][column] = true;
-
         // Show surrounding blocks which contain 0 surrounding mines and the blocks immediately surrounding those
-        shouldShow = grid.updateShouldShow(shouldShow, surroundingMap, flagVisible, row, column);
+        grid.setShouldShow(row, column);
 
         // Check if user has won
         if (checkGameOverWin()) {
@@ -199,17 +176,19 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
      */
     @Override
     public void onBlockLongPressed(int row, int column, TextView textView, ImageView flagImgView) {
-        if (flagVisible[row][column]) {
+        // Update flagVisible UI
+        if (grid.getFlagVisible()[row][column]) {
             // Show TextView, hide ImageView, set flagVisible of block to false
             textView.setVisibility(View.VISIBLE);
             flagImgView.setVisibility(View.INVISIBLE);
-            flagVisible[row][column] = false;
         } else {
             // Hide TextView, show ImageView, set flagVisible of block to true
             textView.setVisibility(View.INVISIBLE);
             flagImgView.setVisibility(View.VISIBLE);
-            flagVisible[row][column] = true;
         }
+
+        // Update flagVisible map
+        grid.setFlagVisible(row, column);
     }
 
     /**
@@ -217,12 +196,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
      */
     @Override
     public void onNewGameBtnPressed() {
-        // New game started
-
-        // Reset member variables for new game
+        // New game started, initialize new game
         initializeForNewGame();
-
-        // Update UI
-        mainFragment.updateUIForNewGame();
     }
 }

@@ -27,12 +27,15 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
 
     private MainFragment.OnMainFragmentListener mListener;
 
+    private Grid mGrid;
     private int mTotalRows;
     private int mCurrentRow;
 
-    public HorizontalListAdapter(Context context, MainFragment.OnMainFragmentListener listener, int totalRows, int currentRow) {
+    public HorizontalListAdapter(Context context, MainFragment.OnMainFragmentListener listener,
+                                 Grid grid, int totalRows, int currentRow) {
         this.mContext = context;
         this.mListener = listener;
+        this.mGrid = grid;
         mTotalRows = totalRows;
         mCurrentRow = currentRow;
     }
@@ -84,11 +87,11 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
      * Method handles updating UI for when user has uncovered all blocks not containing a mine
      */
     private void updateUIForGameOverWin(ViewHolder holder, int row, int column) {
-        if (MainActivity.gridMap[row][column] == 1) {
+        if (mGrid.getMineMap()[row][column] == 1) {
             // Block contains a mine
 
             // [START display flags on mines]
-            if (!MainActivity.flagVisible[row][column]) {
+            if (!mGrid.getFlagVisible()[row][column]) {
                 // Block contains a mine and has not been flagged, display flags
                 holder.mTextView.setVisibility(View.INVISIBLE);
                 holder.mFlagImgView.setVisibility(View.VISIBLE);
@@ -104,11 +107,11 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
      * 3. Display all other mines.
      */
     private void updateUIForGameOverLoss(ViewHolder holder, int row, int column) {
-        if (MainActivity.gridMap[row][column] == 1) {
+        if (mGrid.getMineMap()[row][column] == 1) {
             // Block contains a mine
 
             // [START handle correct flags]
-            if (MainActivity.flagVisible[row][column]) {
+            if (mGrid.getFlagVisible()[row][column]) {
                 // Block was correctly flagged, keep flag visible
                 return;
             }
@@ -131,15 +134,15 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     }
 
     private void updateUIForGameInProgress(ViewHolder holder, int row, int column) {
-        if (MainActivity.shouldShow[row][column]) {
+        if (mGrid.getShouldShow()[row][column]) {
             // Get number of mines surrounding block
-            int val = MainActivity.surroundingMap[row][column];
+            int val = mGrid.getSurroundingMines()[row][column];
             // Set text and text color representing blocks surrounding mines
             setTextAndTextColor(holder, val);
 
             // Set view state as selected
             setAsSelected(holder);
-        } else if (MainActivity.flagVisible[row][column]) {
+        } else if (mGrid.getFlagVisible()[row][column]) {
             // Fixes issue of flag textView being set visible and imgView being set invisible when
             // user clicks on a new block
             holder.mFlagImgView.setVisibility(View.VISIBLE);
@@ -164,8 +167,8 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
      * i.e.) block not containing mine was flagged
      */
     private void handleIncorrectFlags(ViewHolder holder, int row, int column) {
-        if (MainActivity.gridMap[row][column] == 0) {
-            if (MainActivity.flagVisible[row][column]) {
+        if (mGrid.getMineMap()[row][column] == 0) {
+            if (mGrid.getFlagVisible()[row][column]) {
                 // Block was incorrectly flagged, display ic_mine_w_x.png
                 holder.mMineWXImgView.setVisibility(View.VISIBLE);
                 holder.mFlagImgView.setVisibility(View.INVISIBLE);
@@ -199,7 +202,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     }
 
     private void setOnClickListener(final ViewHolder holder, int row, int column) {
-        if (!MainActivity.shouldShow[row][column]) {
+        if (!mGrid.getShouldShow()[row][column]) {
             holder.mView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -238,8 +241,8 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
      */
     private boolean allowClick(ViewHolder holder) {
         return (!MainActivity.gameOverLoss && !MainActivity.gameOverWin &&
-                !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()] &&
-                !MainActivity.flagVisible[mCurrentRow][holder.getAdapterPosition()]);
+                !mGrid.getShouldShow()[mCurrentRow][holder.getAdapterPosition()] &&
+                !mGrid.getFlagVisible()[mCurrentRow][holder.getAdapterPosition()]);
     }
 
     /**
@@ -250,7 +253,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
      */
     private boolean allowLongClick(ViewHolder holder) {
         return (!MainActivity.gameOverLoss && !MainActivity.gameOverWin &&
-                !MainActivity.shouldShow[mCurrentRow][holder.getAdapterPosition()]);
+                !mGrid.getShouldShow()[mCurrentRow][holder.getAdapterPosition()]);
     }
 
     /**
