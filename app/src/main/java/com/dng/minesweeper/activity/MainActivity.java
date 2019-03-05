@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     private void handleBlockNoMine(int row, int column) {
         // Show last pressed block
         shouldShow[row][column] = true;
-        
+
         // Show surrounding blocks which contain 0 surrounding mines and the blocks immediately surrounding those
         shouldShow = grid.updateShouldShow(shouldShow, surroundingMap, flagVisible, row, column);
 
@@ -167,6 +167,9 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         mainFragment.updateUI();
     }
 
+    /**
+     * Method called when user presses on a block.
+     */
     @Override
     public void onBlockPressed(int row, int column, TextView textView, ImageView mineImgView) {
         Log.d(TAG, "row: " + String.valueOf(row));
@@ -191,6 +194,9 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         // [END handle not mine press]
     }
 
+    /**
+     * Method called when user long presses on a block.
+     */
     @Override
     public void onBlockLongPressed(int row, int column, TextView textView, ImageView flagImgView) {
         if (flagVisible[row][column]) {
@@ -206,6 +212,9 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         }
     }
 
+    /**
+     * Method called when user on new game button.
+     */
     @Override
     public void onNewGameBtnPressed() {
         // New game started
