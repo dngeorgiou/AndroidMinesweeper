@@ -30,10 +30,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     // Reference for minesweeper grid
     private Grid grid;
 
-    // References for game over outcome
-    public static boolean gameOverWin = false;
-    public static boolean gameOverLoss = false;
-
     // Reference for MainFragment
     private MainFragment mainFragment;
 
@@ -64,10 +60,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         // Initialize gridMap with new mine/noMine values
         System.out.println("gridMap");
         grid  = new Grid(rows, mines);
-
-        // Set gameOverLoss and gameOverWin member variables to false
-        gameOverLoss = false;
-        gameOverWin = false;
 
         // Create new instance of MainFragment and set it
         mainFragment = MainFragment.newInstance(grid, rows);
@@ -110,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         grid.setLastColumnClicked(column);
 
         // Set gameOverLoss to true
-        gameOverLoss = true;
+        grid.setGameOverLoss();
 
         // Update UI for gameOverLoss
         mainFragment.updateUIForLoss();
@@ -125,8 +117,8 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
         // Check if user has won
         if (checkGameOverWin()) {
-            // User has won
-            gameOverWin = true;
+            // User has won, set game over win and update UI
+            grid.setGameOverWin();
             mainFragment.updateUIForWin();
             return;
         }

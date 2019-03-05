@@ -69,13 +69,13 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
     private void updateUI(ViewHolder holder, int row, int column) {
 
         // [START handle game over win]
-        if (MainActivity.gameOverWin) {
+        if (mGrid.getGameOverWin()) {
             updateUIForGameOverWin(holder, row, column);
         }
         // [END handle game over win]
 
         // [START handle game over loss]
-        if (MainActivity.gameOverLoss) {
+        if (mGrid.getGameOverLoss()) {
             updateUIForGameOverLoss(holder, row, column);
         }
         // [END handle game over loss]
@@ -240,7 +240,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
      * 4: Flag not set on block
      */
     private boolean allowClick(ViewHolder holder) {
-        return (!MainActivity.gameOverLoss && !MainActivity.gameOverWin &&
+        return (!mGrid.getGameOverLoss() && !mGrid.getGameOverWin() &&
                 !mGrid.getShouldShow()[mCurrentRow][holder.getAdapterPosition()] &&
                 !mGrid.getFlagVisible()[mCurrentRow][holder.getAdapterPosition()]);
     }
@@ -252,7 +252,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
      * 3: Block is not already displayed
      */
     private boolean allowLongClick(ViewHolder holder) {
-        return (!MainActivity.gameOverLoss && !MainActivity.gameOverWin &&
+        return (!mGrid.getGameOverLoss() && !mGrid.getGameOverWin() &&
                 !mGrid.getShouldShow()[mCurrentRow][holder.getAdapterPosition()]);
     }
 
