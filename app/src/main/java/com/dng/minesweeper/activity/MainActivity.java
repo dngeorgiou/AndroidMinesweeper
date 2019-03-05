@@ -34,10 +34,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     public static boolean gameOverWin = false;
     public static boolean gameOverLoss = false;
 
-    // References for last blocked clicked
-    public static int lastClickedRow;
-    public static int lastClickedColumn;
-
     // Reference for MainFragment
     private MainFragment mainFragment;
 
@@ -109,14 +105,9 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
      * Method updates variables when user pressed on block which contains a mine.
      */
     private void handleBlockWithMine(int row, int column) {
-        /*
-         * Setting row/column in MainActivity.java is a hack fix for issue of new HorizontalListAdapter
-         * object being created (from within VerticalListAdapter) every time the UI is updated, which
-         * then re-initializes member variables of HorizontalListAdapter, so can't set row/column from
-         * within it.
-         */
-        lastClickedRow = row;
-        lastClickedColumn = column;
+        // Set last block clicked by setting last row and column clicked
+        grid.setLastRowClicked(row);
+        grid.setLastColumnClicked(column);
 
         // Set gameOverLoss to true
         gameOverLoss = true;

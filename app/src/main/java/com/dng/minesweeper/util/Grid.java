@@ -20,6 +20,8 @@ public class Grid implements Serializable {
     private final int[][] surroundingMines;
     private boolean[][] shouldShow;
     private boolean[][] flagVisible;
+    private int lastRowClicked;
+    private int lastColumnClicked;
 
 
     public Grid(int rows, int mines) {
@@ -53,6 +55,14 @@ public class Grid implements Serializable {
         return flagVisible;
     }
 
+    public int getLastRowClicked() {
+        return  lastRowClicked;
+    }
+
+    public int getLastColumnClicked() {
+        return lastColumnClicked;
+    }
+
     // Public setters
     public void setShouldShow(int rowClicked, int columnClicked) {
         shouldShow = updateShouldShow(rowClicked, columnClicked);
@@ -60,6 +70,14 @@ public class Grid implements Serializable {
 
     public void setFlagVisible(int rowLongClicked, int columnLongClicked) {
         flagVisible = updateFlagVisible(rowLongClicked, columnLongClicked);
+    }
+
+    public void setLastRowClicked(int rowClicked) {
+        lastRowClicked = rowClicked;
+    }
+
+    public void setLastColumnClicked(int columnClicked) {
+        lastColumnClicked = columnClicked;
     }
 
     // [START initialization for Minesweeper grid]

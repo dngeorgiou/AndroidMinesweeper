@@ -155,7 +155,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
      * returns false otherwise
      */
     private boolean isLosingBlock(int row, int column) {
-        return (row == MainActivity.lastClickedRow && column == MainActivity.lastClickedColumn);
+        return (row == mGrid.getLastRowClicked() && column == mGrid.getLastColumnClicked());
     }
 
     private void setBackgroundColor(ImageView imageView, int colorID) {
