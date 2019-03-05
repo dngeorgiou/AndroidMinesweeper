@@ -28,13 +28,20 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
     private MainFragment mainFragment;
 
+    // References for minesweeper grid
     private Grid grid = new Grid();
-    public static int[][] gridMap;
-    public static int[][] surroundingMap;
+    public static int[][] gridMap;          // Contains 0 or 1 for NO_MINE or MINE
+    public static int[][] surroundingMap;   // Contains number of mines surrounding block
+
+    // References for UI state
     public static boolean[][] shouldShow;
     public static boolean[][] flagVisible;
+
+    // References for game over outcome
     public static boolean gameOverWin = false;
     public static boolean gameOverLoss = false;
+
+    // References for last blocked clicked
     public static int lastClickedRow;
     public static int lastClickedColumn;
 
