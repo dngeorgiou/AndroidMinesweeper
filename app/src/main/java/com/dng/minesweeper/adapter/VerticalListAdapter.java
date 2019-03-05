@@ -59,17 +59,13 @@ public class VerticalListAdapter extends RecyclerView.Adapter<VerticalListAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        View mView;
-
+        private View mView;
         private RecyclerView mRecyclerView;
 
         private ViewHolder(View itemView) {
             super(itemView);
-
             mView = itemView;
-
             mRecyclerView = mView.findViewById(R.id.vertical_recycler_view_horizRecyclerView);
-
         }
     }
 
