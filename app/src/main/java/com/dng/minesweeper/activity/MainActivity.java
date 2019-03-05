@@ -21,12 +21,13 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
     private static final String TAG = "MainActivity";
 
+
     // number of rows (also number of columns)
     private static final int rows = 8;
+
     // number of mines in grid matrix
     private static final int mines = rows*rows/6;
 
-    private MainFragment mainFragment;
 
     // References for minesweeper grid
     private Grid grid = new Grid();
@@ -45,6 +46,10 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     public static int lastClickedRow;
     public static int lastClickedColumn;
 
+    // Reference for MainFragment
+    private MainFragment mainFragment;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,14 +63,21 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         setFragment(mainFragment);
     }
 
+    /**
+     * Method takes in a fragment as a parameter and replaces MainActivity.java's container view with
+     * it.
+     */
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.activity_main_frameLayout, fragment);
         fragmentTransaction.commit();
     }
 
+    /**
+     * Method re-initializes game variables.
+     */
     private void initializeForNewGame() {
-        // Initialize gridMap with mine/noMine values
+        // Initialize gridMap with new mine/noMine values
         System.out.println("gridMap");
         gridMap = grid.initializeGrid(rows, mines);
 
@@ -80,10 +92,14 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         // Initialize flagVisible, which is used to determine setting visibility of textView/imgView
         // when user long clicks on a block
         flagVisible = new boolean[rows][rows];
+
+        // Set gameOverLoss and gameOverWin member variables to false
+        gameOverLoss = false;
+        gameOverWin = false;
     }
 
     /**
-     * Method checks if user has won
+     * Method checks if user has won.
      * Win condition: All blocks not containing a mine have been uncovered.
      */
     private boolean checkGameOverWin() {
@@ -103,10 +119,52 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     }
 
     /**
-     * Method returns true if block contains a mine, and returns false otherwise
+     * Method returns true if block contains a mine, and returns false otherwise.
      */
     private boolean blockContainsMine(int row, int column) {
         return (gridMap[row][column] == Grid.MINE_VALUE);
+    }
+
+    /**
+     * Method updates variables when user pressed on block which contains a mine.
+     */
+    private void handleBlockWithMine(int row, int column) {
+        /*
+         * Setting row/column in MainActivity.java is a hack fix for issue of new HorizontalListAdapter
+         * object being created (from within VerticalListAdapter) every time the UI is updated, which
+         * then re-initializes member variables of HorizontalListAdapter, so can't set row/column from
+         * within it.
+         */
+        lastClickedRow = row;
+        lastClickedColumn = column;
+
+        // Set gameOverLoss to true
+        gameOverLoss = true;
+
+        // Update UI for gameOverLoss
+        mainFragment.updateUIForLoss();
+    }
+
+    /**
+     * Method updates variables when user pressed on block not containing a mine.
+     */
+    private void handleBlockNoMine(int row, int column) {
+        // Show last pressed block
+        shouldShow[row][column] = true;
+        
+        // Show surrounding blocks which contain 0 surrounding mines and the blocks immediately surrounding those
+        shouldShow = grid.updateShouldShow(shouldShow, surroundingMap, flagVisible, row, column);
+
+        // Check if user has won
+        if (checkGameOverWin()) {
+            // User has won
+            gameOverWin = true;
+            mainFragment.updateUIForWin();
+            return;
+        }
+
+        // Update UI
+        mainFragment.updateUI();
     }
 
     @Override
@@ -118,23 +176,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         if (blockContainsMine(row, column)) {
             // Player pressed on block with a mine; end game and update UI
             Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.MINE_VALUE));
-
-            // Set gameOverLoss to true
-            gameOverLoss = true;
-
-            // [START set row and column of mine clicked]
-            /*
-            * Setting row/column in MainActivity.java is a hack fix for issue of new HorizontalListAdapter
-            * object being created (from within VerticalListAdapter) every time the UI is updated, which
-            * then re-initializes member variables of HorizontalListAdapter, so can't set row/column from
-            * within it.
-             */
-            lastClickedRow = row;
-            lastClickedColumn = column;
-            // [END set row and column of mine clicked]
-
-            // Update UI for gameOverLoss
-            mainFragment.updateUIForLoss();
+            handleBlockWithMine(row, column);
             return;
         }
         // [END handle mine press]
@@ -143,23 +185,10 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         if (!blockContainsMine(row, column)) {
             // Player pressed on block without a mine; update UI
             Log.d(TAG, "MINE_VALUE: " + String.valueOf(Grid.NO_MINE_VALUE));
-            shouldShow[row][column] = true;
-            shouldShow = grid.updateShouldShow(shouldShow, surroundingMap, flagVisible, row, column);
-
-            // Check if user has won
-            if (checkGameOverWin()) {
-                // User has won
-                gameOverWin = true;
-                mainFragment.updateUIForWin();
-                return;
-            }
-
-            // Update UI
-            mainFragment.updateUI();
+            handleBlockNoMine(row, column);
             return;
         }
         // [END handle not mine press]
-
     }
 
     @Override
@@ -179,9 +208,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
     @Override
     public void onNewGameBtnPressed() {
-        // New game started, set gameOverLoss and gameOverWin member variables to false
-        gameOverLoss = false;
-        gameOverWin = false;
+        // New game started
 
         // Reset member variables for new game
         initializeForNewGame();
