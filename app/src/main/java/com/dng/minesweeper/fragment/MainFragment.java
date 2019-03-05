@@ -52,8 +52,7 @@ public class MainFragment extends Fragment {
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
+     * Create a new instance of fragment using the provided parameters.
      *
      * @param rows Parameter 1.
      * @return A new instance of fragment MainFragment.
@@ -114,6 +113,12 @@ public class MainFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
     public void updateUI() {
         Log.d(TAG, "updateUI");
         verticalListAdapter.notifyDataSetChanged();
@@ -135,12 +140,6 @@ public class MainFragment extends Fragment {
     public void updateUIForNewGame() {
         mNewGameImgBtn.setBackgroundResource(R.drawable.new_game_from_playing_selector);
         updateUI();
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
 
     /**
