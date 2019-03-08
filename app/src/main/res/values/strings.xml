@@ -18,4 +18,7 @@
 
     <!--fragment_main.xml-->
     <string name="fragment_main_winTextView_text">YOU WIN!! CONGRATULATIONS!!</string>
+    
+    <!--AdMob-->
+    <string name="admob_app_id">ca-app-pub-8900786168887522~5772693282</string>
 </resources>
