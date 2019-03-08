@@ -13,8 +13,10 @@ import android.widget.TextView;
 import com.dng.minesweeper.R;
 import com.dng.minesweeper.fragment.MainFragment;
 import com.dng.minesweeper.util.Grid;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
 import java.util.HashMap;
@@ -36,8 +38,9 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     // Reference for MainFragment
     private MainFragment mainFragment;
 
-    // Reference for AdView
+    // References for AdViews
     private AdView mAdView;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +50,19 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         // Initialize MobileAds (AdMob)
         MobileAds.initialize(this, getResources().getString(R.string.admob_app_id));
 
-        // Setup AdView
+        // [START setup AdViews]
+        // Setup banner ad
         mAdView = findViewById(R.id.activity_main_adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        // Setup interstitial ad
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        // Load an interstitial ad
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        setupAdListener(mInterstitialAd);
+        // [END setup AdViews]
 
         // Set member variables for new game
         initializeForNewGame();
@@ -64,6 +76,44 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.activity_main_frameLayout, fragment);
         fragmentTransaction.commit();
+    }
+
+    private void setupAdListener(InterstitialAd interstitialAd) {
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+                Log.d(TAG,"onAdLoaded");
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+                Log.d(TAG,"onAdFailedToLoad");
+
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when the ad is displayed.
+                Log.d(TAG,"onAdOpened");
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+                Log.d(TAG,"onAdLeftApplication");
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when the interstitial ad is closed.
+                Log.d(TAG,"onAdClosed");
+
+//                // Load the next interstitial.
+//                mInterstitialAd.loadAd(new AdRequest.Builder().build());
+            }
+        });
     }
 
     /**
@@ -191,6 +241,14 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
      */
     @Override
     public void onNewGameBtnPressed() {
+
+        // Show interstitial ad
+        if (mInterstitialAd.isLoaded()) {
+            mInterstitialAd.show();
+        } else {
+            Log.d("TAG", "The interstitial wasn't loaded yet.");
+        }
+
         // New game started, initialize new game
         initializeForNewGame();
     }
