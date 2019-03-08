@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.dng.minesweeper.R;
 import com.dng.minesweeper.fragment.MainFragment;
 import com.dng.minesweeper.util.Grid;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import java.util.HashMap;
@@ -34,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     // Reference for MainFragment
     private MainFragment mainFragment;
 
+    // Reference for AdView
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,11 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
         // Initialize MobileAds (AdMob)
         MobileAds.initialize(this, getResources().getString(R.string.admob_app_id));
+
+        // Setup AdView
+        mAdView = findViewById(R.id.activity_main_adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         // Set member variables for new game
         initializeForNewGame();

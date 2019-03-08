@@ -38,12 +38,11 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/fragment_main_vertRecyclerView"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/fragment_main_linLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintEnd_toEndOf="parent">
         </android.support.v7.widget.RecyclerView>
         <!--end vertical recycler view-->
 
