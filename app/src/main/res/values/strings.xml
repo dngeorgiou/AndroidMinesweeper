@@ -22,5 +22,6 @@
     <!--AdMob-->
     <string name="admob_app_id">ca-app-pub-8900786168887522~5772693282</string>
     <string name="admob_unit_id">ca-app-pub-8900786168887522/7095058402</string>
+    <string name="admob_interstitial_unit_id">ca-app-pub-8900786168887522/9793320032</string>
     <string name="admob_test_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 </resources>
