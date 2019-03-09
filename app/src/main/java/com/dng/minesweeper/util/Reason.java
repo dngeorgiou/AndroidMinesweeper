@@ -5,18 +5,24 @@ package com.dng.minesweeper.util;
  * is for a game over win or for a game over loss.
  */
 public class Reason {
-    public static final String REASON_WIN = "reasonWin";
-    public static final String REASON_LOSS = "reasonLoss";
+    protected static final String REASON_WIN = "reasonWin";
+    protected static final String REASON_LOSS = "reasonLoss";
 
-    private final String reason;
+    private final Grid grid;
 
     // Constructor
-    public Reason(String reason) {
-        this.reason = reason;
+    public Reason(Grid grid) {
+        this.grid = grid;
     }
 
     public String getReason() {
-        return reason;
+        if (grid.getGameOverWin()) {
+            return Reason.REASON_WIN;
+        } else if (grid.getGameOverLoss()) {
+            return Reason.REASON_LOSS;
+        } else {
+            return null;
+        }
     }
 
 }

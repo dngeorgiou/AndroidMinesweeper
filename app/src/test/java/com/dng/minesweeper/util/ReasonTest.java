@@ -1,6 +1,7 @@
 package com.dng.minesweeper.util;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -8,20 +9,28 @@ import static org.junit.Assert.*;
 public class ReasonTest {
 
     private Reason reason;
+    private Grid grid;
 
     @Test
     public void getReason() {
         // Test REASON_WIN case
-        reason = new Reason(Reason.REASON_WIN);
-        assertEquals(Reason.REASON_WIN, reason.getReason());
+        String expWin = Reason.REASON_WIN;
+        grid = new Grid(4, 4);
+        grid.setGameOverWin();
+        reason = new Reason(grid);
+        assertEquals(expWin, reason.getReason());
 
         // Test REASON_LOSS case
-        reason = new Reason(Reason.REASON_LOSS);
-        assertEquals(Reason.REASON_LOSS, reason.getReason());
+        String expLoss = Reason.REASON_LOSS;
+        grid = new Grid(4, 4);
+        grid.setGameOverLoss();
+        reason = new Reason(grid);
+        assertEquals(expLoss, reason.getReason());
     }
 
     @After
     public void tearDown() {
         reason = null;
+        grid = null;
     }
 }
