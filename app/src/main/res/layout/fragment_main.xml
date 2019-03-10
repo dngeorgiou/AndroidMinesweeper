@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--[START reset/newGame buttons layout]-->
-        <LinearLayout
-            android:id="@+id/fragment_main_linLayout"
+        <!--[START status info layout]-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/fragment_main_constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -23,16 +23,42 @@
             android:background="#C0C0C0"
             android:gravity="center">
 
+            <ImageView
+                android:id="@+id/fragment_main_bombSevenSegImgView"
+                android:layout_width="75dp"
+                android:layout_height="50dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_margin="8dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/ic_seven_seg"/>
+
             <ImageButton
                 android:id="@+id/fragment_main_newGameImgBtn"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_margin="8dp"
                 android:scaleType="centerCrop"
                 android:background="@drawable/new_game_from_playing_selector"/>
 
-        </LinearLayout>
-        <!--[END reset/newGame buttons layout]-->
+            <ImageView
+                android:id="@+id/fragment_main_timeSevenSegImgView"
+                android:layout_width="75dp"
+                android:layout_height="50dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_margin="8dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/ic_seven_seg"/>
+
+        </android.support.constraint.ConstraintLayout>
+        <!--[END status info layout]-->
 
         <!--start vertical recycler view-->
         <android.support.v7.widget.RecyclerView
@@ -40,7 +66,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_main_linLayout"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_main_constraintLayout"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
         </android.support.v7.widget.RecyclerView>

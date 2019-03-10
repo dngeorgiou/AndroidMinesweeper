@@ -3,6 +3,7 @@ package com.dng.minesweeper.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ import com.dng.minesweeper.activity.MainActivity;
 import com.dng.minesweeper.adapter.HorizontalListAdapter;
 import com.dng.minesweeper.adapter.VerticalListAdapter;
 import com.dng.minesweeper.util.Grid;
+import com.dng.minesweeper.util.SevenSeg;
 
 import java.util.HashMap;
 
@@ -50,6 +52,12 @@ public class MainFragment extends Fragment {
 
     private Context mContext;
     private OnMainFragmentListener mListener;
+
+    private ImageView mTimerImgView;
+    private CountDownTimer timer;
+    private SevenSeg sevenSeg;
+    private boolean gameStarted = false;
+    private int count = 0;
 
     public MainFragment() {
         // Required empty public constructor
@@ -117,6 +125,13 @@ public class MainFragment extends Fragment {
             }
         });
 
+        // Setup timer ImageView
+        mTimerImgView = view.findViewById(R.id.fragment_main_timeSevenSegImgView);
+        sevenSeg = new SevenSeg(count);
+        int timerDrawableInt = sevenSeg.getDrawableResourceInt();
+        mTimerImgView.setBackgroundResource(timerDrawableInt);
+        handleTimer();
+
         return view;
     }
 
@@ -126,21 +141,51 @@ public class MainFragment extends Fragment {
         mListener = null;
     }
 
+    private void handleTimer() {
+        timer = new CountDownTimer(999000, 1000) {
+            @Override
+            public void onTick(long l) {
+                count = count + 1;
+                sevenSeg = new SevenSeg(count);
+                int timerDrawableInt = sevenSeg.getDrawableResourceInt();
+                mTimerImgView.setBackgroundResource(timerDrawableInt);
+                Log.d(TAG, "count: " + count);
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        };
+    }
+
     public void updateUI() {
         Log.d(TAG, "updateUI");
         verticalListAdapter.notifyDataSetChanged();
+
+        // Start timer when user first clicks on block
+        if (!gameStarted) {
+            gameStarted = true;
+            timer.start();
+        }
     }
 
     // Update newGameImgBtn to display ic_face_win.png
     public void updateUIForWin() {
         mNewGameImgBtn.setBackgroundResource(R.drawable.new_game_from_win_selector);
         updateUI();
+
+        // Stop timer when game is over
+        timer.cancel();
     }
 
     // Update newGameImgBtn to display ic_face_loss.png
     public void updateUIForLoss() {
         mNewGameImgBtn.setBackgroundResource(R.drawable.new_game_from_loss_selector);
         updateUI();
+
+        // Stop timer when game is over
+        timer.cancel();
     }
 
     /**
