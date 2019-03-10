@@ -101,6 +101,11 @@ public class SevenSeg {
         }
 
         if (count == 17) {
+            drawableResourceInt = R.drawable.ic_seven_seg_seventeen;
+            return;
+        }
+
+        if (count == 18) {
             drawableResourceInt = R.drawable.ic_seven_seg_eighteen;
             return;
         }
