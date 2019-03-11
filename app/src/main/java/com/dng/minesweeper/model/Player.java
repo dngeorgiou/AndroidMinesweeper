@@ -3,9 +3,9 @@ package com.dng.minesweeper.model;
 public class Player {
 
     private String displayName;
-    private int score;
+    private long score;
 
-    public Player(String displayName, int score) {
+    public Player(String displayName, long score) {
         this.displayName = displayName;
         this.score = score;
     }
@@ -18,7 +18,7 @@ public class Player {
         this.displayName = displayName;
     }
 
-    public int getScore() {
+    public long getScore() {
         return score;
     }
 

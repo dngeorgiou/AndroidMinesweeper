@@ -4,12 +4,20 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.dng.minesweeper.R;
+import com.dng.minesweeper.adapter.HighscoresListAdapter;
+import com.dng.minesweeper.model.Player;
+import com.dng.minesweeper.service.DataService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +31,7 @@ public class HighscoresFragment extends Fragment {
 
     private static final String TAG = "HighscoresFragment";
 
+    private Context mContext;
     private OnHighscoresFragmentListener mListener;
 
     public HighscoresFragment() {
@@ -43,6 +52,7 @@ public class HighscoresFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (context instanceof OnHighscoresFragmentListener) {
+            mContext = context;
             mListener = (OnHighscoresFragmentListener) context;
         } else {
             throw new RuntimeException(context.toString()
@@ -54,7 +64,19 @@ public class HighscoresFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_highscores, container, false);
+        final View view = inflater.inflate(R.layout.fragment_highscores, container, false);
+
+        DataService.instance.getHighscores(new DataService.HighScoresInterface() {
+            @Override
+            public void getHighScoresComplete(List<Player> playerList) {
+                HighscoresListAdapter highscoresListAdapter = new HighscoresListAdapter(mContext, mListener, playerList);
+
+                RecyclerView mRecyclerView = view.findViewById(R.id.fragment_highscores_recyclerView);
+                mRecyclerView.setHasFixedSize(true);
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+                mRecyclerView.setAdapter(highscoresListAdapter);
+            }
+        });
 
         ImageButton mBackImgBtn = view.findViewById(R.id.fragment_highscores_backImgBtn);
         mBackImgBtn.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +94,18 @@ public class HighscoresFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+//    private List<Player> getHighscores() {
+//        final List<Player> playersList = new ArrayList<>();
+//        DataService.instance.getHighscores(new DataService.HighScoresInterface() {
+//            @Override
+//            public void getHighScoresComplete(List<Player> playerList) {
+//                playersList.addAll(playerList);
+//            }
+//        });
+//
+//
+//    }
 
     /**
      * This interface must be implemented by activities that contain this

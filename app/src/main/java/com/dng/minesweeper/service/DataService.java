@@ -53,7 +53,7 @@ public class DataService {
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
                     String displayName = (String) snapshot.get(Constants.Highscore.NAME);
-                    int score = (int) snapshot.get(Constants.Highscore.SCORE);
+                    long score = (long) snapshot.get(Constants.Highscore.SCORE);
                     Player player = new Player(displayName, score);
                     playerList.add(player);
                 }
