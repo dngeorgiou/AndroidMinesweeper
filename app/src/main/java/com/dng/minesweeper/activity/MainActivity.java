@@ -1,6 +1,7 @@
 package com.dng.minesweeper.activity;
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import com.dng.minesweeper.fragment.MainFragment;
 import com.dng.minesweeper.util.Grid;
 import com.dng.minesweeper.util.InterstitialCounter;
 import com.dng.minesweeper.util.Reason;
+import com.dng.minesweeper.util.SevenSeg;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -49,6 +51,11 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     // Reference for InterstitialCounter
     private InterstitialCounter mInterstitialCounter;
 
+    private CountDownTimer timer;
+    private SevenSeg sevenSeg;
+    private boolean gameStarted = false;
+    private int count = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +80,9 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
         // Create InterstitialCounter object
         mInterstitialCounter = new InterstitialCounter();
+
+        // Setup timer
+        setupTimer();
 
         // Set member variables for new game
         initializeForNewGame();
@@ -109,6 +119,28 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         // Create new instance of MainFragment and set it
         mainFragment = MainFragment.newInstance(grid, rows, mines);
         setFragment(mainFragment);
+
+        // Setup timer
+        count = 0;
+        timer.cancel();
+        gameStarted = false;
+    }
+
+    private void setupTimer() {
+        // Setup timer to run for 999 seconds with 1 second intervals
+        timer = new CountDownTimer(999000, 1000) {
+            @Override
+            public void onTick(long l) {
+                count = count + 1;
+                mainFragment.updateTimer(count);
+                Log.d(TAG, "count: " + count);
+            }
+
+            @Override
+            public void onFinish() {
+                Log.d(TAG, "timer finished");
+            }
+        };
     }
 
     /**
@@ -142,6 +174,9 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
      * Method updates variables when user pressed on block which contains a mine.
      */
     private void handleBlockWithMine(int row, int column) {
+        // Stop timer when game is over
+        timer.cancel();
+
         // Set last block clicked
         grid.setLastBlockClicked(row, column);
 
@@ -161,9 +196,13 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
         // Check if user has won
         if (checkGameOverWin()) {
+            // Stop timer when game is over
+            timer.cancel();
+
             // User has won, set game over win and update UI
             grid.setGameOverWin();
             mainFragment.updateUIForWin();
+
             return;
         }
 
@@ -246,6 +285,12 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     public void onBlockPressed(int row, int column, TextView textView, ImageView mineImgView) {
         Log.d(TAG, "row: " + String.valueOf(row));
         Log.d(TAG, "column: " + String.valueOf(column));
+
+        // Start timer when user first clicks on block
+        if (!gameStarted) {
+            gameStarted = true;
+            timer.start();
+        }
 
         // [START handle mine press]
         if (blockContainsMine(row, column)) {

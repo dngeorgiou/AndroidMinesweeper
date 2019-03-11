@@ -56,12 +56,7 @@ public class MainFragment extends Fragment {
     private OnMainFragmentListener mListener;
 
     private ImageView mMinesImgView;
-
     private ImageView mTimerImgView;
-    private CountDownTimer timer;
-    private SevenSeg sevenSeg;
-    private boolean gameStarted = false;
-    private int count = 0;
 
     public MainFragment() {
         // Required empty public constructor
@@ -138,7 +133,9 @@ public class MainFragment extends Fragment {
 
         // Setup timer ImageView
         mTimerImgView = view.findViewById(R.id.fragment_main_timeSevenSegImgView);
-        setupTimer();
+
+        // Setup timer display to default to '000'
+        updateTimer(0);
 
         return view;
     }
@@ -150,6 +147,8 @@ public class MainFragment extends Fragment {
     }
 
     public void setupMinesCountView(boolean initialSetup, boolean gameOverWin, boolean plusFlag) {
+        SevenSeg sevenSeg;
+
         if (initialSetup) {
             // Setup mines display to total mines on grid
             sevenSeg = new SevenSeg(mMines);
@@ -181,39 +180,15 @@ public class MainFragment extends Fragment {
 
     }
 
-    private void setupTimer() {
-        // Setup timer display to default to '000'
-        sevenSeg = new SevenSeg(count);
+    public void updateTimer(int count) {
+        SevenSeg sevenSeg = new SevenSeg(count);
         int timerDrawableInt = sevenSeg.getDrawableResourceInt();
         mTimerImgView.setBackgroundResource(timerDrawableInt);
-
-        // Setup timer to run for 999 seconds with 1 second intervals
-        timer = new CountDownTimer(999000, 1000) {
-            @Override
-            public void onTick(long l) {
-                count = count + 1;
-                sevenSeg = new SevenSeg(count);
-                int timerDrawableInt = sevenSeg.getDrawableResourceInt();
-                mTimerImgView.setBackgroundResource(timerDrawableInt);
-                Log.d(TAG, "count: " + count);
-            }
-
-            @Override
-            public void onFinish() {
-                Log.d(TAG, "timer finished");
-            }
-        };
     }
 
     public void updateUI() {
         Log.d(TAG, "updateUI");
         verticalListAdapter.notifyDataSetChanged();
-
-        // Start timer when user first clicks on block
-        if (!gameStarted) {
-            gameStarted = true;
-            timer.start();
-        }
     }
 
     // Update newGameImgBtn to display ic_face_win.png
@@ -223,18 +198,12 @@ public class MainFragment extends Fragment {
 
         // Update mines ImageView to display 0 mine count
         setupMinesCountView(false, true, false);
-
-        // Stop timer when game is over
-        timer.cancel();
     }
 
     // Update newGameImgBtn to display ic_face_loss.png
     public void updateUIForLoss() {
         mNewGameImgBtn.setBackgroundResource(R.drawable.new_game_from_loss_selector);
         updateUI();
-
-        // Stop timer when game is over
-        timer.cancel();
     }
 
     /**
