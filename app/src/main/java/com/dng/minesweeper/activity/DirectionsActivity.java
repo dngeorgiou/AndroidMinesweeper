@@ -29,5 +29,8 @@ public class DirectionsActivity extends AppCompatActivity implements DirectionsF
         fragmentTransaction.commit();
     }
 
-
+    @Override
+    public void onBackImgBtnPressed() {
+        finish();
+    }
 }

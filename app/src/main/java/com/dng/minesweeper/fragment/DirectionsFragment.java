@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.dng.minesweeper.R;
 
@@ -43,7 +44,17 @@ public class DirectionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_directions, container, false);
+        View view = inflater.inflate(R.layout.fragment_directions, container, false);
+
+        ImageButton mBackImgBtn = view.findViewById(R.id.fragment_directions_backImgBtn);
+        mBackImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onBackImgBtnPressed();
+            }
+        });
+
+        return view;
     }
 
     @Override
@@ -74,6 +85,6 @@ public class DirectionsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnDirectionsFragmentListener {
-
+        void onBackImgBtnPressed();
     }
 }
