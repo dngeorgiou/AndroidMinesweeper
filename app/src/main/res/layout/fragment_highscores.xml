@@ -56,6 +56,19 @@
         </android.support.v7.widget.RecyclerView>
         <!--end vertical recycler view-->
 
+        <ProgressBar
+            android:id="@+id/fragment_highscores_progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateOnly="true"
+            android:indeterminateTint="@android:color/darker_gray"
+            android:keepScreenOn="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="invisible"/>
+
     </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>

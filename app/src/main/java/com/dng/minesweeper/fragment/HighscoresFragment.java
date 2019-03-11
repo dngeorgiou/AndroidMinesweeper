@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
 import com.dng.minesweeper.R;
 import com.dng.minesweeper.adapter.HighscoresListAdapter;
@@ -66,9 +67,13 @@ public class HighscoresFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_highscores, container, false);
 
+        final ProgressBar mProgressBar = view.findViewById(R.id.fragment_highscores_progressBar);
+        mProgressBar.setVisibility(View.VISIBLE);
+
         DataService.instance.getHighscores(new DataService.HighScoresInterface() {
             @Override
             public void getHighScoresComplete(List<Player> playerList) {
+                mProgressBar.setVisibility(View.INVISIBLE);
                 HighscoresListAdapter highscoresListAdapter = new HighscoresListAdapter(mContext, mListener, playerList);
 
                 RecyclerView mRecyclerView = view.findViewById(R.id.fragment_highscores_recyclerView);
