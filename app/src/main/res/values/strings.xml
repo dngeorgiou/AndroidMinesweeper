@@ -18,9 +18,19 @@
 
     <!--activity_main.xml-->
     <string name="activity_main_highscores_btn_text">View Highscores</string>
+    <string name="activity_main_directionsBtn_text">DIRECTIONS</string>
 
     <!--fragment_highscores.xml-->
     <string name="highscores">HIGHSCORES</string>
+
+    <!--fragment_directions.xml-->
+    <string name="fragment_directions_headerText_text">DIRECTIONS</string>
+    <string name="fragment_directions_objectiveHeader_text">Objective:</string>
+    <string name="fragment_directions_objectiveText_text">Uncover all blocks not containing a mine.
+        The quicker you complete this, the better your score.</string>
+    <string name="fragment_directions_howToPlayHeader_text">How to play:</string>
+    <string name="fragment_directions_howToPlayClickText_text">Click on a block to uncover it.</string>
+    <string name="fragment_directions_howToPlayLongClickText_text">Long click on a block to flag it.</string>
 
     <!--fragment_post_highscore.xml-->
     <string name="fragment_post_highscore_header_textView_text">Post Highscore</string>
