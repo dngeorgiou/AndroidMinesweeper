@@ -28,4 +28,9 @@ public class HighscoresActivity extends AppCompatActivity implements HighscoresF
         fragmentTransaction.replace(R.id.activity_highscores_frameLayout, fragment);
         fragmentTransaction.commit();
     }
+
+    @Override
+    public void onBackImgBtnPressed() {
+        finish();
+    }
 }

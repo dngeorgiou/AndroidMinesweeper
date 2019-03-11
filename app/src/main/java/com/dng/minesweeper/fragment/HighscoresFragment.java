@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.dng.minesweeper.R;
 
@@ -55,6 +56,14 @@ public class HighscoresFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_highscores, container, false);
 
+        ImageButton mBackImgBtn = view.findViewById(R.id.fragment_highscores_backImgBtn);
+        mBackImgBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onBackImgBtnPressed();
+            }
+        });
+
         return view;
     }
 
@@ -75,5 +84,6 @@ public class HighscoresFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnHighscoresFragmentListener {
+        void onBackImgBtnPressed();
     }
 }
