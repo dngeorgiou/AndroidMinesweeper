@@ -265,13 +265,13 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
             textView.setVisibility(View.VISIBLE);
             flagImgView.setVisibility(View.INVISIBLE);
             // Handle updating mines count ImageView
-            mainFragment.setupMinesCountView(false,false);
+            mainFragment.setupMinesCountView(false, false,false);
         } else {
             // Hide TextView, show ImageView, set flagVisible of block to true
             textView.setVisibility(View.INVISIBLE);
             flagImgView.setVisibility(View.VISIBLE);
             // Handle updating mines count ImageView
-            mainFragment.setupMinesCountView(false,true);
+            mainFragment.setupMinesCountView(false, false,true);
         }
 
         // Update flagVisible map

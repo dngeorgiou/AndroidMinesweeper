@@ -134,7 +134,7 @@ public class MainFragment extends Fragment {
 
         // Setup bombs ImageView
         mMinesImgView = view.findViewById(R.id.fragment_main_minesSevenSegImgView);
-        setupMinesCountView(true, false);
+        setupMinesCountView(true, false, false);
 
         // Setup timer ImageView
         mTimerImgView = view.findViewById(R.id.fragment_main_timeSevenSegImgView);
@@ -149,10 +149,18 @@ public class MainFragment extends Fragment {
         mListener = null;
     }
 
-    public void setupMinesCountView(boolean initialSetup, boolean plusFlag) {
+    public void setupMinesCountView(boolean initialSetup, boolean gameOverWin, boolean plusFlag) {
         if (initialSetup) {
             // Setup mines display to total mines on grid
             sevenSeg = new SevenSeg(mMines);
+            int minesDrawableInt = sevenSeg.getDrawableResourceInt();
+            mMinesImgView.setBackgroundResource(minesDrawableInt);
+            return;
+        }
+
+        if (gameOverWin) {
+            // Setup mines display to 0
+            sevenSeg = new SevenSeg(0);
             int minesDrawableInt = sevenSeg.getDrawableResourceInt();
             mMinesImgView.setBackgroundResource(minesDrawableInt);
             return;
@@ -212,6 +220,9 @@ public class MainFragment extends Fragment {
     public void updateUIForWin() {
         mNewGameImgBtn.setBackgroundResource(R.drawable.new_game_from_win_selector);
         updateUI();
+
+        // Update mines ImageView to display 0 mine count
+        setupMinesCountView(false, true, false);
 
         // Stop timer when game is over
         timer.cancel();
