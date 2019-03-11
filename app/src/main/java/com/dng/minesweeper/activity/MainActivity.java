@@ -93,6 +93,15 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         // Set member variables for new game
         initializeForNewGame();
 
+        Button mDirectionsBtn = findViewById(R.id.activity_main_directionsBtn);
+        mDirectionsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, DirectionsActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Setup highscores button
         Button mViewHighscoresBtn = findViewById(R.id.activity_main_highscoresBtn);
         mViewHighscoresBtn.setOnClickListener(new View.OnClickListener() {
