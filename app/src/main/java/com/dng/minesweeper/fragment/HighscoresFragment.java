@@ -95,18 +95,6 @@ public class HighscoresFragment extends Fragment {
         mListener = null;
     }
 
-//    private List<Player> getHighscores() {
-//        final List<Player> playersList = new ArrayList<>();
-//        DataService.instance.getHighscores(new DataService.HighScoresInterface() {
-//            @Override
-//            public void getHighScoresComplete(List<Player> playerList) {
-//                playersList.addAll(playerList);
-//            }
-//        });
-//
-//
-//    }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
