@@ -73,7 +73,7 @@ public class DataService {
     // [END get highscores]
 
     // [START set highscore]
-    public void setHighscore(String displayName, int score) {
+    public void postHighscore(String displayName, long score) {
         Map<String, Object> data = new HashMap<>();
         data.put(Constants.Highscore.NAME, displayName);
         data.put(Constants.Highscore.SCORE, score);
