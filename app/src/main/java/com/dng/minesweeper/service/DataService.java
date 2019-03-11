@@ -10,6 +10,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
@@ -48,7 +49,8 @@ public class DataService {
     public void getHighscores(final HighScoresInterface complete) {
         final List<Player> playerList = new ArrayList<>();
 
-        highscoresCollectionRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        highscoresCollectionRef.orderBy(Constants.Highscore.SCORE, Query.Direction.ASCENDING)
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
