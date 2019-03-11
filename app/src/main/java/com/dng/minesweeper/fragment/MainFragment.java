@@ -127,10 +127,7 @@ public class MainFragment extends Fragment {
 
         // Setup timer ImageView
         mTimerImgView = view.findViewById(R.id.fragment_main_timeSevenSegImgView);
-        sevenSeg = new SevenSeg(count);
-        int timerDrawableInt = sevenSeg.getDrawableResourceInt();
-        mTimerImgView.setBackgroundResource(timerDrawableInt);
-        handleTimer();
+        setupTimer();
 
         return view;
     }
@@ -141,7 +138,13 @@ public class MainFragment extends Fragment {
         mListener = null;
     }
 
-    private void handleTimer() {
+    private void setupTimer() {
+        // Setup timer display to default to '000'
+        sevenSeg = new SevenSeg(count);
+        int timerDrawableInt = sevenSeg.getDrawableResourceInt();
+        mTimerImgView.setBackgroundResource(timerDrawableInt);
+
+        // Setup timer to run for 999 seconds with 1 second intervals
         timer = new CountDownTimer(999000, 1000) {
             @Override
             public void onTick(long l) {
