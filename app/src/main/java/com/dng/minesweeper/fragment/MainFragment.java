@@ -157,7 +157,7 @@ public class MainFragment extends Fragment {
 
             @Override
             public void onFinish() {
-
+                Log.d(TAG, "timer finished");
             }
         };
     }
