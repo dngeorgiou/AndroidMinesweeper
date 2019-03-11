@@ -133,7 +133,7 @@ public class MainFragment extends Fragment {
         });
 
         // Setup bombs ImageView
-        mMinesImgView = view.findViewById(R.id.fragment_main_bombSevenSegImgView);
+        mMinesImgView = view.findViewById(R.id.fragment_main_minesSevenSegImgView);
         setupMinesCountView(true, false);
 
         // Setup timer ImageView
