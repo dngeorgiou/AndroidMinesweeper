@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_minesweeper_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".activity.HighscoresActivity"></activity>
+        <activity android:name=".activity.DirectionsActivity"></activity>
+        <activity android:name=".activity.HighscoresActivity" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
