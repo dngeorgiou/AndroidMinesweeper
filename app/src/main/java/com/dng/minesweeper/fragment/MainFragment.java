@@ -41,9 +41,11 @@ public class MainFragment extends Fragment {
     // the fragment initialization parameters
     private static final String ARG_GRID = "grid";
     private static final String ARG_ROWS = "rows";
+    private static final String ARG_MINES = "mines";
 
     private Grid mGrid;
     private int mRows = 0;
+    private int mMines;
 
     private RecyclerView vertRecyclerView;
     private VerticalListAdapter verticalListAdapter;
@@ -52,6 +54,8 @@ public class MainFragment extends Fragment {
 
     private Context mContext;
     private OnMainFragmentListener mListener;
+
+    private ImageView mMinesImgView;
 
     private ImageView mTimerImgView;
     private CountDownTimer timer;
@@ -68,13 +72,15 @@ public class MainFragment extends Fragment {
      *
      * @param grid Parameter 1.
      * @param rows Parameter 2.
+     * @param mines Parameter 3.
      * @return A new instance of fragment MainFragment.
      */
-    public static MainFragment newInstance(Grid grid, int rows) {
+    public static MainFragment newInstance(Grid grid, int rows, int mines) {
         MainFragment fragment = new MainFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_GRID, grid);
         args.putInt(ARG_ROWS, rows);
+        args.putInt(ARG_MINES, mines);
         fragment.setArguments(args);
         return fragment;
     }
@@ -97,6 +103,7 @@ public class MainFragment extends Fragment {
         if (getArguments() != null) {
             mGrid = (Grid) getArguments().getSerializable(ARG_GRID);
             mRows = getArguments().getInt(ARG_ROWS);
+            mMines = getArguments().getInt(ARG_MINES);
         }
     }
 
@@ -125,6 +132,10 @@ public class MainFragment extends Fragment {
             }
         });
 
+        // Setup bombs ImageView
+        mMinesImgView = view.findViewById(R.id.fragment_main_bombSevenSegImgView);
+        setupMinesCountView(true, false);
+
         // Setup timer ImageView
         mTimerImgView = view.findViewById(R.id.fragment_main_timeSevenSegImgView);
         setupTimer();
@@ -136,6 +147,30 @@ public class MainFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void setupMinesCountView(boolean initialSetup, boolean plusFlag) {
+        if (initialSetup) {
+            // Setup mines display to total mines on grid
+            sevenSeg = new SevenSeg(mMines);
+            int minesDrawableInt = sevenSeg.getDrawableResourceInt();
+            mMinesImgView.setBackgroundResource(minesDrawableInt);
+            return;
+        }
+
+        // Setup mines display to unflagged mines on grid
+        if (plusFlag) {
+            // User flagged block, subtract one mine from current mine count
+            mMines = mMines - 1;
+        } else {
+            // User unflagged block, add one mine to current mine count
+            mMines = mMines + 1;
+        }
+        // Update mine display
+        sevenSeg = new SevenSeg(mMines);
+        int minesDrawableInt = sevenSeg.getDrawableResourceInt();
+        mMinesImgView.setBackgroundResource(minesDrawableInt);
+
     }
 
     private void setupTimer() {

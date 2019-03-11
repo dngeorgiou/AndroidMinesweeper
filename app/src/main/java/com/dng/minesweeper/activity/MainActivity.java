@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         grid  = new Grid(rows, mines);
 
         // Create new instance of MainFragment and set it
-        mainFragment = MainFragment.newInstance(grid, rows);
+        mainFragment = MainFragment.newInstance(grid, rows, mines);
         setFragment(mainFragment);
     }
 
@@ -264,10 +264,14 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
             // Show TextView, hide ImageView, set flagVisible of block to false
             textView.setVisibility(View.VISIBLE);
             flagImgView.setVisibility(View.INVISIBLE);
+            // Handle updating mines count ImageView
+            mainFragment.setupMinesCountView(false,false);
         } else {
             // Hide TextView, show ImageView, set flagVisible of block to true
             textView.setVisibility(View.INVISIBLE);
             flagImgView.setVisibility(View.VISIBLE);
+            // Handle updating mines count ImageView
+            mainFragment.setupMinesCountView(false,true);
         }
 
         // Update flagVisible map

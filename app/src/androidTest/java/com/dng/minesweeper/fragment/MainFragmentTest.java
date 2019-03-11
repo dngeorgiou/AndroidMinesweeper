@@ -26,11 +26,13 @@ public class MainFragmentTest {
 
     private MainActivity mMainActivity = null;
     private Grid mGrid;
+    private int mMines;
 
     @Before
     public void setUp() throws Exception {
         mMainActivity = mMainActivityActivityTestRule.getActivity();
         mGrid = new Grid(8, 8);
+        mMines = 8;
     }
 
     // Test if the fragment is successfully launched
@@ -41,7 +43,7 @@ public class MainFragmentTest {
         assertNotNull(frameLayout);
 
         // Test fragment vertical recycler view is not null
-        MainFragment mainFragment = MainFragment.newInstance(mGrid, 0);
+        MainFragment mainFragment = MainFragment.newInstance(mGrid, 0, mMines);
 
         FragmentTransaction fragmentTransaction = mMainActivity.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(frameLayout.getId(), mainFragment);
@@ -59,5 +61,6 @@ public class MainFragmentTest {
         mMainActivityActivityTestRule = null;
         mMainActivity = null;
         mGrid = null;
+        mMines = 0;
     }
 }
