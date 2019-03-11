@@ -92,7 +92,12 @@ public class PostHighscoreFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 String displayName = mDisplayNameEditText.getText().toString();
-                mListener.onPostBtnPressed(displayName, mScore);
+                if (!displayName.trim().equals("")) {
+                    mListener.onPostBtnPressed(displayName, mScore);
+                    return;
+                }
+
+                mDisplayNameEditText.setError("Name must not be empty");
             }
         });
 
