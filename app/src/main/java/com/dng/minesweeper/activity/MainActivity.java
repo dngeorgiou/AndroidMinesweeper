@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.dng.minesweeper.R;
 import com.dng.minesweeper.fragment.MainFragment;
+import com.dng.minesweeper.fragment.PostHighscoreFragment;
+import com.dng.minesweeper.service.DataService;
 import com.dng.minesweeper.util.Grid;
 import com.dng.minesweeper.util.InterstitialCounter;
 import com.dng.minesweeper.util.Reason;
@@ -28,7 +30,8 @@ import com.google.android.gms.ads.MobileAds;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements MainFragment.OnMainFragmentListener {
+public class MainActivity extends AppCompatActivity implements MainFragment.OnMainFragmentListener,
+        PostHighscoreFragment.OnPostHighscoreFragmentListener {
 
     private static final String TAG = "MainActivity";
 
@@ -43,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
     // Reference for MainFragment
     private MainFragment mainFragment;
+
+    // Reference for PostHighscoreFragment
+    private PostHighscoreFragment postHighscoreFragment;
 
     // References for AdViews
     private AdView mAdView;
@@ -105,6 +111,14 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     private void setFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.activity_main_frameLayout, fragment);
+        fragmentTransaction.commit();
+    }
+
+    private void displayPostHighscoreFragment() {
+        postHighscoreFragment = PostHighscoreFragment.newInstance(count);
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.activity_main_frameLayout, postHighscoreFragment);
         fragmentTransaction.commit();
     }
 
@@ -202,6 +216,9 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
             // User has won, set game over win and update UI
             grid.setGameOverWin();
             mainFragment.updateUIForWin();
+
+            // Display fragment to allow user to post their score
+            displayPostHighscoreFragment();
 
             return;
         }
@@ -346,5 +363,21 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
 
         // New game started, initialize new game
         initializeForNewGame();
+    }
+
+    @Override
+    public void onCloseImgBtnPressed() {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.remove(postHighscoreFragment);
+        fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onPostBtnPressed(String displayName, long score) {
+        // Post highscore to database
+        DataService.instance.postHighscore(displayName, score);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.remove(postHighscoreFragment);
+        fragmentTransaction.commit();
     }
 }

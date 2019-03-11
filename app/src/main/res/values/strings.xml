@@ -22,6 +22,11 @@
     <!--fragment_highscores.xml-->
     <string name="highscores">HIGHSCORES</string>
 
+    <!--fragment_post_highscore.xml-->
+    <string name="fragment_post_highscore_header_textView_text">Post Highscore</string>
+    <string name="fragment_post_highscore_name_editText_hint">Display Name</string>
+    <string name="fragment_post_highscore_postBtn_text">Post!</string>
+
     <!--AdMob-->
     <string name="admob_app_id">ca-app-pub-8900786168887522~5772693282</string>
     <string name="admob_unit_id">ca-app-pub-8900786168887522/7095058402</string>
