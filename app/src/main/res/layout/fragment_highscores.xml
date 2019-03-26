@@ -48,11 +48,12 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/fragment_highscores_recyclerView"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/fragment_highscores_constraintLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
         </android.support.v7.widget.RecyclerView>
         <!--end vertical recycler view-->
 
