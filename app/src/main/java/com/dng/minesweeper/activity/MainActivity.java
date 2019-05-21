@@ -67,25 +67,25 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize MobileAds (AdMob)
-        MobileAds.initialize(this, getResources().getString(R.string.admob_app_id));
+//        // Initialize MobileAds (AdMob)
+//        MobileAds.initialize(this, getResources().getString(R.string.admob_app_id));
+//
+//        // [START setup AdViews]
+//        // Setup banner ad
+//        mAdView = findViewById(R.id.activity_main_adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        mAdView.loadAd(adRequest);
 
-        // [START setup AdViews]
-        // Setup banner ad
-        mAdView = findViewById(R.id.activity_main_adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-        // Setup interstitial ad
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getResources().getString(R.string.admob_interstitial_unit_id));
-        // Load an interstitial ad
-        loadNewInterstitialAd(mInterstitialAd);
-        setupAdListener(mInterstitialAd);
-        // [END setup AdViews]
-
-        // Create InterstitialCounter object
-        mInterstitialCounter = new InterstitialCounter();
+//        // Setup interstitial ad
+//        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId(getResources().getString(R.string.admob_interstitial_unit_id));
+//        // Load an interstitial ad
+//        loadNewInterstitialAd(mInterstitialAd);
+//        setupAdListener(mInterstitialAd);
+//        // [END setup AdViews]
+//
+//        // Create InterstitialCounter object
+//        mInterstitialCounter = new InterstitialCounter();
 
         // Setup timer
         setupTimer();
@@ -239,26 +239,26 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     /**
      * Method handles displaying InterstitialAd.
      */
-    private void handleInterstitialAd() {
-        // Create Reason object
-        Reason mReason = new Reason(grid);
-
-        // Handle when neither gameOverWin nor gameOverLoss is true,
-        // i.e.) user presses new game button when game isn't over
-        if (mReason.getReason() == null) {
-            return;
-        }
-
-        // Check if should show InterstitialAd
-        if (mInterstitialCounter.shouldPresentAd(mReason)) {
-            // Show interstitial ad
-            if (mInterstitialAd.isLoaded()) {
-                mInterstitialAd.show();
-            } else {
-                Log.d("TAG", "The interstitial wasn't loaded yet.");
-            }
-        }
-    }
+//    private void handleInterstitialAd() {
+//        // Create Reason object
+//        Reason mReason = new Reason(grid);
+//
+//        // Handle when neither gameOverWin nor gameOverLoss is true,
+//        // i.e.) user presses new game button when game isn't over
+//        if (mReason.getReason() == null) {
+//            return;
+//        }
+//
+//        // Check if should show InterstitialAd
+//        if (mInterstitialCounter.shouldPresentAd(mReason)) {
+//            // Show interstitial ad
+//            if (mInterstitialAd.isLoaded()) {
+//                mInterstitialAd.show();
+//            } else {
+//                Log.d("TAG", "The interstitial wasn't loaded yet.");
+//            }
+//        }
+//    }
 
     /**
      * Method handles InterstitialAd lifecycle.
@@ -368,7 +368,7 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     public void onNewGameBtnPressed() {
 
         // Handle displaying of InterstitialAd
-        handleInterstitialAd();
+//        handleInterstitialAd();
 
         // New game started, initialize new game
         initializeForNewGame();

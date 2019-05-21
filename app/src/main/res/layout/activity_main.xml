@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/activity_main_highscoresBtn"
-        app:layout_constraintBottom_toTopOf="@+id/activity_main_adView"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:text="@string/activity_main_directionsBtn_text"/>
 
     <Button
@@ -30,21 +30,21 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/activity_main_directionsBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/activity_main_adView"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:text="@string/activity_main_highscores_btn_text"/>
 
-    <!--start AdMob View-->
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/activity_main_adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        ads:layout_constraintStart_toStartOf="parent"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintBottom_toBottomOf="parent"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/admob_unit_id">
-    </com.google.android.gms.ads.AdView>
-    <!--end AdMob View-->
+    <!--&lt;!&ndash;start AdMob View&ndash;&gt;-->
+    <!--<com.google.android.gms.ads.AdView-->
+        <!--xmlns:ads="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/activity_main_adView"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--ads:layout_constraintStart_toStartOf="parent"-->
+        <!--ads:layout_constraintEnd_toEndOf="parent"-->
+        <!--ads:layout_constraintBottom_toBottomOf="parent"-->
+        <!--ads:adSize="BANNER"-->
+        <!--ads:adUnitId="@string/admob_test_unit_id">-->
+    <!--</com.google.android.gms.ads.AdView>-->
+    <!--&lt;!&ndash;end AdMob View&ndash;&gt;-->
 
 </android.support.constraint.ConstraintLayout>
