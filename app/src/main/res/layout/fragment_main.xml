@@ -72,7 +72,12 @@
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/fragment_main_constraintLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/ic_main_background_bottom"
+            android:paddingTop="16.5dp"
+            android:paddingBottom="27dp"
+            android:paddingStart="27dp"
+            android:paddingEnd="27dp">
         </android.support.v7.widget.RecyclerView>
         <!--end vertical recycler view-->
 

@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -185,7 +186,10 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         DisplayMetrics displaymetrics = new DisplayMetrics();
         ((Activity) mContext).getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         // set height and width of block cells equal to width of screen divided by number of block cells in one row
-        int blockwidth = displaymetrics.widthPixels / rows;
+        // Get the screen's density scale
+        final float scale = mContext.getResources().getDisplayMetrics().density;
+        int uiPadding = (int) (54 * scale);     // 29dp padding on left + 29dp padding on right = 50dp
+        int blockwidth = (displaymetrics.widthPixels - uiPadding) / rows;
         holder.mView.getLayoutParams().width = blockwidth;
         holder.mView.getLayoutParams().height = blockwidth;
     }
