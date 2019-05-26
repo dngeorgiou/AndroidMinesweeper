@@ -81,6 +81,44 @@
         </android.support.v7.widget.RecyclerView>
         <!--end vertical recycler view-->
 
+        <LinearLayout
+            android:id="@+id/fragment_main_buttonLinLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_main_vertRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:weightSum="2"
+            android:layout_margin="15dp">
+
+            <Button
+                android:id="@+id/fragment_main_directionsBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_directions_btn"
+                android:text="@string/activity_main_directionsBtn_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/fragment_main_highscoresBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_weight="1"
+                android:layout_margin="5dp"/>
+
+            <Button
+                android:id="@+id/fragment_main_highscoresBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_directions_btn"
+                android:text="@string/activity_main_highscores_btn_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/fragment_main_directionsBtn"
+                android:layout_weight="1"
+                android:layout_margin="5dp"/>
+
+        </LinearLayout>
+
     </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>

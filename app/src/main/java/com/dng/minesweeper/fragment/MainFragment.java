@@ -127,6 +127,23 @@ public class MainFragment extends Fragment {
             }
         });
 
+        Button mDirectionsBtn = view.findViewById(R.id.fragment_main_directionsBtn);
+        mDirectionsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onDirectionsBtnPressed();
+            }
+        });
+
+        // Setup highscores button
+        Button mViewHighscoresBtn = view.findViewById(R.id.fragment_main_highscoresBtn);
+        mViewHighscoresBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onHighscoresBtnPressed();
+            }
+        });
+
         // Setup bombs ImageView
         mMinesImgView = view.findViewById(R.id.fragment_main_minesSevenSegImgView);
         setupMinesCountView(true, false, false);
@@ -218,5 +235,9 @@ public class MainFragment extends Fragment {
         void onBlockLongPressed(int row, int column, TextView textView, ImageView flagImgView);
 
         void onNewGameBtnPressed();
+
+        void onDirectionsBtnPressed();
+
+        void onHighscoresBtnPressed();
     }
 }

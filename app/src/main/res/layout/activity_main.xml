@@ -15,44 +15,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:weightSum="2"
-        android:layout_margin="15dp">
-
-        <Button
-            android:id="@+id/activity_main_directionsBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_directions_btn"
-            android:text="@string/activity_main_directionsBtn_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/activity_main_highscoresBtn"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_weight="1"
-            android:layout_margin="5dp"/>
-
-        <Button
-            android:id="@+id/activity_main_highscoresBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_directions_btn"
-            android:text="@string/activity_main_highscores_btn_text"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/activity_main_directionsBtn"
-            android:layout_weight="1"
-            android:layout_margin="5dp"/>
-
-    </LinearLayout>
-
-
 
     <!--&lt;!&ndash;start AdMob View&ndash;&gt;-->
     <!--<com.google.android.gms.ads.AdView-->
