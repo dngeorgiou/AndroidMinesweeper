@@ -21,11 +21,11 @@ import com.dng.minesweeper.util.Grid;
 import com.dng.minesweeper.util.InterstitialCounter;
 import com.dng.minesweeper.util.Reason;
 import com.dng.minesweeper.util.SevenSeg;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
+//import com.google.android.gms.ads.AdListener;
+//import com.google.android.gms.ads.AdRequest;
+//import com.google.android.gms.ads.AdView;
+//import com.google.android.gms.ads.InterstitialAd;
+//import com.google.android.gms.ads.MobileAds;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     private PostHighscoreFragment postHighscoreFragment;
 
     // References for AdViews
-    private AdView mAdView;
-    private InterstitialAd mInterstitialAd;
+//    private AdView mAdView;
+//    private InterstitialAd mInterstitialAd;
 
     // Reference for InterstitialCounter
     private InterstitialCounter mInterstitialCounter;
@@ -244,45 +244,45 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnMa
     /**
      * Method handles InterstitialAd lifecycle.
      */
-    private void setupAdListener(InterstitialAd interstitialAd) {
-        interstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                Log.d(TAG,"onAdLoaded");
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                Log.d(TAG,"onAdFailedToLoad");
-
-            }
-
-            @Override
-            public void onAdOpened() {
-                Log.d(TAG,"onAdOpened");
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                Log.d(TAG,"onAdLeftApplication");
-            }
-
-            @Override
-            public void onAdClosed() {
-                Log.d(TAG,"onAdClosed");
-
-                // Load the next interstitial.
-                loadNewInterstitialAd(mInterstitialAd);
-            }
-        });
-    }
-
-    /**
-     * Method loads new InterstitialAd into the passed in InterstitialAd parameter.
-     */
-    private void loadNewInterstitialAd(InterstitialAd interstitialAd) {
-        interstitialAd.loadAd(new AdRequest.Builder().build());
-    }
+//    private void setupAdListener(InterstitialAd interstitialAd) {
+//        interstitialAd.setAdListener(new AdListener() {
+//            @Override
+//            public void onAdLoaded() {
+//                Log.d(TAG,"onAdLoaded");
+//            }
+//
+//            @Override
+//            public void onAdFailedToLoad(int errorCode) {
+//                Log.d(TAG,"onAdFailedToLoad");
+//
+//            }
+//
+//            @Override
+//            public void onAdOpened() {
+//                Log.d(TAG,"onAdOpened");
+//            }
+//
+//            @Override
+//            public void onAdLeftApplication() {
+//                Log.d(TAG,"onAdLeftApplication");
+//            }
+//
+//            @Override
+//            public void onAdClosed() {
+//                Log.d(TAG,"onAdClosed");
+//
+//                // Load the next interstitial.
+//                loadNewInterstitialAd(mInterstitialAd);
+//            }
+//        });
+//    }
+//
+//    /**
+//     * Method loads new InterstitialAd into the passed in InterstitialAd parameter.
+//     */
+//    private void loadNewInterstitialAd(InterstitialAd interstitialAd) {
+//        interstitialAd.loadAd(new AdRequest.Builder().build());
+//    }
 
 
     /**
