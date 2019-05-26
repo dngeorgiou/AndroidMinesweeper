@@ -5,7 +5,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--list_item.xml-->
-    <string name="hidden">-</string>
+    <string name="hidden"></string>
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>
