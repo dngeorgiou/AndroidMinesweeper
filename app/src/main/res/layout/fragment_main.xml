@@ -20,8 +20,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/fragment_main_vertRecyclerView"
-            android:background="#C0C0C0"
-            android:gravity="center">
+            android:background="@drawable/ic_main_background_top"
+            android:gravity="center"
+            android:paddingTop="25dp"
+            android:paddingBottom="14.5dp"
+            android:paddingStart="25dp"
+            android:paddingEnd="25dp">
 
             <ImageView
                 android:id="@+id/fragment_main_minesSevenSegImgView"
