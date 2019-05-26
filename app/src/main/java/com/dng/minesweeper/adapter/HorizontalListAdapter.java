@@ -188,7 +188,7 @@ public class HorizontalListAdapter extends RecyclerView.Adapter<HorizontalListAd
         // set height and width of block cells equal to width of screen divided by number of block cells in one row
         // Get the screen's density scale
         final float scale = mContext.getResources().getDisplayMetrics().density;
-        int uiPadding = (int) (54 * scale);     // 29dp padding on left + 29dp padding on right = 50dp
+        int uiPadding = (int) (62 * scale);     // 31dp padding on left + 31dp padding on right = 62dp
         int blockwidth = (displaymetrics.widthPixels - uiPadding) / rows;
         holder.mView.getLayoutParams().width = blockwidth;
         holder.mView.getLayoutParams().height = blockwidth;

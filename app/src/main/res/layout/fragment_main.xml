@@ -22,10 +22,10 @@
             app:layout_constraintBottom_toTopOf="@+id/fragment_main_vertRecyclerView"
             android:background="@drawable/ic_main_background_top"
             android:gravity="center"
-            android:paddingTop="25dp"
+            android:paddingTop="29dp"
             android:paddingBottom="14.5dp"
-            android:paddingStart="25dp"
-            android:paddingEnd="25dp">
+            android:paddingStart="29dp"
+            android:paddingEnd="29dp">
 
             <ImageView
                 android:id="@+id/fragment_main_minesSevenSegImgView"
@@ -75,9 +75,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/ic_main_background_bottom"
             android:paddingTop="16.5dp"
-            android:paddingBottom="27dp"
-            android:paddingStart="27dp"
-            android:paddingEnd="27dp">
+            android:paddingBottom="31dp"
+            android:paddingStart="31dp"
+            android:paddingEnd="31dp">
         </android.support.v7.widget.RecyclerView>
         <!--end vertical recycler view-->
 
