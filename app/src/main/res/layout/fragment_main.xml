@@ -75,7 +75,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/ic_main_background_bottom"
             android:paddingTop="16.5dp"
-            android:paddingBottom="31dp"
+            android:paddingBottom="16.5dp"
             android:paddingStart="31dp"
             android:paddingEnd="31dp">
         </android.support.v7.widget.RecyclerView>
@@ -91,7 +91,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:weightSum="2"
-            android:layout_margin="15dp">
+            android:paddingTop="14.5dp"
+            android:paddingBottom="29dp"
+            android:paddingStart="29dp"
+            android:paddingEnd="29dp"
+            android:background="@drawable/ic_main_background_buttons">
 
             <Button
                 android:id="@+id/fragment_main_directionsBtn"
