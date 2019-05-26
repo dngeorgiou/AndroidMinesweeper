@@ -170,7 +170,7 @@ public class MainFragment extends Fragment {
             // Setup mines display to total mines on grid
             sevenSeg = new SevenSeg(mMines);
             int minesDrawableInt = sevenSeg.getDrawableResourceInt();
-            mMinesImgView.setBackgroundResource(minesDrawableInt);
+            mMinesImgView.setImageResource(minesDrawableInt);
             return;
         }
 
@@ -178,7 +178,7 @@ public class MainFragment extends Fragment {
             // Setup mines display to 0
             sevenSeg = new SevenSeg(0);
             int minesDrawableInt = sevenSeg.getDrawableResourceInt();
-            mMinesImgView.setBackgroundResource(minesDrawableInt);
+            mMinesImgView.setImageResource(minesDrawableInt);
             return;
         }
 
@@ -193,14 +193,14 @@ public class MainFragment extends Fragment {
         // Update mine display
         sevenSeg = new SevenSeg(mMines);
         int minesDrawableInt = sevenSeg.getDrawableResourceInt();
-        mMinesImgView.setBackgroundResource(minesDrawableInt);
+        mMinesImgView.setImageResource(minesDrawableInt);
 
     }
 
     public void updateTimer(int count) {
         SevenSeg sevenSeg = new SevenSeg(count);
         int timerDrawableInt = sevenSeg.getDrawableResourceInt();
-        mTimerImgView.setBackgroundResource(timerDrawableInt);
+        mTimerImgView.setImageResource(timerDrawableInt);
     }
 
     public void updateUI() {
